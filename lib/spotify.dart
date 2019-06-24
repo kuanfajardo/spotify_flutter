@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'dart:ui';
+import 'package:meta/meta.dart';
 
 class Spotify {
   static const MethodChannel _channel =
@@ -23,7 +24,7 @@ class Spotify {
   static int spotifyItunesItemIdentifier();
 
   bool get isConnected;
-  // delegate
+  Spotify delegate;
 
   void connect();
   void disconnect();
@@ -100,7 +101,7 @@ class SpotifyConnectionParams {
 // TODO: Future<bool> necessary bool?
 // SpotifyDelegate
 abstract class SpotifyPlayerAPI {
-  // delegate
+  SpotifyPlayerStateDelegate delegate;
   Future<bool> play(String entityIdentifier);
   Future<bool> playItem(SpotifyContentItem contentItem, {int startIndex});
   Future<bool> resume();
@@ -121,13 +122,12 @@ abstract class SpotifyPlayerAPI {
   Future<bool> setPodcastPlaybackSpeed(SpotifyPodcastPlaybackSpeed speed);
   Future<SpotifyCrossfadeState> getCrossfadeState();
 }
-// SpotifyPlayerAPIDelegate
 abstract class SpotifyImageAPI {
   Future<Image> fetchImageForItem(SpotifyImageRepresentable imageItem, {Size
   size});
 }
 abstract class SpotifyUserAPI {
-  // delegate
+  SpotifyUserAPIDelegate delegate;
   Future<SpotifyUserCapabilities> fetchCapabilities();
   Future<bool> subscribeToCapabilityChanges();
   Future<bool> unsubscribeToCapabilityChanges();
@@ -135,7 +135,16 @@ abstract class SpotifyUserAPI {
   Future<bool> addUriToLibrary(String uri); // tracks and albums only
   Future<bool> removeUriFromLibrary(String uri); // tracks and albums
 }
-// class SpotifyUserAPIDelegate {}
+abstract class SpotifyUserAPIDelegate {
+  void userAPIDidReceiveCapabilities(SpotifyUserCapabilities capabilities,
+      [SpotifyUserAPI userAPI]);
+}
+abstract class SpotifyDelegate {
+  void spotifyDidEstablishConnection([Spotify spotify]);
+  void spotifyDidFailConnectionAttemptWithException(Exception e, [Spotify
+    spotify]);
+  void spotifyDidDisconnectWithException(Exception e, [Spotify spotify]);
+}
 abstract class SpotifyContentAPI {
   Future fetchRootContentItemsForType(SpotifyContentType contentType);
   Future fetchChildrenOfContentItem(SpotifyContentItem contentItem);
@@ -164,7 +173,7 @@ abstract class SpotifySessionManager {
   final SpotifyConfiguration configuration;
 
   SpotifySession session;
-  // delegate
+  SpotifySessionManagerDelegate delegate;
   bool alwaysShowAuthorizationDialog;
 
   SpotifySessionManager(this.configuration);
@@ -175,7 +184,18 @@ abstract class SpotifySessionManager {
   void renewSession();
   // openURL
 }
-// SpotifySessionManagerDelegate
+abstract class SpotifySessionManagerDelegate {
+  void sessionManagerDidInitiateSession(SpotifySession session,
+      [SpotifySessionManager sessionManager]);
+  void sessionManagerDidFailWithException(Exception e,
+      [SpotifySessionManager sessionManager]);
+  // Optional
+  void sessionManagerDidRenewSession(SpotifySession session,
+      [SpotifySessionManager sessionManager]) {}
+  // Optional
+  void sessionManagerShouldRequestAccessTokenWithAuthorizationCode
+      (String authorizationCode,  [SpotifySessionManager sessionManager]) {}
+}
 abstract class SpotifyAlbum {
   String get name;
   String get uri;
@@ -228,7 +248,9 @@ abstract class SpotifyPlayerState {
   String get contextTitle;
   String get contextUri;
 }
-// SpotifyPlayerStateDelegate
+abstract class SpotifyPlayerStateDelegate {
+  void playerStateDidChange(SpotifyPlayerState playerState);
+}
 abstract class SpotifyPodcastPlaybackSpeed {
   double get value;
 }
