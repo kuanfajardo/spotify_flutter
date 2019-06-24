@@ -11,7 +11,33 @@ class Spotify {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
+
+  // Start
+  final SpotifyConfiguration configuration;
+  final SpotifyLogLevel logLevel;
+  final SpotifyConnectionParams connectionParams;
+
+  // TODO: get's?
+  static Future<bool> checkIfSpotifyAppIsActive();
+  static String version();
+  static int spotifyItunesItemIdentifier();
+
+  bool get isConnected;
+  // delegate
+
+  void connect();
+  void disconnect();
+  bool authorizeAndPlayUri(String uri);
+  Map<String, String> authoriztionParametersFromURL(Uri url);
+
+  SpotifyPlayerAPI get playerAPI;
+  SpotifyImageAPI get imageAPI;
+  SpotifyUserAPI get userAPI;
+  SpotifyContentAPI get contentAPI;
 }
+
+const String kSpotifyAccessTokenKey = ""; // TODO
+const String kSpotifyErrorDescriptionKey = ""; // TODO
 
 enum SpotifyLogLevel { none, debug, info, error, }
 
@@ -95,6 +121,7 @@ abstract class SpotifyPlayerAPI {
   Future<bool> setPodcastPlaybackSpeed(SpotifyPodcastPlaybackSpeed speed);
   Future<SpotifyCrossfadeState> getCrossfadeState();
 }
+// SpotifyPlayerAPIDelegate
 abstract class SpotifyImageAPI {
   Future<Image> fetchImageForItem(SpotifyImageRepresentable imageItem, {Size
   size});
@@ -108,6 +135,7 @@ abstract class SpotifyUserAPI {
   Future<bool> addUriToLibrary(String uri); // tracks and albums only
   Future<bool> removeUriFromLibrary(String uri); // tracks and albums
 }
+// class SpotifyUserAPIDelegate {}
 abstract class SpotifyContentAPI {
   Future fetchRootContentItemsForType(SpotifyContentType contentType);
   Future fetchChildrenOfContentItem(SpotifyContentItem contentItem);
@@ -125,20 +153,95 @@ class SpotifyException implements Exception {
     return 'SpotifyException (${this.errorCode}): ${this.message}';
   }
 }
-class SpotifySession {}
-class SpotifySessionManager {}
+abstract class SpotifySession {
+  String get accessToken;
+  String get refreshToken;
+  DateTime get expirationDate;
+  SpotifyScope get scope;
+  bool get isExpired;
+}
+abstract class SpotifySessionManager {
+  final SpotifyConfiguration configuration;
+
+  SpotifySession session;
+  // delegate
+  bool alwaysShowAuthorizationDialog;
+
+  SpotifySessionManager(this.configuration);
+
+  bool isSpotifyAppInstalled();
+  void initiateSessionWithScope(SpotifyScope scope,
+      {SpotifyAuthorizationOptions options});
+  void renewSession();
+  // openURL
+}
 // SpotifySessionManagerDelegate
-class SpotifyAlbum {}
-class SpotifyArtist {}
-class SpotifyContentItem {}
-class SpotifyCrossfadeState {}
-class SpotifyImageRepresentable {}
-class SpotifyLibraryState {}
-class SpotifyPlaybackOptions {}
-class SpotifyPlaybackRestrictions {}
-class SpotifyPlayerState {}
+abstract class SpotifyAlbum {
+  String get name;
+  String get uri;
+}
+abstract class SpotifyArtist {
+  String get name;
+  String get uri;
+}
+abstract class SpotifyContentItem {
+  String get title;
+  String get subtitle;
+  String get identifier;
+  String get uri;
+  bool get isAvailableOffline;
+  bool get isPlayable;
+  bool get isContainer;
+  // children
+}
+abstract class SpotifyCrossfadeState {
+  bool get isEnabled;
+  int get duration;
+}
+abstract class SpotifyImageRepresentable {
+  String get imageIdentifier;
+}
+abstract class SpotifyLibraryState {
+  String get uri;
+  bool get isAdded;
+  bool get canAdd;
+}
+abstract class SpotifyPlaybackOptions {
+  bool get isShuffling;
+  SpotifyPlaybackOptionsRepeatMode get repeatMode;
+}
+abstract class SpotifyPlaybackRestrictions {
+  bool get canSkipNext;
+  bool get canSkipPrevious;
+  bool get canRepeatTrack;
+  bool get canRepeatContext;
+  bool get canToggleShuffle;
+  bool get canSeek;
+}
+abstract class SpotifyPlayerState {
+  SpotifyTrack get track;
+  int get playbackPosition;
+  double get playbackSpeed;
+  bool get isPaused;
+  SpotifyPlaybackRestrictions get playbackRestrictions;
+  SpotifyPlaybackOptions get playbackOptions;
+  String get contextTitle;
+  String get contextUri;
+}
 // SpotifyPlayerStateDelegate
-class SpotifyPodcastPlaybackSpeed {}
-class SpotifyTrack {}
-class SpotifyUserAPIDelegate {}
-class SpotifyUserCapabilities {}
+abstract class SpotifyPodcastPlaybackSpeed {
+  double get value;
+}
+abstract class SpotifyTrack {
+  String get name;
+  String get uri;
+  int get duration;
+  SpotifyArtist get artist;
+  SpotifyAlbum get album;
+  bool get isSaved;
+  bool get isEpisode;
+  bool get isPodcast;
+}
+abstract class SpotifyUserCapabilities {
+  bool get canPlayOnDemand;
+}
