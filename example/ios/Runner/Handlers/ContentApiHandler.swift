@@ -65,19 +65,19 @@ struct ContentApiHandler {
         }
         
         guard let rawContentType = args.object(forKey: Keys.ContentApi.contentType) as? NSNumber else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.ContentApi.contentType, expectedType: NSNumber.self))
             return
         }
         
         guard let cocoaFlattenContainers = args.object(forKey: Keys.ContentApi.flattenContainers) as? NSNumber else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.ContentApi.flattenContainers, expectedType: NSNumber.self))
             return
         }
         
         let contentType = contentTypeForRawValue(rawContentType)
         
         guard let flattenContainers = Bool(exactly: cocoaFlattenContainers) else {
-            // TODO: VALUE CAST ERROR
+            result(valueCastError("cocoaFlattenContainers", expectedType: Bool.self))
             return
         }
         

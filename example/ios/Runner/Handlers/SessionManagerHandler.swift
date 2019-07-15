@@ -25,12 +25,12 @@ struct SessionManagerHandler {
         }
         
         guard let rawScope = args.object(forKey: Keys.SessionManager.scope) as? NSNumber else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.SessionManager.scope, expectedType: NSNumber.self))
             return
         }
         
         guard let rawOptions = args.object(forKey: Keys.SessionManager.options) as? NSNumber else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.SessionManager.options, expectedType: NSNumber.self))
             return
         }
         

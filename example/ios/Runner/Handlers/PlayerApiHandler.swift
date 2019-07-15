@@ -35,7 +35,7 @@ struct PlayerApiHandler {
         }
         
         guard let contentItemObject = args.object(forKey: Keys.PlayerApi.contentItem) as? NSDictionary else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.PlayerApi.contentItem, expectedType: NSDictionary.self))
             return
         }
         
@@ -46,7 +46,7 @@ struct PlayerApiHandler {
         
         if cocoaStartIndex != nil {
             guard let startIndex = Int(exactly: cocoaStartIndex!) else {
-                // TODO: VALUE CAST ERROR
+                result(valueCastError("cocoaStartIndex", expectedType: Int.self))
                 return
             }
             
@@ -127,7 +127,7 @@ struct PlayerApiHandler {
         }
         
         guard let position = Int(exactly: cocoaPosition) else {
-            // TODO: VALUE CAST ERROR
+            result(valueCastError("cocoaPosition", expectedType: Int.self))
             return
         }
         
@@ -173,7 +173,7 @@ struct PlayerApiHandler {
         }
         
         guard let shuffle = Bool(exactly: cocoaShuffle) else {
-            // TODO: VALUE CAST ERROR
+            result(valueCastError("cocoaShuffle", expectedType: Bool.self))
             return
         }
         
@@ -195,7 +195,7 @@ struct PlayerApiHandler {
         }
         
         guard let repeatMode = SPTAppRemotePlaybackOptionsRepeatMode(rawValue: rawRepeatMode.uintValue) else {
-            // TODO: VALUE CAST ERROR
+            result(valueCastError("rawRepeatMode", expectedType: SPTAppRemotePlaybackOptionsRepeatMode.self))
             return
         }
         

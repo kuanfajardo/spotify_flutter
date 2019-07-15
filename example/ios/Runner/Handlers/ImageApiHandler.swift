@@ -16,12 +16,12 @@ struct ImageApiHandler {
         }
         
         guard let imageItemObject = args.object(forKey: Keys.ImageApi.imageItem) as? NSDictionary else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.ImageApi.imageItem, expectedType: NSDictionary.self))
             return
         }
         
         guard let sizeObject = args.object(forKey: Keys.ImageApi.size) as? NSDictionary else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.ImageApi.size, expectedType: NSDictionary.self))
             return
         }
         

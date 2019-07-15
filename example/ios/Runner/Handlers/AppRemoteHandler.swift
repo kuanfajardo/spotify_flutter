@@ -32,12 +32,12 @@ struct AppRemoteHandler {
         }
         
         guard let configurationObject = args.object(forKey: Keys.AppRemote.configuration) as? NSDictionary else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.AppRemote.configuration, expectedType: NSDictionary.self))
             return
         }
         
         guard let rawLogLevel = args.object(forKey: Keys.AppRemote.logLevel) as? NSNumber else {
-            // TODO: KEY CAST ERROR
+            result(keyCastError(Keys.AppRemote.logLevel, expectedType: NSNumber.self))
             return
         }
         
@@ -47,7 +47,7 @@ struct AppRemoteHandler {
         let configuration: SPTConfiguration
         
         guard let logLevel = SPTAppRemoteLogLevel(rawValue: rawLogLevel.uintValue) else {
-            // TODO: VALUE CAST ERROR
+            result(valueCastError("rawLogLevel", expectedType: SPTAppRemoteLogLevel.self))
             return
         }
         
@@ -118,7 +118,7 @@ struct AppRemoteHandler {
         }
         
         guard let url = URL(string: cocoaUrl as String) else {
-            // TODO: VALUE CAST ERROR
+            result(valueCastError("cocoaUrl", expectedType: URL.self))
             return
         }
         
