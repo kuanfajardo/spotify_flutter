@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed {
+    var value: NSNumber
+    
+    init(value: NSNumber) {
+        self.value = value
+    }
+}

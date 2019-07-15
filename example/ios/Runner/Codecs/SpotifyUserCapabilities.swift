@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities {
+    var canPlayOnDemand: Bool
+    
+    init(canPlayOnDemand: Bool) {
+        self.canPlayOnDemand = canPlayOnDemand
+    }
+}

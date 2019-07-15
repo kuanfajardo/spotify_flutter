@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState {
+    var track: SPTAppRemoteTrack
+    var playbackPosition: Int
+    var playbackSpeed: Float
+    var isPaused: Bool
+    var playbackRestrictions: SPTAppRemotePlaybackRestrictions
+    var playbackOptions: SPTAppRemotePlaybackOptions
+    var contextTitle: String
+    var contextURI: URL
+}

@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState {
+    var isEnabled: Bool
+    var duration: Int
+    
+    init(isEnabled: Bool, duration: Int) {
+        self.isEnabled = isEnabled
+        self.duration = duration
+    }
+}

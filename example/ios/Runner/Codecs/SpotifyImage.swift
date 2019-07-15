@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable {
+    var imageIdentifier: String
+    
+    init(imageIdentifier: String) {
+        self.imageIdentifier = imageIdentifier
+    }
+}

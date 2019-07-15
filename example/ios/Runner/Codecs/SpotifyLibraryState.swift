@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState {
+    var uri: String
+    var isAdded: Bool
+    var canAdd: Bool
+    
+    init(uri: String) {
+        self.uri = uri
+    }
+}

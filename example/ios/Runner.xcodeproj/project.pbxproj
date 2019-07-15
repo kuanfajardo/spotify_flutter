@@ -27,9 +27,6 @@
 		569ED1F722DCCC68001C37F5 /* SpotifyCrossfadeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */; };
 		569ED1F922DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */; };
 		569ED1FB22DCCC9A001C37F5 /* SpotifyLibraryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */; };
-		569ED1FD22DCCCA8001C37F5 /* SpotifyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1FC22DCCCA8001C37F5 /* SpotifyConfiguration.swift */; };
-		569ED1FF22DCCCB8001C37F5 /* SpotifyConnectionParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1FE22DCCCB8001C37F5 /* SpotifyConnectionParams.swift */; };
-		569ED20122DCCCD5001C37F5 /* SpotifySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20022DCCCD5001C37F5 /* SpotifySession.swift */; };
 		569ED20322DCCD55001C37F5 /* SpotifyUserCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */; };
 		56BA988D22BFF1B20061F447 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -76,9 +73,6 @@
 		569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCrossfadeState.swift; sourceTree = "<group>"; };
 		569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPodcastPlaybackSpeed.swift; sourceTree = "<group>"; };
 		569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLibraryState.swift; sourceTree = "<group>"; };
-		569ED1FC22DCCCA8001C37F5 /* SpotifyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyConfiguration.swift; sourceTree = "<group>"; };
-		569ED1FE22DCCCB8001C37F5 /* SpotifyConnectionParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyConnectionParams.swift; sourceTree = "<group>"; };
-		569ED20022DCCCD5001C37F5 /* SpotifySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifySession.swift; sourceTree = "<group>"; };
 		569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUserCapabilities.swift; sourceTree = "<group>"; };
 		56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -143,9 +137,6 @@
 				569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */,
 				569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */,
 				569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */,
-				569ED1FC22DCCCA8001C37F5 /* SpotifyConfiguration.swift */,
-				569ED1FE22DCCCB8001C37F5 /* SpotifyConnectionParams.swift */,
-				569ED20022DCCCD5001C37F5 /* SpotifySession.swift */,
 			);
 			path = Codecs;
 			sourceTree = "<group>";
@@ -378,14 +369,11 @@
 				569ED1EB22DCC2DC001C37F5 /* HandlerErrors.swift in Sources */,
 				569ED1E322DCC20E001C37F5 /* PlayerApiHandler.swift in Sources */,
 				569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */,
-				569ED20122DCCCD5001C37F5 /* SpotifySession.swift in Sources */,
 				569ED1F322DCCC4A001C37F5 /* SpotifyImage.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
-				569ED1FD22DCCCA8001C37F5 /* SpotifyConfiguration.swift in Sources */,
 				569ED1D722D94E72001C37F5 /* Methods.swift in Sources */,
 				569ED1F722DCCC68001C37F5 /* SpotifyCrossfadeState.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
-				569ED1FF22DCCCB8001C37F5 /* SpotifyConnectionParams.swift in Sources */,
 				569ED1E122DCC206001C37F5 /* ImageApiHandler.swift in Sources */,
 				569ED1DF22DCC1F8001C37F5 /* ContentApiHandler.swift in Sources */,
 				569ED1DB22D961D0001C37F5 /* Keys.swift in Sources */,
