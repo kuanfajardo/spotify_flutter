@@ -80,7 +80,7 @@ abstract class SpotifyAppRemoteDelegate {
 enum SpotifyAppRemoteConnectionParamsImageFormat { any, jpeg, png, }
 
 // Caller?
-class SpotifyAppRemoteConnectionParams implements Codecable {
+class SpotifyAppRemoteConnectionParams implements Codec {
   // IMMUTABLE, NOT REAL-TIME;
   final String accessToken;
   final Size defaultImageSize;
@@ -91,12 +91,15 @@ class SpotifyAppRemoteConnectionParams implements Codecable {
   // final Map roles; TODO
   // final List authenticationMethods; TODO
 
-  SpotifyAppRemoteConnectionParams({this.accessToken, this.defaultImageSize,
-    this.imageFormat, this.protocolVersion = -1});
+  SpotifyAppRemoteConnectionParams._from(Map<String, dynamic> codecResult) :
+        accessToken = codecResult[AppRemoteKeys.accessToken],
+        defaultImageSize = CodecableSize.from(codecResult[AppRemoteKeys.defaultImageSize]),
+        imageFormat = SpotifyAppRemoteConnectionParamsImageFormat.values[codecResult[AppRemoteKeys.imageFormat]],
+        protocolVersion = codecResult[AppRemoteKeys.protocolVersion] ?? -1;
 
   @override
   Map<String, dynamic> encode() {
-    CodecableSize encodableDefaultImageSize = CodecableSize.from(this.defaultImageSize);
+    CodecableSize encodableDefaultImageSize = CodecableSize(this.defaultImageSize);
     return {
       AppRemoteKeys.accessToken: this.accessToken,
       AppRemoteKeys.defaultImageSize: encodableDefaultImageSize.encode(),
@@ -104,25 +107,18 @@ class SpotifyAppRemoteConnectionParams implements Codecable {
     };
   }
 
-  static SpotifyAppRemoteConnectionParams decode(Map<String, dynamic> codecResult) {
-    Map<String, dynamic> rawDefaultImageSize = codecResult[AppRemoteKeys.defaultImageSize];
-    int imageFormatIndex = codecResult[AppRemoteKeys.imageFormat];
-
-    return SpotifyAppRemoteConnectionParams(
-      accessToken: codecResult[AppRemoteKeys.accessToken],
-      defaultImageSize: Decoder.instance.decode
-      <CodecableSize>(rawDefaultImageSize),
-      imageFormat: SpotifyAppRemoteConnectionParamsImageFormat.values[imageFormatIndex],
-      protocolVersion: codecResult[AppRemoteKeys.protocolVersion],
-    );
+  static SpotifyAppRemoteConnectionParams from(Map<String, dynamic> codecResult) {
+    return SpotifyAppRemoteConnectionParams._from(codecResult);
   }
 }
 
-class SpotifyAuthorizationParameters implements Codecable {
+class SpotifyAuthorizationParameters implements Codec {
   final String accessToken;
   final String errorDescription;
 
-  SpotifyAuthorizationParameters(this.accessToken, {this.errorDescription});
+  SpotifyAuthorizationParameters._from(Map<String, dynamic> codecResult) :
+        accessToken = codecResult[AppRemoteKeys.accessToken],
+        errorDescription = codecResult[AppRemoteKeys.errorDescription];
 
   @override
   Map<String, dynamic> encode() {
@@ -132,11 +128,7 @@ class SpotifyAuthorizationParameters implements Codecable {
     };
   }
 
-  static SpotifyAuthorizationParameters decode(Map<String, dynamic>
-  codecResult) {
-    return SpotifyAuthorizationParameters(
-      codecResult[AppRemoteKeys.accessToken],
-      errorDescription: codecResult[AppRemoteKeys.errorDescription],
-    );
+  static SpotifyAuthorizationParameters from(Map<String, dynamic>codecResult) {
+    return SpotifyAuthorizationParameters._from(codecResult);
   }
 }

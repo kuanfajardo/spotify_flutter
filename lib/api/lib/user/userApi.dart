@@ -38,12 +38,15 @@ abstract class SpotifyUserAPIDelegate {
       [SpotifyUserAPI userAPI]);
 }
 
-class SpotifyLibraryState implements Codecable {
+class SpotifyLibraryState implements Codec {
   final Uri uri;
   final bool isAdded;
   final bool canAdd;
 
-  SpotifyLibraryState({this.uri, this.isAdded, this.canAdd});
+  SpotifyLibraryState._from(Map<String, dynamic> codecResult) :
+        uri = Uri.dataFromString(codecResult[UserKeys.uri]),
+        isAdded = codecResult[UserKeys.isAdded],
+        canAdd = codecResult[UserKeys.canAdd];
 
   @override
   Map<String, dynamic> encode() {
@@ -54,20 +57,16 @@ class SpotifyLibraryState implements Codecable {
     };
   }
 
-  static SpotifyLibraryState decode(Map<String, dynamic> codecResult) {
-    String uriString = codecResult[UserKeys.uri];
-    return SpotifyLibraryState(
-      uri: Uri.dataFromString(uriString),
-      isAdded: codecResult[UserKeys.isAdded],
-      canAdd: codecResult[UserKeys.canAdd],
-    );
+  static SpotifyLibraryState from(Map<String, dynamic> codecResult) {
+    return SpotifyLibraryState._from(codecResult);
   }
 }
 
-class SpotifyUserCapabilities implements Codecable {
+class SpotifyUserCapabilities implements Codec {
   final bool canPlayOnDemand;
 
-  SpotifyUserCapabilities(this.canPlayOnDemand);
+  SpotifyUserCapabilities._from(Map<String, dynamic> codecResult) :
+      canPlayOnDemand = codecResult[UserKeys.canPlayOnDemand];
 
   @override
   Map<String, dynamic> encode() {
@@ -76,7 +75,7 @@ class SpotifyUserCapabilities implements Codecable {
     };
   }
 
-  static SpotifyUserCapabilities decode(Map<String, dynamic> codecResult) {
-    return SpotifyUserCapabilities(codecResult[UserKeys.canPlayOnDemand]);
+  static SpotifyUserCapabilities from(Map<String, dynamic> codecResult) {
+    return SpotifyUserCapabilities.from(codecResult);
   }
 }

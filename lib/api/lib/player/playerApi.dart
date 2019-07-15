@@ -7,12 +7,12 @@ import 'package:spotify/api/lib/player/keys.dart' as PlayerKeys;
 enum SpotifyPlaybackOptionsRepeatMode { off, track, context, }
 
 void setup() {
-  Decoder.instance.registerCodecable<SpotifyPlayerState>(SpotifyPlayerState
-      .decode);
+  Decoder.instance.registerCodecable<SpotifyPlaybackOptions>(SpotifyPlaybackOptions
+      .from);
   Decoder.instance.registerCodecable<SpotifyCrossfadeState>
-    (SpotifyCrossfadeState.decode);
+    (SpotifyCrossfadeState.from);
   Decoder.instance.registerCodecable<SpotifyPodcastPlaybackSpeed>
-    (SpotifyPodcastPlaybackSpeed.decode);
+    (SpotifyPodcastPlaybackSpeed.from);
 }
 
 // Caller
@@ -102,11 +102,14 @@ class SpotifyPlayerAPI {
 }
 
 // SpotifyPlaybackOptions
-class SpotifyPlaybackOptions implements Codecable {
+class SpotifyPlaybackOptions implements Codec {
   final bool isShuffling;
   final SpotifyPlaybackOptionsRepeatMode repeatMode;
 
-  SpotifyPlaybackOptions({this.isShuffling, this.repeatMode});
+  SpotifyPlaybackOptions._from(Map<String, dynamic> codecResult) :
+        isShuffling = codecResult[PlayerKeys.isShuffling],
+        repeatMode = SpotifyPlaybackOptionsRepeatMode
+            .values[codecResult[PlayerKeys.repeatMode]];
 
   @override
   Map<String, dynamic> encode() {
@@ -116,17 +119,13 @@ class SpotifyPlaybackOptions implements Codecable {
     };
   }
 
-  static SpotifyPlaybackOptions decode(Map<String, dynamic> codecResult) {
-    int repeatModeIndex = codecResult[PlayerKeys.repeatMode];
-    return SpotifyPlaybackOptions(
-      isShuffling: codecResult[PlayerKeys.isShuffling],
-      repeatMode: SpotifyPlaybackOptionsRepeatMode.values[repeatModeIndex],
-    );
+  static SpotifyPlaybackOptions from(Map<String, dynamic> codecResult) {
+    return SpotifyPlaybackOptions._from(codecResult);
   }
 }
 
 // SpotifyPlayerState
-class SpotifyPlayerState extends Codecable  {
+class SpotifyPlayerState implements Codec  {
   final SpotifyTrack track;
   final int playbackPosition;
   final double playbackSpeed;
@@ -136,9 +135,15 @@ class SpotifyPlayerState extends Codecable  {
   final String contextTitle;
   final String contextUri;
 
-  SpotifyPlayerState({this.track, this.playbackPosition, this.playbackSpeed,
-      this.isPaused, this.playbackRestrictions, this.playbackOptions,
-      this.contextTitle, this.contextUri});
+  SpotifyPlayerState._from(Map<String, dynamic> codecResult) :
+        track = SpotifyTrack.from(codecResult[PlayerKeys.track]),
+        playbackPosition = codecResult[PlayerKeys.playbackPosition],
+        playbackSpeed = codecResult[PlayerKeys.playbackSpeed],
+        isPaused = codecResult[PlayerKeys.isPaused],
+        playbackRestrictions = SpotifyPlaybackRestrictions.from(codecResult[PlayerKeys.playbackRestrictions]),
+        playbackOptions = SpotifyPlaybackOptions.from(codecResult[PlayerKeys.playbackOptions]),
+        contextTitle = codecResult[PlayerKeys.contextTitle],
+        contextUri = codecResult[PlayerKeys.contextUri];
 
   @override
   Map<String, dynamic> encode() {
@@ -154,26 +159,8 @@ class SpotifyPlayerState extends Codecable  {
     };
   }
 
-  static SpotifyPlayerState decode(Map<String, dynamic> codecResult) {
-    Map<String, dynamic> rawTrack = codecResult[PlayerKeys
-        .track];
-    Map<String, dynamic> rawPlaybackRestrictions = codecResult[PlayerKeys
-        .playbackRestrictions];
-    Map<String, dynamic> rawPlaybackOptions = codecResult[PlayerKeys
-        .playbackOptions];
-
-    return SpotifyPlayerState(
-      track: Decoder.instance.decode<SpotifyTrack>(rawTrack),
-      playbackPosition: codecResult[PlayerKeys.playbackPosition],
-      playbackSpeed: codecResult[PlayerKeys.playbackSpeed],
-      isPaused: codecResult[PlayerKeys.isPaused],
-      playbackRestrictions: Decoder.instance
-          .decode<SpotifyPlaybackRestrictions>(rawPlaybackRestrictions),
-      playbackOptions: Decoder.instance.decode<SpotifyPlaybackOptions>
-        (rawPlaybackOptions),
-      contextTitle: codecResult[PlayerKeys.contextTitle],
-      contextUri: codecResult[PlayerKeys.contextUri],
-    );
+  static SpotifyPlayerState from(Map<String, dynamic> codecResult) {
+    return SpotifyPlayerState._from(codecResult);
   }
 }
 
@@ -183,11 +170,13 @@ abstract class SpotifyPlayerStateDelegate {
 }
 
 // SpotifyCrossfadeState
-class SpotifyCrossfadeState implements Codecable {
+class SpotifyCrossfadeState implements Codec {
   final bool isEnabled;
   final int duration;
 
-  SpotifyCrossfadeState({this.isEnabled, this.duration});
+  SpotifyCrossfadeState._from(Map<String, dynamic> codecResult) :
+        isEnabled = codecResult[PlayerKeys.isEnabled],
+        duration = codecResult[PlayerKeys.duration];
 
   @override
   Map<String, dynamic> encode() {
@@ -197,19 +186,17 @@ class SpotifyCrossfadeState implements Codecable {
     };
   }
 
-  static SpotifyCrossfadeState decode(Map<String, dynamic> codecResult) {
-    return SpotifyCrossfadeState(
-      isEnabled: codecResult[PlayerKeys.isEnabled],
-      duration: codecResult[PlayerKeys.duration],
-    );
+  static SpotifyCrossfadeState from(Map<String, dynamic> codecResult) {
+    return SpotifyCrossfadeState._from(codecResult);
   }
 }
 
 // SpotifyPodcastPlaybackSpeed
-class SpotifyPodcastPlaybackSpeed implements Codecable  {
+class SpotifyPodcastPlaybackSpeed implements Codec  {
   final double value;
 
-  SpotifyPodcastPlaybackSpeed(this.value);
+  SpotifyPodcastPlaybackSpeed._from(Map<String, dynamic> codecResult) :
+      value = codecResult[PlayerKeys.value];
 
   @override
   Map<String, dynamic> encode() {
@@ -218,13 +205,13 @@ class SpotifyPodcastPlaybackSpeed implements Codecable  {
     };
   }
 
-  static SpotifyPodcastPlaybackSpeed decode(Map<String, dynamic> codecResult) {
-    return SpotifyPodcastPlaybackSpeed(codecResult[PlayerKeys.value]);
+  static SpotifyPodcastPlaybackSpeed from(Map<String, dynamic> codecResult) {
+    return SpotifyPodcastPlaybackSpeed._from(codecResult);
   }
 }
 
 // SpotifyPlaybackRestrictions
-class SpotifyPlaybackRestrictions implements Codecable {
+class SpotifyPlaybackRestrictions implements Codec {
   final bool canSkipNext;
   final bool canSkipPrevious;
   final bool canRepeatTrack;
@@ -232,9 +219,13 @@ class SpotifyPlaybackRestrictions implements Codecable {
   final bool canToggleShuffle;
   final bool canSeek;
 
-  SpotifyPlaybackRestrictions({this.canSkipNext, this.canSkipPrevious,
-      this.canRepeatTrack, this.canRepeatContext, this.canToggleShuffle,
-      this.canSeek});
+  SpotifyPlaybackRestrictions._from(Map<String, dynamic> codecResult) :
+        canSkipNext = codecResult[PlayerKeys.canSkipNext],
+        canSkipPrevious = codecResult[PlayerKeys.canSkipPrevious],
+        canRepeatTrack = codecResult[PlayerKeys.canRepeatTrack],
+        canRepeatContext = codecResult[PlayerKeys.canRepeatContext],
+        canToggleShuffle = codecResult[PlayerKeys.canToggleShuffle],
+        canSeek = codecResult[PlayerKeys.canSeek];
 
   @override
   Map<String, dynamic> encode() {
@@ -248,14 +239,7 @@ class SpotifyPlaybackRestrictions implements Codecable {
     };
   }
 
-  static SpotifyPlaybackRestrictions decode(Map<String, dynamic> codecResult) {
-    return SpotifyPlaybackRestrictions(
-      canSkipNext: codecResult[PlayerKeys.canSkipNext],
-      canSkipPrevious: codecResult[PlayerKeys.canSkipPrevious],
-      canRepeatTrack: codecResult[PlayerKeys.canRepeatTrack],
-      canRepeatContext: codecResult[PlayerKeys.canRepeatContext],
-      canToggleShuffle: codecResult[PlayerKeys.canToggleShuffle],
-      canSeek: codecResult[PlayerKeys.canSeek],
-    );
+  static SpotifyPlaybackRestrictions from(Map<String, dynamic> codecResult) {
+    return SpotifyPlaybackRestrictions._from(codecResult);
   }
 }

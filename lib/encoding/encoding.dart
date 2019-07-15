@@ -1,8 +1,22 @@
 import 'package:flutter/services.dart';
 
-abstract class Codecable {
+abstract class Encodable {
   Map<String, dynamic> encode();
-  static Codecable decode(Map<String, dynamic> codecResult) => null;
+}
+
+abstract class Decodable {
+  Decodable.from(Map<String, dynamic> codecResult);
+}
+
+class Codec implements Encodable, Decodable {
+  Codec.from(Map<String, dynamic> codecResult) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Map<String, dynamic> encode() {
+    throw UnimplementedError();
+  }
 }
 
 class Decoder {
@@ -21,7 +35,7 @@ class Decoder {
     return this._decoders[T](codecResult);
   }
 
-  void registerCodecable<T extends Codecable>(Codecable decoder(Map<String,
+  void registerCodecable<T extends Codec>(Codec decoder(Map<String,
       dynamic> codecResult)) {
     this._decoders[T] = decoder;
   }

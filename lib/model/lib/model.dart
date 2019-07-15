@@ -2,7 +2,7 @@ import 'package:spotify/encoding/encoding.dart';
 
 import 'package:spotify/model/lib/keys.dart' as ModelKeys;
 
-class SpotifyContentItem implements Codecable {
+class SpotifyContentItem implements Codec {
   final String title;
   final String subtitle;
   final String identifier;
@@ -11,8 +11,14 @@ class SpotifyContentItem implements Codecable {
   final bool isPlayable;
   final bool isContainer;
 
-  SpotifyContentItem({this.title, this.subtitle, this.identifier, this.uri,
-    this.isAvailableOffline, this.isPlayable, this.isContainer});
+  SpotifyContentItem._from(Map<String, dynamic> codecResult) :
+        title = codecResult[ModelKeys.title],
+        subtitle = codecResult[ModelKeys.subtitle],
+        identifier = codecResult[ModelKeys.identifier],
+        uri = codecResult[ModelKeys.uri],
+        isAvailableOffline = codecResult[ModelKeys.isAvailableOffline],
+        isPlayable = codecResult[ModelKeys.isPlayable],
+        isContainer = codecResult[ModelKeys.isContainer];
 
   @override
   Map<String, dynamic> encode() {
@@ -27,24 +33,18 @@ class SpotifyContentItem implements Codecable {
     };
   }
 
-  static SpotifyContentItem decode(Map<String, dynamic> codecResult) {
-    return SpotifyContentItem(
-      title: codecResult[ModelKeys.title],
-      subtitle: codecResult[ModelKeys.subtitle],
-      identifier: codecResult[ModelKeys.identifier],
-      uri: codecResult[ModelKeys.uri],
-      isAvailableOffline: codecResult[ModelKeys.isAvailableOffline],
-      isPlayable: codecResult[ModelKeys.isPlayable],
-      isContainer: codecResult[ModelKeys.isContainer],
-    );
+  static SpotifyContentItem from(Map<String, dynamic> codecResult) {
+    return SpotifyContentItem._from(codecResult);
   }
 }
 
-class SpotifyArtist implements Codecable {
+class SpotifyArtist implements Codec {
   final String name;
   final String uri;
 
-  SpotifyArtist({this.name, this.uri});
+  SpotifyArtist._from(Map<String, dynamic> codecResult) :
+        name = codecResult[ModelKeys.name],
+        uri = codecResult[ModelKeys.uri];
 
   @override
   Map<String, dynamic> encode() {
@@ -54,19 +54,18 @@ class SpotifyArtist implements Codecable {
     };
   }
 
-  static SpotifyArtist decode(Map<String, dynamic> codecResult) {
-    return SpotifyArtist(
-      name: codecResult[ModelKeys.name],
-      uri: codecResult[ModelKeys.uri],
-    );
+  static SpotifyArtist from(Map<String, dynamic> codecResult) {
+    return SpotifyArtist._from(codecResult);
   }
 }
 
-class SpotifyAlbum implements Codecable {
+class SpotifyAlbum implements Codec {
   final String name;
   final String uri;
 
-  SpotifyAlbum({this.name, this.uri});
+  SpotifyAlbum._from(Map<String, dynamic> codecResult) :
+        name = codecResult[ModelKeys.name],
+        uri = codecResult[ModelKeys.uri];
 
   @override
   Map<String, dynamic> encode() {
@@ -76,15 +75,12 @@ class SpotifyAlbum implements Codecable {
     };
   }
 
-  static SpotifyAlbum decode(Map<String, dynamic> codecResult) {
-    return SpotifyAlbum(
-      name: codecResult[ModelKeys.name],
-      uri: codecResult[ModelKeys.uri],
-    );
+  static SpotifyAlbum from(Map<String, dynamic> codecResult) {
+    return SpotifyAlbum._from(codecResult);
   }
 }
 
-class SpotifyTrack implements Codecable {
+class SpotifyTrack implements Codec {
   final String name;
   final String uri;
   final int duration;
@@ -94,8 +90,15 @@ class SpotifyTrack implements Codecable {
   final bool isEpisode;
   final bool isPodcast;
 
-  SpotifyTrack({this.name, this.uri, this.duration, this.artist, this.album,
-    this.isSaved, this.isEpisode, this.isPodcast});
+  SpotifyTrack._from(Map<String, dynamic> codecResult) :
+        name = codecResult[ModelKeys.name],
+        uri = codecResult[ModelKeys.uri],
+        duration = codecResult[ModelKeys.duration],
+        artist = SpotifyArtist.from(codecResult[ModelKeys.artist]),
+        album = SpotifyAlbum.from(codecResult[ModelKeys.album]),
+        isSaved = codecResult[ModelKeys.isSaved],
+        isEpisode = codecResult[ModelKeys.isEpisode],
+        isPodcast = codecResult[ModelKeys.isPodcast];
 
   @override
   Map<String, dynamic> encode() {
@@ -111,19 +114,7 @@ class SpotifyTrack implements Codecable {
     };
   }
 
-  static SpotifyTrack decode(Map<String, dynamic> codecResult) {
-    Map<String, dynamic> rawArtist = codecResult[ModelKeys.artist];
-    Map<String, dynamic> rawAlbum = codecResult[ModelKeys.album];
-
-    return SpotifyTrack(
-      name: codecResult[ModelKeys.name],
-      uri: codecResult[ModelKeys.uri],
-      duration: codecResult[ModelKeys.duration],
-      artist: Decoder.instance.decode<SpotifyArtist>(rawArtist),
-      album: Decoder.instance.decode<SpotifyAlbum>(rawAlbum),
-      isSaved: codecResult[ModelKeys.isSaved],
-      isEpisode: codecResult[ModelKeys.isEpisode],
-      isPodcast: codecResult[ModelKeys.isPodcast],
-    );
+  static SpotifyTrack from(Map<String, dynamic> codecResult) {
+    return SpotifyTrack._from(codecResult);
   }
 }

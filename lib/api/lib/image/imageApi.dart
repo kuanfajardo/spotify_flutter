@@ -10,7 +10,7 @@ import 'package:spotify/api/lib/image/keys.dart' as ImageKeys;
 class SpotifyImageAPI {
   Future<Image> fetchImageForItem(SpotifyImageRepresentable imageItem, {Size
   size}) {
-    CodecableSize encodableSize = CodecableSize.from(size);
+    CodecableSize encodableSize = CodecableSize(size);
     Map<String, dynamic> args = {
       ImageKeys.imageItem: imageItem.encode(),
       ImageKeys.size: encodableSize.encode()
@@ -20,10 +20,11 @@ class SpotifyImageAPI {
   }
 }
 
-class SpotifyImageRepresentable implements Codecable {
+class SpotifyImageRepresentable implements Codec {
   final String imageIdentifier;
 
-  SpotifyImageRepresentable(this.imageIdentifier);
+  SpotifyImageRepresentable._from(Map<String, dynamic> codecResult) :
+      imageIdentifier = codecResult[ImageKeys.imageIdentifier];
 
   @override
   Map<String, dynamic> encode() {
@@ -32,7 +33,7 @@ class SpotifyImageRepresentable implements Codecable {
     };
   }
 
-  static SpotifyImageRepresentable decode(Map<String, dynamic> codecResult) {
-    return SpotifyImageRepresentable(codecResult[ImageKeys.imageIdentifier]);
+  static SpotifyImageRepresentable from(Map<String, dynamic> codecResult) {
+    return SpotifyImageRepresentable._from(codecResult);
   }
 }

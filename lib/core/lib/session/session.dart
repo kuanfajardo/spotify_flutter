@@ -95,15 +95,19 @@ abstract class SpotifySessionManagerDelegate {
       (String authorizationCode,  [SpotifySessionManager sessionManager]) {}
 }
 
-class SpotifyConfiguration implements Codecable {
+class SpotifyConfiguration implements Codec {
   final String clientId;
   final Uri redirectUrl;
   Uri tokenSwapUrl;
   Uri tokenRefreshUrl;
   String playUri;
 
-  SpotifyConfiguration({this.clientId, this.redirectUrl, this.tokenSwapUrl,
-      this.tokenRefreshUrl, this.playUri});
+  SpotifyConfiguration._from(Map<String, dynamic> codecResult) :
+        clientId = codecResult[SessionKeys.clientId],
+        redirectUrl = Uri.dataFromString(codecResult[SessionKeys.redirectUrl]),
+        tokenSwapUrl = Uri.dataFromString(codecResult[SessionKeys.tokenSwapUrl]),
+        tokenRefreshUrl = Uri.dataFromString(codecResult[SessionKeys.tokenRefreshUrl]),
+        playUri = codecResult[SessionKeys.playUri];
 
   @override
   Map<String, dynamic> encode() {
@@ -116,17 +120,7 @@ class SpotifyConfiguration implements Codecable {
     };
   }
 
-  static SpotifyConfiguration decode(Map<String, dynamic> codecResult) {
-    String redirectString = codecResult[SessionKeys.redirectUrl];
-    String tokenSwapString = codecResult[SessionKeys.tokenSwapUrl];
-    String tokenRefreshString = codecResult[SessionKeys.tokenRefreshUrl];
-
-    return SpotifyConfiguration(
-      clientId: codecResult[SessionKeys.clientId],
-      redirectUrl: Uri.dataFromString(redirectString),
-      tokenSwapUrl: Uri.dataFromString(tokenSwapString),
-      tokenRefreshUrl: Uri.dataFromString(tokenRefreshString),
-      playUri: codecResult[SessionKeys.playUri],
-    );
+  static SpotifyConfiguration from(Map<String, dynamic> codecResult) {
+    return SpotifyConfiguration._from(codecResult);
   }
 }
