@@ -12,8 +12,14 @@
 		3B80C3941E831B6300D905FE /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; };
 		3B80C3951E831B6300D905FE /* App.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		569ED1D722D94E72001C37F5 /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1D622D94E72001C37F5 /* Methods.swift */; };
-		569ED1D922D9508C001C37F5 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1D822D9508C001C37F5 /* Handlers.swift */; };
 		569ED1DB22D961D0001C37F5 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1DA22D961D0001C37F5 /* Keys.swift */; };
+		569ED1DF22DCC1F8001C37F5 /* ContentApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1DE22DCC1F8001C37F5 /* ContentApiHandler.swift */; };
+		569ED1E122DCC206001C37F5 /* ImageApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E022DCC206001C37F5 /* ImageApiHandler.swift */; };
+		569ED1E322DCC20E001C37F5 /* PlayerApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E222DCC20E001C37F5 /* PlayerApiHandler.swift */; };
+		569ED1E522DCC219001C37F5 /* UserApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E422DCC219001C37F5 /* UserApiHandler.swift */; };
+		569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */; };
+		569ED1E922DCC247001C37F5 /* SessionManagerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */; };
+		569ED1EB22DCC2DC001C37F5 /* HandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1EA22DCC2DC001C37F5 /* HandlerErrors.swift */; };
 		56BA988D22BFF1B20061F447 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740EEBA1CF902C7004384FC /* Flutter.framework */; };
@@ -44,8 +50,14 @@
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		3B80C3931E831B6300D905FE /* App.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = App.framework; path = Flutter/App.framework; sourceTree = "<group>"; };
 		569ED1D622D94E72001C37F5 /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
-		569ED1D822D9508C001C37F5 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		569ED1DA22D961D0001C37F5 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		569ED1DE22DCC1F8001C37F5 /* ContentApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentApiHandler.swift; sourceTree = "<group>"; };
+		569ED1E022DCC206001C37F5 /* ImageApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageApiHandler.swift; sourceTree = "<group>"; };
+		569ED1E222DCC20E001C37F5 /* PlayerApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerApiHandler.swift; sourceTree = "<group>"; };
+		569ED1E422DCC219001C37F5 /* UserApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiHandler.swift; sourceTree = "<group>"; };
+		569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRemoteHandler.swift; sourceTree = "<group>"; };
+		569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerHandler.swift; sourceTree = "<group>"; };
+		569ED1EA22DCC2DC001C37F5 /* HandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlerErrors.swift; sourceTree = "<group>"; };
 		56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +96,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		569ED1DD22DCC1E9001C37F5 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				569ED1DE22DCC1F8001C37F5 /* ContentApiHandler.swift */,
+				569ED1E022DCC206001C37F5 /* ImageApiHandler.swift */,
+				569ED1E222DCC20E001C37F5 /* PlayerApiHandler.swift */,
+				569ED1E422DCC219001C37F5 /* UserApiHandler.swift */,
+				569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */,
+				569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */,
+				569ED1EA22DCC2DC001C37F5 /* HandlerErrors.swift */,
+			);
+			path = Handlers;
+			sourceTree = "<group>";
+		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +145,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				569ED1DD22DCC1E9001C37F5 /* Handlers */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -129,7 +156,6 @@
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 				569ED1D622D94E72001C37F5 /* Methods.swift */,
-				569ED1D822D9508C001C37F5 /* Handlers.swift */,
 				569ED1DA22D961D0001C37F5 /* Keys.swift */,
 			);
 			path = Runner;
@@ -304,11 +330,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				569ED1D922D9508C001C37F5 /* Handlers.swift in Sources */,
+				569ED1E922DCC247001C37F5 /* SessionManagerHandler.swift in Sources */,
+				569ED1EB22DCC2DC001C37F5 /* HandlerErrors.swift in Sources */,
+				569ED1E322DCC20E001C37F5 /* PlayerApiHandler.swift in Sources */,
+				569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				569ED1D722D94E72001C37F5 /* Methods.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				569ED1E122DCC206001C37F5 /* ImageApiHandler.swift in Sources */,
+				569ED1DF22DCC1F8001C37F5 /* ContentApiHandler.swift in Sources */,
 				569ED1DB22D961D0001C37F5 /* Keys.swift in Sources */,
+				569ED1E522DCC219001C37F5 /* UserApiHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
