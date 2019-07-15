@@ -35,4 +35,8 @@ struct Keys {
         static let scope = "scope";
         static let options = "options";
     }
+    struct Error {
+        static let argsErrorMethodName = "method"
+        static let argsErrorParameterName = "parameterName"
+    }
 }

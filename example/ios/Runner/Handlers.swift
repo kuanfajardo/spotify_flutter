@@ -11,7 +11,7 @@ import Foundation
 struct ContentApi {
     static func handle_fetchRootContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let rawContentType = call.arguments as? NSNumber else {
-            result(FlutterError(code: "ARGS", message: "Arguments are of wrong type.", details: nil))
+            result(argsErrorForCall(call))
             return
         }
         
@@ -19,12 +19,12 @@ struct ContentApi {
 
         SpotifyChannelState.appRemote?.contentAPI?.fetchRootContentItems(forType: contentType) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                result(FlutterError(code: "SDK", message: error.debugDescription, details: nil))
+                result(sdkError(error!))
                 return
             }
             
             guard let contentItems = sdkResult as? Array<SPTAppRemoteContentItem> else {
-                result(FlutterError(code: "CAST", message: "Could not cast sdkResult to desired type", details: nil))
+                result(sdkResultUnpackingError(expectedType: Array<SPTAppRemoteContentItem>.self))
                 return
             }
             
@@ -35,7 +35,7 @@ struct ContentApi {
     
     static func handle_fetchChildrenOfContentItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let contentItemObject = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -44,12 +44,12 @@ struct ContentApi {
         
         SpotifyChannelState.appRemote?.contentAPI?.fetchChildren(of: contentItem) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let children = sdkResult as? Array<SPTAppRemoteContentItem> else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: Array<SPTAppRemoteContentItem>.self))
                 return
             }
             
@@ -60,35 +60,35 @@ struct ContentApi {
     
     static func handle_fetchRecommendedContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let rawContentType = args.object(forKey: Keys.ContentApi.contentType) as? NSNumber else {
-            // TODO: CAST ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
         guard let cocoaFlattenContainers = args.object(forKey: Keys.ContentApi.flattenContainers) as? NSNumber else {
-            // TODO: CAST ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
         let contentType = contentTypeForRawValue(rawContentType)
         
         guard let flattenContainers = Bool(exactly: cocoaFlattenContainers) else {
-            // TODO: CAST ERROR
+            // TODO: VALUE CAST ERROR
             return
         }
         
         SpotifyChannelState.appRemote?.contentAPI?.fetchRecommendedContentItems(forType: contentType, flattenContainers: flattenContainers) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let contentItems = sdkResult as? Array<SPTAppRemoteContentItem> else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType:  Array<SPTAppRemoteContentItem>.self))
                 return
             }
             
@@ -101,17 +101,17 @@ struct ContentApi {
 struct ImageApi {
     static func handle_fetchImageForItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let imageItemObject = args.object(forKey: Keys.ImageApi.imageItem) as? NSDictionary else {
-            // TODO: CAST/ARGS ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
         guard let sizeObject = args.object(forKey: Keys.ImageApi.size) as? NSDictionary else {
-            // TODO: CAST/ARGS ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
@@ -123,12 +123,12 @@ struct ImageApi {
         
         SpotifyChannelState.appRemote?.imageAPI?.fetchImage(forItem: imageItem, with: size) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let image = sdkResult as? UIImage else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: UIImage.self))
                 return
             }
             
@@ -141,7 +141,7 @@ struct ImageApi {
 struct PlayerApi {
     static func handle_play_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaEntityIdentifier = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -149,7 +149,7 @@ struct PlayerApi {
 
         SpotifyChannelState.appRemote?.playerAPI?.play(entityIdentifier) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -160,12 +160,12 @@ struct PlayerApi {
     
     static func handle_playItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let contentItemObject = args.object(forKey: Keys.PlayerApi.contentItem) as? NSDictionary else {
-            // TODO: ARGS/CAST ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
@@ -176,13 +176,13 @@ struct PlayerApi {
     
         if cocoaStartIndex != nil {
             guard let startIndex = Int(exactly: cocoaStartIndex!) else {
-                // TODO: CAST ERROR
+                // TODO: VALUE CAST ERROR
                 return
             }
             
             SpotifyChannelState.appRemote?.playerAPI?.play(contentItem, skipToTrackIndex: startIndex) { (sdkResult: Any?, error: Error?) in
                 guard error == nil else {
-                    // TODO: SDK ERROR
+                    result(sdkError(error!))
                     return
                 }
                 
@@ -192,7 +192,7 @@ struct PlayerApi {
         } else {
             SpotifyChannelState.appRemote?.playerAPI?.play(contentItem) { (sdkResult: Any?, error: Error?) in
                 guard error == nil else {
-                    // TODO: SDK ERROR
+                    result(sdkError(error!))
                     return
                 }
                 
@@ -205,7 +205,7 @@ struct PlayerApi {
     static func handle_resume_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.resume { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -217,7 +217,7 @@ struct PlayerApi {
     static func handle_pause_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.pause { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -229,7 +229,7 @@ struct PlayerApi {
     static func handle_skipToNext_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.skip(toNext: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -241,7 +241,7 @@ struct PlayerApi {
     static func handle_skipToPrevious_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.skip(toPrevious: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -252,18 +252,18 @@ struct PlayerApi {
     
     static func handle_seekToPosition_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaPosition = call.arguments as? NSNumber else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let position = Int(exactly: cocoaPosition) else {
-            // TODO: CAST ERROR
+            // TODO: VALUE CAST ERROR
             return
         }
         
         SpotifyChannelState.appRemote?.playerAPI?.seek(toPosition: position) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -275,7 +275,7 @@ struct PlayerApi {
     static func handle_seekForward15Seconds_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.seekForward15Seconds { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -287,7 +287,7 @@ struct PlayerApi {
     static func handle_seekBackward15Seconds_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.seekBackward15Seconds { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -297,19 +297,19 @@ struct PlayerApi {
     }
     
     static func handle_setShuffle_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let shuffleAsNumber = call.arguments as? NSNumber else {
-            // TODO: ARGS ERROR
+        guard let cocoaShuffle = call.arguments as? NSNumber else {
+            result(argsErrorForCall(call))
             return
         }
         
-        guard let shuffle = Bool(exactly: shuffleAsNumber) else {
-            // TODO: CAST ERROR
+        guard let shuffle = Bool(exactly: cocoaShuffle) else {
+            // TODO: VALUE CAST ERROR
             return
         }
         
         SpotifyChannelState.appRemote?.playerAPI?.setShuffle(shuffle) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -320,18 +320,18 @@ struct PlayerApi {
     
     static func handle_setRepeatMode_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let rawRepeatMode = call.arguments as? NSNumber else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let repeatMode = SPTAppRemotePlaybackOptionsRepeatMode(rawValue: rawRepeatMode.uintValue) else {
-            // TODO: ARGS / CAST ERROR
+            // TODO: VALUE CAST ERROR
             return
         }
         
         SpotifyChannelState.appRemote?.playerAPI?.setRepeatMode(repeatMode) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -343,12 +343,12 @@ struct PlayerApi {
     static func handle_getPlayerState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.getPlayerState { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let playerState = sdkResult as? SPTAppRemotePlayerState else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: SPTAppRemotePlayerState.self))
                 return
             }
             
@@ -360,12 +360,12 @@ struct PlayerApi {
     static func handle_subscribeToPlayerState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.subscribe(toPlayerState: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let playerState = sdkResult as? SPTAppRemotePlayerState else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: SPTAppRemotePlayerState.self))
                 return
             }
             
@@ -377,7 +377,7 @@ struct PlayerApi {
     static func handle_unsubscribeToPlayerState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.unsubscribe(toPlayerState: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -388,7 +388,7 @@ struct PlayerApi {
     
     static func handle_enqueueTrackUri_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaTrackUri = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -396,7 +396,7 @@ struct PlayerApi {
         
         SpotifyChannelState.appRemote?.playerAPI?.enqueueTrackUri(trackUri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -409,17 +409,12 @@ struct PlayerApi {
     static func handle_getAvailablePodcastPlaybackSpeeds_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.getAvailablePodcastPlaybackSpeeds { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
-            guard let cocoaAvailablePodcastPlaybackSpeeds = sdkResult as? NSArray else {
-                // TODO: CAST ERROR
-                return
-            }
-            
-            guard let availablePodcastPlaybackSpeeds = cocoaAvailablePodcastPlaybackSpeeds as? Array<SPTAppRemotePodcastPlaybackSpeed> else {
-                // TODO: CAST ERROR
+            guard let availablePodcastPlaybackSpeeds = sdkResult as? Array<SPTAppRemotePodcastPlaybackSpeed> else {
+                result(sdkResultUnpackingError(expectedType: Array<SPTAppRemotePodcastPlaybackSpeed>.self))
                 return
             }
             
@@ -431,12 +426,12 @@ struct PlayerApi {
     static func handle_getCurrentPodcastPlaybackSpeed_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.getCurrentPodcastPlaybackSpeed { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let currentPodcastPlaybackSpeed = sdkResult as? SPTAppRemotePodcastPlaybackSpeed else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: SPTAppRemotePodcastPlaybackSpeed.self))
                 return
             }
             
@@ -447,7 +442,7 @@ struct PlayerApi {
     
     static func handle_setPodcastPlaybackSpeed_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaPlaybackSpeedObject = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -456,7 +451,7 @@ struct PlayerApi {
         
         SpotifyChannelState.appRemote?.playerAPI?.setPodcastPlaybackSpeed(playbackSpeed) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -468,12 +463,12 @@ struct PlayerApi {
     static func handle_getCrossfadeState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.playerAPI?.getCrossfadeState { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let crossfadeState = sdkResult as? SPTAppRemoteCrossfadeState else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: SPTAppRemoteCrossfadeState.self))
                 return
             }
             
@@ -487,12 +482,12 @@ struct UserApi {
     static func handle_fetchCapabilities_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.userAPI?.fetchCapabilities { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let capabilities = sdkResult as? SPTAppRemoteUserCapabilities else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: SPTAppRemoteUserCapabilities.self))
                 return
             }
             
@@ -504,7 +499,7 @@ struct UserApi {
     static func handle_subscribeToCapabilityChanges_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.userAPI?.subscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -516,7 +511,7 @@ struct UserApi {
     static func handle_unsubscribeToCapabilityChanges_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SpotifyChannelState.appRemote?.userAPI?.unsubscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -527,7 +522,7 @@ struct UserApi {
     
     static func handle_fetchLibraryStateForUri_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -535,12 +530,12 @@ struct UserApi {
         
         SpotifyChannelState.appRemote?.userAPI?.fetchLibraryState(forURI: uri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
             guard let libraryState = sdkResult as? SPTAppRemoteLibraryState else {
-                // TODO: CAST ERROR
+                result(sdkResultUnpackingError(expectedType: SPTAppRemoteLibraryState.self))
                 return
             }
             
@@ -551,7 +546,7 @@ struct UserApi {
     
     static func handle_addUriToLibrary_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -559,7 +554,7 @@ struct UserApi {
         
         SpotifyChannelState.appRemote?.userAPI?.addItemToLibrary(withURI: uri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -570,7 +565,7 @@ struct UserApi {
     
     static func handle_removeUriFromLibrary_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -578,7 +573,7 @@ struct UserApi {
         
         SpotifyChannelState.appRemote?.userAPI?.removeItemFromLibrary(withURI: uri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
-                // TODO: SDK ERROR
+                result(sdkError(error!))
                 return
             }
             
@@ -607,17 +602,17 @@ struct AppRemoteApi {
     
     static func handle_initializeAppRemote_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let configurationObject = args.object(forKey: Keys.AppRemote.configuration) as? NSDictionary else {
-            // TODO: CAST/ARGS ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
         guard let rawLogLevel = args.object(forKey: Keys.AppRemote.logLevel) as? NSNumber else {
-            // TODO: CAST/ARGS ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
@@ -627,7 +622,7 @@ struct AppRemoteApi {
         let configuration: SPTConfiguration
         
         guard let logLevel = SPTAppRemoteLogLevel(rawValue: rawLogLevel.uintValue) else {
-            // TODO: CAST ERROR
+            // TODO: VALUE CAST ERROR
             return
         }
         
@@ -650,7 +645,7 @@ struct AppRemoteApi {
     
     static func handle_connectionParameters_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let connectionParams = SpotifyChannelState.appRemote?.connectionParameters else {
-            // TODO: SDK ERROR
+            result(unavailableSdkValueError("AppRemote.connectionParameters"))
             return
         }
         
@@ -660,7 +655,7 @@ struct AppRemoteApi {
     
     static func handle_isConnected_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let isConnected = SpotifyChannelState.appRemote?.isConnected else {
-            // TODO: SDK ERROR
+            result(unavailableSdkValueError("AppRemote.isConnected"))
             return
         }
         
@@ -680,7 +675,7 @@ struct AppRemoteApi {
     
     static func handle_authorizeAndPlayUri_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -693,12 +688,12 @@ struct AppRemoteApi {
     
     static func handle_authorizationParametersFromURL_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUrl = call.arguments as? NSString else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let url = URL(string: cocoaUrl as String) else {
-            // TODO: CAST ERROR
+            // TODO: VALUE CAST ERROR
             return
         }
         
@@ -711,7 +706,7 @@ struct AppRemoteApi {
 struct SessionManagerApi {
     static func handle_isSpotifyAppInstalled_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let isSpotifyAppInstalled = SpotifyChannelState.sessionManager?.isSpotifyAppInstalled else {
-            // TODO: SDK ERROR
+            result(unavailableSdkValueError("SessionManager.isSpotifyAppInstalled"))
             return
         }
         
@@ -720,17 +715,17 @@ struct SessionManagerApi {
     
     static func handle_initiateSessionWithScope_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
         guard let rawScope = args.object(forKey: Keys.SessionManager.scope) as? NSNumber else {
-            // TODO: CAST ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
         guard let rawOptions = args.object(forKey: Keys.SessionManager.options) as? NSNumber else {
-            // TODO: CAST ERROR
+            // TODO: KEY CAST ERROR
             return
         }
         
@@ -742,7 +737,7 @@ struct SessionManagerApi {
         } else {
             // Fallback on earlier versions
             guard let controller = SpotifyChannelState.controller else {
-                // TODO: ERROR
+                result(result(unavailableSdkValueError("SpotifyChannelState.controller")))
                 return
             }
             
@@ -750,7 +745,7 @@ struct SessionManagerApi {
                 SpotifyChannelState.sessionManager?.initiateSession(with: scope, options: options, presenting: controller)
             } else {
                 // Fallback on unsupported versions
-                // TODO: SDK ERROR
+                result(customSdkErrorWithMessage("Version of iOS in use is not supported. Please use version iOS 11 or greater."))
             }
         }
         
@@ -764,7 +759,7 @@ struct SessionManagerApi {
     
     static func handle_session_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let session = SpotifyChannelState.session else {
-            // TODO: SDK ERROR
+            result(unavailableSdkValueError("SessionManager.session"))
             return
         }
         
@@ -774,7 +769,7 @@ struct SessionManagerApi {
     
     static func handle_initializeSessionManager_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let configurationObject = call.arguments as? NSDictionary else {
-            // TODO: ARGS ERROR
+            result(argsErrorForCall(call))
             return
         }
         
@@ -803,3 +798,50 @@ private func contentTypeForRawValue(_ value: NSNumber) -> String {
     }
 }
 
+private func argsErrorForCall(_ call: FlutterMethodCall) -> FlutterError {
+    let message = "Incorrect argument(s) for method \(call.method)."
+    return flutterErrorWithCode(.args, message: message)
+}
+
+private func keyCastError(_ key: String, expectedType: Any.Type) -> FlutterError {
+    let message = "Error while extracting key \(key) and casting to type \(expectedType)."
+    return flutterErrorWithCode(.keyCast, message: message)
+}
+
+private func sdkError(_ underlyingError: Error) -> FlutterError {
+    let message = "SDK Error: \(underlyingError.localizedDescription)"
+    return flutterErrorWithCode(.sdk, message: message)
+}
+
+private func unavailableSdkValueError(_ value: String) -> FlutterError {
+    let message = "SDK Error: Value \(value) is unavailable."
+    return flutterErrorWithCode(.sdk, message: message)
+}
+
+private func customSdkErrorWithMessage(_ message: String) -> FlutterError {
+    let detailedMessage = "SDK Error: \(message)"
+    return flutterErrorWithCode(.sdk, message: detailedMessage)
+}
+
+private func sdkResultUnpackingError(expectedType: Any.Type) -> FlutterError {
+    let message = "Error while unpacking sdkResult to type \(expectedType)."
+    return flutterErrorWithCode(.sdkResultUnpacking, message: message)
+}
+
+private func valueCastError(_ variableName: String, expectedType: Any.Type) -> FlutterError {
+    let message = "Error while casting \(variableName) to type \(expectedType)."
+    return flutterErrorWithCode(.keyCast, message: message)
+}
+
+
+private func flutterErrorWithCode(_ code: SpotifyPluginErrorCode, message: String?, details: Any? = nil) -> FlutterError {
+    return FlutterError(code: code.rawValue, message: message, details: details)
+}
+
+enum SpotifyPluginErrorCode: String {
+    case args = "ARGS" // Arguments from method channel call
+    case keyCast = "KEY_CAST" // If method channel args = Dict, key error OR key unpacking error
+    case sdk = "SDK" // Error from SPT SDK
+    case sdkResultUnpacking = "SDK_RESULT_UNPACKING" // Error unpacking sdk result
+    case valueCast = "VALUE_CAST" // Error casting values in order to use them
+}
