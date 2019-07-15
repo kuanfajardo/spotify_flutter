@@ -96,10 +96,10 @@ class SpotifyAppRemoteConnectionParams implements Codecable {
 
   @override
   Map<String, dynamic> encode() {
-    CodecableSize codecableDefaultImageSize = CodecableSize.from(this.defaultImageSize);
+    CodecableSize encodableDefaultImageSize = CodecableSize.from(this.defaultImageSize);
     return {
       AppRemoteKeys.accessToken: this.accessToken,
-      AppRemoteKeys.defaultImageSize: codecableDefaultImageSize.encode(),
+      AppRemoteKeys.defaultImageSize: encodableDefaultImageSize.encode(),
       AppRemoteKeys.imageFormat: this.imageFormat,
     };
   }

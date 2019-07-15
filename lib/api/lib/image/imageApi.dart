@@ -10,10 +10,10 @@ import 'package:spotify/api/lib/image/keys.dart' as ImageKeys;
 class SpotifyImageAPI {
   Future<Image> fetchImageForItem(SpotifyImageRepresentable imageItem, {Size
   size}) {
-    CodecableSize codecableSize = CodecableSize.from(size);
+    CodecableSize encodableSize = CodecableSize.from(size);
     Map<String, dynamic> args = {
       ImageKeys.imageItem: imageItem.encode(),
-      ImageKeys.size: codecableSize.encode()
+      ImageKeys.size: encodableSize.encode()
     };
 
     return invokeMethod<CodecableImage>(ImageMethods.fetchImageForItem, args);
