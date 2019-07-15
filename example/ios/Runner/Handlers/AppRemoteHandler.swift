@@ -74,7 +74,7 @@ struct AppRemoteHandler {
             return
         }
         
-        // TODO: Decode connectionParams
+        // TODO: Codec connectionParams
         result(FlutterMethodNotImplemented)
     }
     
@@ -84,8 +84,7 @@ struct AppRemoteHandler {
             return
         }
         
-        // TODO: Decode isConnected
-        result(FlutterMethodNotImplemented)
+        result(isConnected)
     }
     
     static func handle_connect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
@@ -93,7 +92,7 @@ struct AppRemoteHandler {
         result(true)
     }
     
-    static func handle_disconnect_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    static func handle_disconnect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         SpotifyChannelState.appRemote?.disconnect()
         result(true)
     }

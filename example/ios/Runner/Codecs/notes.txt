@@ -1,0 +1,11 @@
+- SPTAppRemoteContentItem (E/D)
+- SPTAppRemoteImageRepresentable (E/D)
+- SPTAppRemotePlayerState (E)
+- SPTAppRemotePodcastPlaybackSpeed (E/D)
+- SPTAppRemoteCrossfadeState (E)
+- SPTAppRemoteLibraryState (E)
+- SPTConfiguration (D)
+- SPTAppRemoteConnectionParams (E/D)
+- SPTSession (E)
+
+- CGSize (D)
