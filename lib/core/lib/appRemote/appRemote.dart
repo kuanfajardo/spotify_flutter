@@ -45,7 +45,7 @@ class SpotifyAppRemote {
     return invokeMethod<int>(AppRemoteMethods.spotifyItunesItemIdentifier);
   }
 
-  Future<SpotifyAppRemoteConnectionParams> connectionParameters() {
+  Future<SpotifyAppRemoteConnectionParams> get connectionParameters {
     return invokeMethod<SpotifyAppRemoteConnectionParams>(AppRemoteMethods.connectionParameters);
   }
 

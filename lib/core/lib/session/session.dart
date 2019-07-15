@@ -55,7 +55,8 @@ class SpotifySessionManager {
   }
   
   SpotifySessionManagerDelegate delegate;
-  bool alwaysShowAuthorizationDialog;
+
+//  bool alwaysShowAuthorizationDialog;
 
   SpotifySessionManager(this.configuration) {
     invokeMethod(SessionMethods.initializeSessionManager, configuration.encode());
@@ -66,7 +67,8 @@ class SpotifySessionManager {
   }
 
   Future<void> initiateSessionWithScope(SpotifyScope scope,
-      {SpotifyAuthorizationOptions options}) {
+      {SpotifyAuthorizationOptions options = SpotifyAuthorizationOptions
+          .default_ }) {
     Map<String, dynamic> args = {
       SessionKeys.scope: scope,
       SessionKeys.scope: options,

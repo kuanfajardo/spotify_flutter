@@ -2,6 +2,7 @@ import 'package:spotify/encoding/encoding.dart';
 import 'package:spotify/model/model.dart';
 
 import 'package:spotify/api/lib/content/methods.dart' as ContentMethods;
+import 'package:spotify/api/lib/content/keys.dart' as ContentKeys;
 
 enum SpotifyContentType { default_, navigation, fitness, }
 
@@ -19,8 +20,13 @@ class SpotifyContentAPI {
   }
 
   Future<List<SpotifyContentItem>> fetchRecommendedContentItemsForType(SpotifyContentType contentType,
-      {bool flattenContainers}) {
+      {bool flattenContainers = true}) {
+    Map<String, dynamic> args = {
+      ContentKeys.contentType: contentType,
+      ContentKeys.flattenContainers: flattenContainers,
+    };
+
     return invokeListMethod<SpotifyContentItem>(ContentMethods
-        .fetchRecommendedContentItemsForType, contentType);
+        .fetchRecommendedContentItemsForType, args);
   }
 }
