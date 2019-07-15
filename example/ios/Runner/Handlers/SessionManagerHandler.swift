@@ -68,7 +68,7 @@ struct SessionManagerHandler {
             return
         }
         
-        // TODO: Codec session
+        // TODO: Encode session
         result(FlutterMethodNotImplemented)
     }
     

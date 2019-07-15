@@ -42,7 +42,7 @@ struct ImageApiHandler {
                 return
             }
             
-            // TODO: Codec image
+            // TODO: Encode image
             result(FlutterMethodNotImplemented)
         }
     }

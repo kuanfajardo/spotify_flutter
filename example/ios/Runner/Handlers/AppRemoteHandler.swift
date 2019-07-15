@@ -74,7 +74,7 @@ struct AppRemoteHandler {
             return
         }
         
-        // TODO: Codec connectionParams
+        // TODO: Encode connectionParams
         result(FlutterMethodNotImplemented)
     }
     

@@ -21,7 +21,7 @@ struct UserApiHandler {
                 return
             }
             
-            // TODO: Codec capabilities
+            // TODO: Encode capabilities
             result(FlutterMethodNotImplemented)
         }
     }
@@ -69,7 +69,7 @@ struct UserApiHandler {
                 return
             }
             
-            // TODO: Codec libraryState
+            // TODO: Encode libraryState
             result(FlutterMethodNotImplemented)
         }
     }

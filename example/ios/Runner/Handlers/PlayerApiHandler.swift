@@ -222,7 +222,7 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Codec playerState
+            // TODO: Encode playerState
             result(FlutterMethodNotImplemented)
         }
     }
@@ -239,7 +239,7 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Codec playerState
+            // TODO: Encode playerState
             result(FlutterMethodNotImplemented)
         })
     }
@@ -288,7 +288,7 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Codec availablePodcastPlaybackSpeeds
+            // TODO: Encode availablePodcastPlaybackSpeeds
             result(FlutterMethodNotImplemented)
         }
     }
@@ -305,7 +305,7 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Codec currentPodcastPlaybackSpeed
+            // TODO: Encode currentPodcastPlaybackSpeed
             result(FlutterMethodNotImplemented)
         }
     }
@@ -342,7 +342,7 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Codec crossfadeState
+            // TODO: Encode crossfadeState
             result(FlutterMethodNotImplemented)
         }
     }
