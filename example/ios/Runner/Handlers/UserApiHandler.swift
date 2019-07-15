@@ -21,7 +21,7 @@ struct UserApiHandler {
                 return
             }
             
-            // Codec capabilities
+            // TODO: Codec capabilities
             result(FlutterMethodNotImplemented)
         }
     }

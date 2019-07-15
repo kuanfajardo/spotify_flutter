@@ -4,6 +4,7 @@
 - SPTAppRemotePodcastPlaybackSpeed (E/D)
 - SPTAppRemoteCrossfadeState (E)
 - SPTAppRemoteLibraryState (E)
+- SPTAppRemoteUserCapabilities (E)
 - SPTConfiguration (D)
 - SPTAppRemoteConnectionParams (E/D)
 - SPTSession (E)
