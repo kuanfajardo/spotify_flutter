@@ -10,6 +10,8 @@ import Flutter
     let controller: FlutterViewController = window?.rootViewController as! FlutterViewController
     let spotifyChannel = FlutterMethodChannel(name: "spotify", binaryMessenger: controller)
     
+    SpotifyChannelState.controller = controller
+    
     spotifyChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
         switch call.method {
         // Content API
@@ -101,16 +103,16 @@ import Flutter
             AppRemoteApi.handle_authorizationParametersFromURL_withCall(call, result: result)
             
         // Session Methods
-        case Methods.Session.isSpotifyAppInstalled:
-            SessionApi.handle_isSpotifyAppInstalled_withCall(call, result: result)
-        case Methods.Session.initiateSessionWithScope:
-            SessionApi.handle_initiateSessionWithScope_withCall(call, result: result)
-        case Methods.Session.renewSession:
-            SessionApi.handle_renewSession_withCall(call, result: result)
-        case Methods.Session.session:
-            SessionApi.handle_session_withCall(call, result: result)
-        case Methods.Session.initializeSessionManager:
-            SessionApi.handle_initializeSessionManager_withCall(call, result: result)
+        case Methods.SessionManager.isSpotifyAppInstalled:
+            SessionManagerApi.handle_isSpotifyAppInstalled_withCall(call, result: result)
+        case Methods.SessionManager.initiateSessionWithScope:
+            SessionManagerApi.handle_initiateSessionWithScope_withCall(call, result: result)
+        case Methods.SessionManager.renewSession:
+            SessionManagerApi.handle_renewSession_withCall(call, result: result)
+        case Methods.SessionManager.session:
+            SessionManagerApi.handle_session_withCall(call, result: result)
+        case Methods.SessionManager.initializeSessionManager:
+            SessionManagerApi.handle_initializeSessionManager_withCall(call, result: result)
             
         default:
             result(FlutterMethodNotImplemented)
@@ -122,6 +124,15 @@ import Flutter
   }
 }
 
-class SpotifyChannelState {
+struct SpotifyChannelState {
     static var appRemote: SPTAppRemote?
+    static var sessionManager: SPTSessionManager?
+    
+    static var session: SPTSession? {
+        get {
+            return SpotifyChannelState.sessionManager?.session
+        }
+    }
+    
+    static var controller: UIViewController?
 }

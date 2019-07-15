@@ -65,7 +65,7 @@ struct Methods {
         static let authorizationParametersFromURL = "appRemote_authorizationParametersFromURL";
     }
     
-    struct Session {
+    struct SessionManager {
         static let isSpotifyAppInstalled = "isSpotifyAppInstalled";
         static let initiateSessionWithScope = "initiateSessionWithScope";
         static let renewSession = "renewSession";
