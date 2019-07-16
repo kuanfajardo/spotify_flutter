@@ -8,10 +8,17 @@
 
 import Foundation
 
-class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable {
+class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable, Codec {
     var imageIdentifier: String
     
-    init(imageIdentifier: String) {
-        self.imageIdentifier = imageIdentifier
+    required init(fromCodecResult codecResult: CodecResult) {
+        let extractor = CodecResultExtractor(codecResult)
+        self.imageIdentifier = extractor.get(CodecKeys.Image.imageIdentifier)!
+    }
+    
+    func encode() -> CodecResult {
+        return [
+            CodecKeys.Image.imageIdentifier: self.imageIdentifier
+        ]
     }
 }

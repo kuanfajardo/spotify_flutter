@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ImageApiHandler {
     static func handle_fetchImageForItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -15,21 +16,18 @@ struct ImageApiHandler {
             return
         }
         
-        guard let imageItemObject = args.object(forKey: Keys.ImageApi.imageItem) as? NSDictionary else {
-            result(keyCastError(Keys.ImageApi.imageItem, expectedType: NSDictionary.self))
+        guard let imageItemObject = args.object(forKey: HandlerKeys.ImageApi.imageItem) as? NSDictionary as? CodecResult else {
+            result(keyCastError(HandlerKeys.ImageApi.imageItem, expectedType: NSDictionary.self))
             return
         }
         
-        guard let sizeObject = args.object(forKey: Keys.ImageApi.size) as? NSDictionary else {
-            result(keyCastError(Keys.ImageApi.size, expectedType: NSDictionary.self))
+        guard let sizeObject = args.object(forKey: HandlerKeys.ImageApi.size) as? NSDictionary as? CodecResult else {
+            result(keyCastError(HandlerKeys.ImageApi.size, expectedType: NSDictionary.self))
             return
         }
         
-        // TODO: Decode imageItemObject
-        let imageItem: SPTAppRemoteImageRepresentable
-        
-        // TODO: Decode sizeObject
-        let size: CGSize
+        let imageItem = SpotifyImage(fromCodecResult: imageItemObject)
+        let size = sizeFromCodecResult(sizeObject)
         
         SpotifyChannelState.appRemote?.imageAPI?.fetchImage(forItem: imageItem, with: size) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
@@ -42,8 +40,24 @@ struct ImageApiHandler {
                 return
             }
             
-            // TODO: Encode image
-            result(FlutterMethodNotImplemented)
+            let encodedImage = codecObjectFromImage(image)
+            result(encodedImage)
         }
+    }
+    
+    private static func sizeFromCodecResult(_ codecResult: CodecResult) -> CGSize {
+        let extractor = CodecResultExtractor(codecResult)
+        
+        let width: Double = extractor.get(CodecKeys.CodecableSize.width)!
+        let height: Double = extractor.get(CodecKeys.CodecableSize.height)!
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    private static func codecObjectFromImage(_ image: UIImage) -> CodecResult {
+        let imageData = UIImagePNGRepresentation(image)
+        return [
+            CodecKeys.CodecableImage.imageData: imageData
+        ]
     }
 }

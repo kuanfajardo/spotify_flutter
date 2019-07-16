@@ -21,8 +21,8 @@ struct UserApiHandler {
                 return
             }
             
-            // TODO: Encode capabilities
-            result(FlutterMethodNotImplemented)
+            let encodedCapabilities = SpotifyUserCapabilities(fromSdkObject: capabilities).encode()
+            result(encodedCapabilities)
         }
     }
     
@@ -69,8 +69,8 @@ struct UserApiHandler {
                 return
             }
             
-            // TODO: Encode libraryState
-            result(FlutterMethodNotImplemented)
+            let encodedLibraryState = SpotifyLibraryState(fromSdkObject: libraryState).encode()
+            result(encodedLibraryState)
         }
     }
     

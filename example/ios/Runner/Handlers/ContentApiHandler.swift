@@ -28,19 +28,23 @@ struct ContentApiHandler {
                 return
             }
             
-            // TODO: Encode contentItems
-            result(FlutterMethodNotImplemented)
+            var encodedContentItems = [CodecResult]()
+            contentItems.forEach({ (contentItem: SPTAppRemoteContentItem) in
+                let concreteContentItem = SpotifyContentItem(fromSdkObject: contentItem)
+                encodedContentItems.append(concreteContentItem.encode())
+            })
+            
+            result(encodedContentItems)
         }
     }
     
     static func handle_fetchChildrenOfContentItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let contentItemObject = call.arguments as? NSDictionary else {
+        guard let contentItemObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return
         }
         
-        // TODO: Decode contentItemObject
-        let contentItem: SPTAppRemoteContentItem
+        let contentItem = SpotifyContentItem.init(fromCodecResult: contentItemObject)
         
         SpotifyChannelState.appRemote?.contentAPI?.fetchChildren(of: contentItem) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
@@ -53,8 +57,13 @@ struct ContentApiHandler {
                 return
             }
             
-            // TODO: Encode children
-            result(FlutterMethodNotImplemented)
+            var encodedChildren = [CodecResult]()
+            children.forEach({ (child: SPTAppRemoteContentItem) in
+                let concreteChild = SpotifyContentItem(fromSdkObject: child)
+                encodedChildren.append(concreteChild.encode())
+            })
+            
+            result(encodedChildren)
         }
     }
     
@@ -64,13 +73,13 @@ struct ContentApiHandler {
             return
         }
         
-        guard let rawContentType = args.object(forKey: Keys.ContentApi.contentType) as? NSNumber else {
-            result(keyCastError(Keys.ContentApi.contentType, expectedType: NSNumber.self))
+        guard let rawContentType = args.object(forKey: HandlerKeys.ContentApi.contentType) as? NSNumber else {
+            result(keyCastError(HandlerKeys.ContentApi.contentType, expectedType: NSNumber.self))
             return
         }
         
-        guard let cocoaFlattenContainers = args.object(forKey: Keys.ContentApi.flattenContainers) as? NSNumber else {
-            result(keyCastError(Keys.ContentApi.flattenContainers, expectedType: NSNumber.self))
+        guard let cocoaFlattenContainers = args.object(forKey: HandlerKeys.ContentApi.flattenContainers) as? NSNumber else {
+            result(keyCastError(HandlerKeys.ContentApi.flattenContainers, expectedType: NSNumber.self))
             return
         }
         
@@ -92,8 +101,13 @@ struct ContentApiHandler {
                 return
             }
             
-            // TODO: Encode contentItems
-            result(FlutterMethodNotImplemented)
+            var encodedContentItems = [CodecResult]()
+            contentItems.forEach({ (contentItem: SPTAppRemoteContentItem) in
+                let concreteContentItem = SpotifyContentItem(fromSdkObject: contentItem)
+                encodedContentItems.append(concreteContentItem.encode())
+            })
+            
+            result(encodedContentItems)
         }
     }
 }

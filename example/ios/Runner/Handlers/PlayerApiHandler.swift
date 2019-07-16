@@ -34,15 +34,14 @@ struct PlayerApiHandler {
             return
         }
         
-        guard let contentItemObject = args.object(forKey: Keys.PlayerApi.contentItem) as? NSDictionary else {
-            result(keyCastError(Keys.PlayerApi.contentItem, expectedType: NSDictionary.self))
+        guard let contentItemObject = args.object(forKey: HandlerKeys.PlayerApi.contentItem) as? NSDictionary as? CodecResult else {
+            result(keyCastError(HandlerKeys.PlayerApi.contentItem, expectedType: NSDictionary.self))
             return
         }
         
-        let cocoaStartIndex: NSNumber? = args.object(forKey: Keys.PlayerApi.startIndex) as? NSNumber
+        let cocoaStartIndex: NSNumber? = args.object(forKey: HandlerKeys.PlayerApi.startIndex) as? NSNumber
         
-        // TODO: Decode contentItemObject
-        let contentItem: SPTAppRemoteContentItem
+        let contentItem = SpotifyContentItem(fromCodecResult: contentItemObject)
         
         if cocoaStartIndex != nil {
             guard let startIndex = Int(exactly: cocoaStartIndex!) else {
@@ -222,8 +221,8 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Encode playerState
-            result(FlutterMethodNotImplemented)
+            let encodedPlayerState = SpotifyPlayerState(fromSdkObject: playerState).encode()
+            result(encodedPlayerState)
         }
     }
     
@@ -239,8 +238,8 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Encode playerState
-            result(FlutterMethodNotImplemented)
+            let encodedPlayerState = SpotifyPlayerState(fromSdkObject: playerState).encode()
+            result(encodedPlayerState)
         })
     }
     
@@ -288,8 +287,13 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Encode availablePodcastPlaybackSpeeds
-            result(FlutterMethodNotImplemented)
+            var encodedAvailablePodcastPlaybackSpeeds = [SpotifyPodcastPlaybackSpeed]()
+            availablePodcastPlaybackSpeeds.forEach({ (podcastPlaybackSpeed: SPTAppRemotePodcastPlaybackSpeed) in
+                let concretePodcastPlaybackSpeed = SpotifyPodcastPlaybackSpeed(fromSdkObject: podcastPlaybackSpeed)
+                encodedAvailablePodcastPlaybackSpeeds.append(concretePodcastPlaybackSpeed)
+            })
+            
+            result(encodedAvailablePodcastPlaybackSpeeds)
         }
     }
     
@@ -305,19 +309,18 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Encode currentPodcastPlaybackSpeed
-            result(FlutterMethodNotImplemented)
+            let encodedCurrentPodcastPlaybackSpeed = SpotifyPodcastPlaybackSpeed(fromSdkObject: currentPodcastPlaybackSpeed).encode()
+            result(encodedCurrentPodcastPlaybackSpeed)
         }
     }
     
     static func handle_setPodcastPlaybackSpeed_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let cocoaPlaybackSpeedObject = call.arguments as? NSDictionary else {
+        guard let playbackSpeedObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return
         }
         
-        // TODO: Decode cocoaPlaybackSpeedObject
-        let playbackSpeed: SPTAppRemotePodcastPlaybackSpeed
+        let playbackSpeed = SpotifyPodcastPlaybackSpeed(fromCodecResult: playbackSpeedObject)
         
         SpotifyChannelState.appRemote?.playerAPI?.setPodcastPlaybackSpeed(playbackSpeed) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
@@ -342,8 +345,8 @@ struct PlayerApiHandler {
                 return
             }
             
-            // TODO: Encode crossfadeState
-            result(FlutterMethodNotImplemented)
+            let encodedCrossfateState = SpotifyCrossfadeState(fromSdkObject: crossfadeState).encode()
+            result(encodedCrossfateState)
         }
     }
 }

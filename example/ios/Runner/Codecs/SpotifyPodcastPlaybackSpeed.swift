@@ -8,10 +8,19 @@
 
 import Foundation
 
-class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed {
+class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, Codec {
     var value: NSNumber
     
-    init(value: NSNumber) {
-        self.value = value
+    init(fromSdkObject object: SPTAppRemotePodcastPlaybackSpeed) {
+        self.value = object.value
+    }
+    
+    required init(fromCodecResult codecResult: CodecResult) {
+        let extractor = CodecResultExtractor(codecResult)
+        self.value = extractor.get(CodecKeys.PodcastPlaybackSpeed.value)!
+    }
+    
+    func encode() -> CodecResult {
+        return [CodecKeys.PodcastPlaybackSpeed.value : value]
     }
 }

@@ -10,6 +10,8 @@ class SpotifyContentItem implements Codec {
   final bool isAvailableOffline;
   final bool isPlayable;
   final bool isContainer;
+//  final List<SpotifyContentItem> children; TODO
+  final String imageIdentifier;
 
   SpotifyContentItem._from(Map<String, dynamic> codecResult) :
         title = codecResult[ModelKeys.title],
@@ -18,7 +20,9 @@ class SpotifyContentItem implements Codec {
         uri = codecResult[ModelKeys.uri],
         isAvailableOffline = codecResult[ModelKeys.isAvailableOffline],
         isPlayable = codecResult[ModelKeys.isPlayable],
-        isContainer = codecResult[ModelKeys.isContainer];
+        isContainer = codecResult[ModelKeys.isContainer],
+        imageIdentifier = codecResult[ModelKeys.imageIdentifier];
+//        children = codecResult[ModelKeys.children], TODO
 
   @override
   Map<String, dynamic> encode() {
@@ -30,6 +34,7 @@ class SpotifyContentItem implements Codec {
       ModelKeys.isAvailableOffline: this.isAvailableOffline,
       ModelKeys.isPlayable: this.isPlayable,
       ModelKeys.isContainer: this.isContainer,
+      ModelKeys.imageIdentifier: this.imageIdentifier,
     };
   }
 

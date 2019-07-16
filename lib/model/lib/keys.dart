@@ -6,6 +6,8 @@ const String uri = 'uri';
 const String isAvailableOffline = 'isAvailableOffline';
 const String isPlayable = 'isPlayable';
 const String isContainer = 'isContainer';
+const String children = 'children';
+const String imageIdentifier = 'imageIdentifier';
 
 // SpotifyTrack
 const String name = 'name';

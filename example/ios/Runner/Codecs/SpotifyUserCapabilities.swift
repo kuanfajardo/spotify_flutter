@@ -8,10 +8,19 @@
 
 import Foundation
 
-class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities {
+class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, Codec {
     var canPlayOnDemand: Bool
     
-    init(canPlayOnDemand: Bool) {
-        self.canPlayOnDemand = canPlayOnDemand
+    init(fromSdkObject object: SPTAppRemoteUserCapabilities) {
+        self.canPlayOnDemand = object.canPlayOnDemand
+    }
+    
+    required init(fromCodecResult codecResult: CodecResult) {
+        let extractor = CodecResultExtractor(codecResult)
+        self.canPlayOnDemand = extractor.get(CodecKeys.UserCapabilities.canPlayOnDemand)!
+    }
+    
+    func encode() -> CodecResult {
+        return [CodecKeys.UserCapabilities.canPlayOnDemand : canPlayOnDemand]
     }
 }

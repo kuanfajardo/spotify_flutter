@@ -29,21 +29,19 @@ enum SpotifyScope {
 
 enum SpotifyAuthorizationOptions { default_, client, }
 
-class SpotifySession {
-  final String _accessToken;
-  final String _refreshToken;
-  final DateTime _expirationDate;
-  final SpotifyScope _scope;
-  final bool _isExpired;
+class SpotifySession implements Decodable {
+  final String accessToken;
+  final String refreshToken;
+  final DateTime expirationDate;
+  final SpotifyScope scope;
+  final bool isExpired;
 
-  String get accessToken => this._accessToken;
-  String get refreshToken => this._refreshToken;
-  DateTime get expirationDate => this._expirationDate;
-  SpotifyScope get scope => this._scope;
-  bool get isExpired => this._isExpired;
+  SpotifySession._from(Map<String, dynamic> codecResult) :
+      accessToken = codecResult[SessionKeys.]
 
-  SpotifySession(this._accessToken, this._refreshToken, this._expirationDate,
-      this._scope, this._isExpired);
+  static SpotifySession from(Map<String, dynamic> codecResult) {
+    return SpotifySession._from(codecResult);
+  }
 }
 
 // Caller
@@ -51,7 +49,7 @@ class SpotifySessionManager {
   final SpotifyConfiguration configuration;
 
   Future<SpotifySession> get session {
-    return invokeMethod(SessionMethods.session);
+    return invokeMethod<SpotifySession>(SessionMethods.session);
   }
   
   SpotifySessionManagerDelegate delegate;

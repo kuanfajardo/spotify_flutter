@@ -24,13 +24,13 @@ struct SessionManagerHandler {
             return
         }
         
-        guard let rawScope = args.object(forKey: Keys.SessionManager.scope) as? NSNumber else {
-            result(keyCastError(Keys.SessionManager.scope, expectedType: NSNumber.self))
+        guard let rawScope = args.object(forKey: HandlerKeys.SessionManager.scope) as? NSNumber else {
+            result(keyCastError(HandlerKeys.SessionManager.scope, expectedType: NSNumber.self))
             return
         }
         
-        guard let rawOptions = args.object(forKey: Keys.SessionManager.options) as? NSNumber else {
-            result(keyCastError(Keys.SessionManager.options, expectedType: NSNumber.self))
+        guard let rawOptions = args.object(forKey: HandlerKeys.SessionManager.options) as? NSNumber else {
+            result(keyCastError(HandlerKeys.SessionManager.options, expectedType: NSNumber.self))
             return
         }
         
@@ -68,18 +68,17 @@ struct SessionManagerHandler {
             return
         }
         
-        // TODO: Encode session
-        result(FlutterMethodNotImplemented)
+        let encodedSession = session.encode()
+        result(encodedSession)
     }
     
     static func handle_initializeSessionManager_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let configurationObject = call.arguments as? NSDictionary else {
+        guard let configurationObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return
         }
         
-        // TODO: Decode configurationObject
-        let configuration: SPTConfiguration
+        let configuration = SPTConfiguration.configurationFromCodecObject(configurationObject)
         
         let sessionManager = SPTSessionManager(configuration: configuration, delegate: nil) // TODO: Delegate self
         

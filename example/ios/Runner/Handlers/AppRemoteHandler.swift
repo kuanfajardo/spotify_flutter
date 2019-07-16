@@ -31,28 +31,26 @@ struct AppRemoteHandler {
             return
         }
         
-        guard let configurationObject = args.object(forKey: Keys.AppRemote.configuration) as? NSDictionary else {
-            result(keyCastError(Keys.AppRemote.configuration, expectedType: NSDictionary.self))
+        guard let configurationObject = args.object(forKey: HandlerKeys.AppRemote.configuration) as? NSDictionary as? CodecResult else {
+            result(keyCastError(HandlerKeys.AppRemote.configuration, expectedType: NSDictionary.self))
             return
         }
         
-        guard let rawLogLevel = args.object(forKey: Keys.AppRemote.logLevel) as? NSNumber else {
-            result(keyCastError(Keys.AppRemote.logLevel, expectedType: NSNumber.self))
+        guard let rawLogLevel = args.object(forKey: HandlerKeys.AppRemote.logLevel) as? NSNumber else {
+            result(keyCastError(HandlerKeys.AppRemote.logLevel, expectedType: NSNumber.self))
             return
         }
         
-        let connectionParamsObject = args.object(forKey: Keys.AppRemote.connectionParams) as? NSDictionary
+        let connectionParamsObject = args.object(forKey: HandlerKeys.AppRemote.connectionParams) as? NSDictionary as? CodecResult
         
-        // TODO: Decode configurationObject
-        let configuration: SPTConfiguration
+        let configuration = SPTConfiguration.configurationFromCodecObject(configurationObject)
         
         guard let logLevel = SPTAppRemoteLogLevel(rawValue: rawLogLevel.uintValue) else {
             result(valueCastError("rawLogLevel", expectedType: SPTAppRemoteLogLevel.self))
             return
         }
         
-        // TODO: Decode connectionParamsObject (optional)
-        let connectionParams: SPTAppRemoteConnectionParams? = nil
+        let connectionParams = SPTAppRemoteConnectionParams.connectionParamsFromCodecObject(connectionParamsObject)
         
         let appRemote: SPTAppRemote
         
@@ -74,8 +72,8 @@ struct AppRemoteHandler {
             return
         }
         
-        // TODO: Encode connectionParams
-        result(FlutterMethodNotImplemented)
+        let encodedConnectionParams = connectionParams.encode()
+        result(encodedConnectionParams)
     }
     
     static func handle_isConnected_withCall(_ call: FlutterMethodCall, result: FlutterResult) {

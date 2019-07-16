@@ -19,7 +19,7 @@
 		569ED1E522DCC219001C37F5 /* UserApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E422DCC219001C37F5 /* UserApiHandler.swift */; };
 		569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */; };
 		569ED1E922DCC247001C37F5 /* SessionManagerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */; };
-		569ED1EB22DCC2DC001C37F5 /* HandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1EA22DCC2DC001C37F5 /* HandlerErrors.swift */; };
+		569ED1EB22DCC2DC001C37F5 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1EA22DCC2DC001C37F5 /* Errors.swift */; };
 		569ED1EF22DCC7CA001C37F5 /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 569ED1EE22DCC7CA001C37F5 /* notes.txt */; };
 		569ED1F122DCCC28001C37F5 /* SpotifyContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F022DCCC28001C37F5 /* SpotifyContentItem.swift */; };
 		569ED1F322DCCC4A001C37F5 /* SpotifyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F222DCCC4A001C37F5 /* SpotifyImage.swift */; };
@@ -28,6 +28,10 @@
 		569ED1F922DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */; };
 		569ED1FB22DCCC9A001C37F5 /* SpotifyLibraryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */; };
 		569ED20322DCCD55001C37F5 /* SpotifyUserCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */; };
+		569ED20522DCF7B4001C37F5 /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20422DCF7B4001C37F5 /* Codec.swift */; };
+		569ED20922DE8E02001C37F5 /* SPTSession+Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20822DE8E02001C37F5 /* SPTSession+Codec.swift */; };
+		569ED20B22DE8E11001C37F5 /* SPTConfiguration+Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20A22DE8E11001C37F5 /* SPTConfiguration+Codec.swift */; };
+		569ED20D22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20C22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift */; };
 		56BA988D22BFF1B20061F447 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740EEBA1CF902C7004384FC /* Flutter.framework */; };
@@ -65,7 +69,7 @@
 		569ED1E422DCC219001C37F5 /* UserApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiHandler.swift; sourceTree = "<group>"; };
 		569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRemoteHandler.swift; sourceTree = "<group>"; };
 		569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerHandler.swift; sourceTree = "<group>"; };
-		569ED1EA22DCC2DC001C37F5 /* HandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlerErrors.swift; sourceTree = "<group>"; };
+		569ED1EA22DCC2DC001C37F5 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		569ED1EE22DCC7CA001C37F5 /* notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
 		569ED1F022DCCC28001C37F5 /* SpotifyContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyContentItem.swift; sourceTree = "<group>"; };
 		569ED1F222DCCC4A001C37F5 /* SpotifyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyImage.swift; sourceTree = "<group>"; };
@@ -74,6 +78,10 @@
 		569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPodcastPlaybackSpeed.swift; sourceTree = "<group>"; };
 		569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLibraryState.swift; sourceTree = "<group>"; };
 		569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUserCapabilities.swift; sourceTree = "<group>"; };
+		569ED20422DCF7B4001C37F5 /* Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codec.swift; sourceTree = "<group>"; };
+		569ED20822DE8E02001C37F5 /* SPTSession+Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SPTSession+Codec.swift"; sourceTree = "<group>"; };
+		569ED20A22DE8E11001C37F5 /* SPTConfiguration+Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SPTConfiguration+Codec.swift"; sourceTree = "<group>"; };
+		569ED20C22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SPTAppRemoteConnectionParams+Codec.swift"; sourceTree = "<group>"; };
 		56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,7 +129,6 @@
 				569ED1E422DCC219001C37F5 /* UserApiHandler.swift */,
 				569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */,
 				569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */,
-				569ED1EA22DCC2DC001C37F5 /* HandlerErrors.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -135,8 +142,12 @@
 				569ED1F422DCCC5C001C37F5 /* SpotifyPlayerState.swift */,
 				569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */,
 				569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */,
-				569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */,
 				569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */,
+				569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */,
+				569ED20422DCF7B4001C37F5 /* Codec.swift */,
+				569ED20822DE8E02001C37F5 /* SPTSession+Codec.swift */,
+				569ED20A22DE8E11001C37F5 /* SPTConfiguration+Codec.swift */,
+				569ED20C22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift */,
 			);
 			path = Codecs;
 			sourceTree = "<group>";
@@ -188,6 +199,7 @@
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 				569ED1D622D94E72001C37F5 /* Methods.swift */,
+				569ED1EA22DCC2DC001C37F5 /* Errors.swift */,
 				569ED1DA22D961D0001C37F5 /* Keys.swift */,
 			);
 			path = Runner;
@@ -366,19 +378,23 @@
 				569ED1F922DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift in Sources */,
 				569ED1E922DCC247001C37F5 /* SessionManagerHandler.swift in Sources */,
 				569ED20322DCCD55001C37F5 /* SpotifyUserCapabilities.swift in Sources */,
-				569ED1EB22DCC2DC001C37F5 /* HandlerErrors.swift in Sources */,
+				569ED1EB22DCC2DC001C37F5 /* Errors.swift in Sources */,
 				569ED1E322DCC20E001C37F5 /* PlayerApiHandler.swift in Sources */,
 				569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */,
 				569ED1F322DCCC4A001C37F5 /* SpotifyImage.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				569ED1D722D94E72001C37F5 /* Methods.swift in Sources */,
+				569ED20922DE8E02001C37F5 /* SPTSession+Codec.swift in Sources */,
 				569ED1F722DCCC68001C37F5 /* SpotifyCrossfadeState.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				569ED20B22DE8E11001C37F5 /* SPTConfiguration+Codec.swift in Sources */,
 				569ED1E122DCC206001C37F5 /* ImageApiHandler.swift in Sources */,
 				569ED1DF22DCC1F8001C37F5 /* ContentApiHandler.swift in Sources */,
 				569ED1DB22D961D0001C37F5 /* Keys.swift in Sources */,
 				569ED1F522DCCC5C001C37F5 /* SpotifyPlayerState.swift in Sources */,
+				569ED20D22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift in Sources */,
 				569ED1E522DCC219001C37F5 /* UserApiHandler.swift in Sources */,
+				569ED20522DCF7B4001C37F5 /* Codec.swift in Sources */,
 				569ED1FB22DCCC9A001C37F5 /* SpotifyLibraryState.swift in Sources */,
 				569ED1F122DCCC28001C37F5 /* SpotifyContentItem.swift in Sources */,
 			);
