@@ -6,15 +6,6 @@ import 'package:spotify/api/lib/player/keys.dart' as PlayerKeys;
 
 enum SpotifyPlaybackOptionsRepeatMode { off, track, context, }
 
-void setup() {
-  Decoder.instance.registerCodecable<SpotifyPlaybackOptions>(SpotifyPlaybackOptions
-      .from);
-  Decoder.instance.registerCodecable<SpotifyCrossfadeState>
-    (SpotifyCrossfadeState.from);
-  Decoder.instance.registerCodecable<SpotifyPodcastPlaybackSpeed>
-    (SpotifyPodcastPlaybackSpeed.from);
-}
-
 // Caller
 class SpotifyPlayerAPI {
   SpotifyPlayerStateDelegate delegate;
