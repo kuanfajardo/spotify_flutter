@@ -24,7 +24,7 @@ struct SessionManagerHandler {
             return
         }
         
-        guard let rawScope = args.object(forKey: HandlerKeys.SessionManager.scope) as? NSNumber else {
+        guard let scopeObject = args.object(forKey: HandlerKeys.SessionManager.scope) as? NSDictionary as? CodecResult else {
             result(keyCastError(HandlerKeys.SessionManager.scope, expectedType: NSNumber.self))
             return
         }
@@ -34,7 +34,7 @@ struct SessionManagerHandler {
             return
         }
         
-        let scope = SPTScope(rawValue: rawScope.uintValue)
+        let scope = scopeFromCodecObject(scopeObject)
         let options = AuthorizationOptions(rawValue: rawOptions.uintValue)
         
         if #available(iOS 11.0, *) {
@@ -87,4 +87,10 @@ struct SessionManagerHandler {
         
         result(true)
     }
+}
+
+private func scopeFromCodecObject(_ codecResult: CodecResult) -> SPTScope {
+    let extractor = CodecResultExtractor(codecResult)
+    let bitmask: Int = extractor.get(CodecKeys.Scope.bitmask)!
+    return SPTScope(rawValue: UInt(bitmask))
 }

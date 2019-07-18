@@ -35,9 +35,10 @@ class Decoder {
     return this._decoders[T](codecResult);
   }
 
-  void registerCodecable<T extends Codec>(Codec decoder(Map<String,
+  void registerCodecable<T extends Decodable>(Object decoder(Map<String,
       dynamic> codecResult)) {
     this._decoders[T] = decoder;
+    print("Added decoder for " + T.toString());
   }
 
   bool canDecodeCustomType(Type t) {
@@ -47,8 +48,8 @@ class Decoder {
   bool canDecodeBuiltInType(Type t) {
     // For StandardMessageCodec; Note: other types are supported, just not used
     // by this API
-    List<Type> supportedTypes = [bool, double, int, num, Null,];
-    return supportedTypes.contains(t);
+    List<Type> supportedTypes = [String, bool, double, int, num, Null,];
+    return supportedTypes.contains(t);;
   }
 }
 
@@ -79,8 +80,9 @@ Future<T> invokeMethod<T>(String methodName, [dynamic args]) async {
 
   // Custom, not registered
   throw ArgumentError.value(T, 'T (expected type of channel method call)',
-      'Either T is not Codecable, or you forgot to register T with the '
-          'Decoder. See [Codecable] or [Decoder.registerCodecable()]');
+      'Either \'' + T.toString() + '\' is not Codecable, or you forgot to '
+      'register \'' + T.toString() + '\' with the Decoder. See [Codecable] '
+      'or [Decoder.registerCodecable()]');
 }
 
 Future<List<T>> invokeListMethod<T>(String methodName,
@@ -97,8 +99,9 @@ Future<List<T>> invokeListMethod<T>(String methodName,
 
   // Custom, not registered
   throw ArgumentError.value(T, 'T (expected type of channel method call)',
-      'Either T is not Codecable, or you forgot to register T with the '
-          'Decoder. See [Codecable] or [Decoder.registerCodecable()]');
+      'Either \'' + T.toString() + '\' is not Codecable, or you forgot to '
+      'register \'' + T.toString() + '\' with the Decoder. See [Codecable] or'
+      '[Decoder.registerCodecable()]');
 }
 
 Future<T> _invokeMethodBuiltIn<T>(String methodName, [dynamic args])

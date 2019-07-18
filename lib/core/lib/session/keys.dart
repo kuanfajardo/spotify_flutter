@@ -15,3 +15,6 @@ const String refreshToken = 'refreshToken';
 const String expirationDate = 'expirationDate';
 //const String scope = 'scope';
 const String isExpired = 'isExpired';
+
+// SpotifyScope
+const String bitmask = 'bitmask';

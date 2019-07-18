@@ -23,7 +23,7 @@ class SpotifyAppRemote {
 
   SpotifyAppRemoteDelegate delegate;
 
-  SpotifyAppRemote({this.configuration, this.logLevel,
+  SpotifyAppRemote({this.configuration, this.logLevel = SpotifyAppRemoteLogLevel.none,
     connectionParams}) {
     Map<String, dynamic> args = {
       AppRemoteKeys.configuration: configuration.encode(),

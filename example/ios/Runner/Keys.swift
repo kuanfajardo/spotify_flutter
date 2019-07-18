@@ -101,6 +101,9 @@ struct CodecKeys {
         static let scope = "scope"
         static let isExpired = "isExpired"
     }
+    struct Scope {
+        static let bitmask = "bitmask"
+    }
     struct CodecableSize {
         static let width = "width"
         static let height = "height"
