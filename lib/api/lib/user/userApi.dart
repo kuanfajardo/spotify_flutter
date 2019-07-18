@@ -29,7 +29,7 @@ class SpotifyUserAPI {
   }
 
   Future<bool> removeUriFromLibrary(Uri uri) { // tracks and albums
-    return invokeMethod(UserMethods.removeUriFromLibrary, uri.toString());
+    return invokeMethod<bool>(UserMethods.removeUriFromLibrary, uri.toString());
   }
 }
 

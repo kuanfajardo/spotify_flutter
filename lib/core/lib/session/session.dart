@@ -86,7 +86,8 @@ class SpotifySessionManager {
 //  bool alwaysShowAuthorizationDialog;
 
   SpotifySessionManager(this.configuration) {
-    invokeMethod(SessionMethods.initializeSessionManager, configuration.encode());
+    invokeMethod<void>(SessionMethods.initializeSessionManager, configuration
+        .encode());
   }
 
   Future<bool> isSpotifyAppInstalled() {
@@ -98,7 +99,7 @@ class SpotifySessionManager {
           .default_ }) {
     Map<String, dynamic> args = {
       SessionKeys.scope: scope.encode(),
-      SessionKeys.scope: options,
+      SessionKeys.scope: options.index,
     };
     return invokeMethod(SessionMethods.initiateSessionWithScope, args);
   }
@@ -106,7 +107,6 @@ class SpotifySessionManager {
   Future<void> renewSession() {
     return invokeMethod(SessionMethods.renewSession);
   }
-// openURL
 }
 
 abstract class SpotifySessionManagerDelegate {
@@ -142,9 +142,9 @@ class SpotifyConfiguration implements Codec {
   Map<String, dynamic> encode() {
     return {
       SessionKeys.clientId: this.clientId,
-      SessionKeys.redirectUrl: this.redirectUrl,
-      SessionKeys.tokenSwapUrl: this.tokenSwapUrl,
-      SessionKeys.tokenRefreshUrl: this.tokenRefreshUrl,
+      SessionKeys.redirectUrl: this.redirectUrl.toString(),
+      SessionKeys.tokenSwapUrl: this.tokenSwapUrl.toString(),
+      SessionKeys.tokenRefreshUrl: this.tokenRefreshUrl.toString(),
       SessionKeys.playUri: this.playUri,
     };
   }

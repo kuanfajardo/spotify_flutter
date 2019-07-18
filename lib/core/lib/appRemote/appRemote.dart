@@ -27,10 +27,12 @@ class SpotifyAppRemote {
     connectionParams}) {
     Map<String, dynamic> args = {
       AppRemoteKeys.configuration: configuration.encode(),
-      AppRemoteKeys.logLevel: logLevel,
-      AppRemoteKeys.connectionParams: connectionParams.encode()
+      AppRemoteKeys.logLevel: logLevel.index,
+      AppRemoteKeys.connectionParams: connectionParams != null
+          ? connectionParams.encode()
+          : null
     };
-    invokeMethod(AppRemoteMethods.initializeAppRemote, args);
+    invokeMethod<void>(AppRemoteMethods.initializeAppRemote, args);
   }
 
   static Future<bool> checkIfSpotifyAppIsActive() {

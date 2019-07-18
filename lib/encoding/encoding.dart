@@ -49,7 +49,7 @@ class Decoder {
     // For StandardMessageCodec; Note: other types are supported, just not used
     // by this API
     List<Type> supportedTypes = [String, bool, double, int, num, Null,];
-    return supportedTypes.contains(t);;
+    return supportedTypes.contains(t) || t.toString() == 'void';
   }
 }
 
