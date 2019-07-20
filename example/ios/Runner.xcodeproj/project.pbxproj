@@ -11,28 +11,7 @@
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		3B80C3941E831B6300D905FE /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; };
 		3B80C3951E831B6300D905FE /* App.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		569ED1D722D94E72001C37F5 /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1D622D94E72001C37F5 /* Methods.swift */; };
-		569ED1DB22D961D0001C37F5 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1DA22D961D0001C37F5 /* Keys.swift */; };
-		569ED1DF22DCC1F8001C37F5 /* ContentApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1DE22DCC1F8001C37F5 /* ContentApiHandler.swift */; };
-		569ED1E122DCC206001C37F5 /* ImageApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E022DCC206001C37F5 /* ImageApiHandler.swift */; };
-		569ED1E322DCC20E001C37F5 /* PlayerApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E222DCC20E001C37F5 /* PlayerApiHandler.swift */; };
-		569ED1E522DCC219001C37F5 /* UserApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E422DCC219001C37F5 /* UserApiHandler.swift */; };
-		569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */; };
-		569ED1E922DCC247001C37F5 /* SessionManagerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */; };
-		569ED1EB22DCC2DC001C37F5 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1EA22DCC2DC001C37F5 /* Errors.swift */; };
-		569ED1EF22DCC7CA001C37F5 /* notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 569ED1EE22DCC7CA001C37F5 /* notes.txt */; };
-		569ED1F122DCCC28001C37F5 /* SpotifyContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F022DCCC28001C37F5 /* SpotifyContentItem.swift */; };
-		569ED1F322DCCC4A001C37F5 /* SpotifyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F222DCCC4A001C37F5 /* SpotifyImage.swift */; };
-		569ED1F522DCCC5C001C37F5 /* SpotifyPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F422DCCC5C001C37F5 /* SpotifyPlayerState.swift */; };
-		569ED1F722DCCC68001C37F5 /* SpotifyCrossfadeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */; };
-		569ED1F922DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */; };
-		569ED1FB22DCCC9A001C37F5 /* SpotifyLibraryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */; };
-		569ED20322DCCD55001C37F5 /* SpotifyUserCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */; };
-		569ED20522DCF7B4001C37F5 /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20422DCF7B4001C37F5 /* Codec.swift */; };
-		569ED20922DE8E02001C37F5 /* SPTSession+Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20822DE8E02001C37F5 /* SPTSession+Codec.swift */; };
-		569ED20B22DE8E11001C37F5 /* SPTConfiguration+Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20A22DE8E11001C37F5 /* SPTConfiguration+Codec.swift */; };
-		569ED20D22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569ED20C22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift */; };
-		56BA988D22BFF1B20061F447 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */; };
+		569ED3E922E28C6B001C37F5 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740EEBA1CF902C7004384FC /* Flutter.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -61,31 +40,13 @@
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		3B80C3931E831B6300D905FE /* App.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = App.framework; path = Flutter/App.framework; sourceTree = "<group>"; };
-		569ED1D622D94E72001C37F5 /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
-		569ED1DA22D961D0001C37F5 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		569ED1DE22DCC1F8001C37F5 /* ContentApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentApiHandler.swift; sourceTree = "<group>"; };
-		569ED1E022DCC206001C37F5 /* ImageApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageApiHandler.swift; sourceTree = "<group>"; };
-		569ED1E222DCC20E001C37F5 /* PlayerApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerApiHandler.swift; sourceTree = "<group>"; };
-		569ED1E422DCC219001C37F5 /* UserApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiHandler.swift; sourceTree = "<group>"; };
-		569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRemoteHandler.swift; sourceTree = "<group>"; };
-		569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerHandler.swift; sourceTree = "<group>"; };
-		569ED1EA22DCC2DC001C37F5 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		569ED1EE22DCC7CA001C37F5 /* notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
-		569ED1F022DCCC28001C37F5 /* SpotifyContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyContentItem.swift; sourceTree = "<group>"; };
-		569ED1F222DCCC4A001C37F5 /* SpotifyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyImage.swift; sourceTree = "<group>"; };
-		569ED1F422DCCC5C001C37F5 /* SpotifyPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlayerState.swift; sourceTree = "<group>"; };
-		569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCrossfadeState.swift; sourceTree = "<group>"; };
-		569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPodcastPlaybackSpeed.swift; sourceTree = "<group>"; };
-		569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLibraryState.swift; sourceTree = "<group>"; };
-		569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUserCapabilities.swift; sourceTree = "<group>"; };
-		569ED20422DCF7B4001C37F5 /* Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codec.swift; sourceTree = "<group>"; };
-		569ED20822DE8E02001C37F5 /* SPTSession+Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SPTSession+Codec.swift"; sourceTree = "<group>"; };
-		569ED20A22DE8E11001C37F5 /* SPTConfiguration+Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SPTConfiguration+Codec.swift"; sourceTree = "<group>"; };
-		569ED20C22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SPTAppRemoteConnectionParams+Codec.swift"; sourceTree = "<group>"; };
+		3FBDC775957263284FE7EAA7 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		56BA988C22BFF1B20061F447 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		786761B5D5679DA618F16C74 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Pods/Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		7C9EBF2C847BD0262430565D /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		9740EEBA1CF902C7004384FC /* Flutter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Flutter.framework; path = Flutter/Flutter.framework; sourceTree = "<group>"; };
@@ -101,8 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				569ED3E922E28C6B001C37F5 /* SpotifyiOS.framework in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
-				56BA988D22BFF1B20061F447 /* SpotifyiOS.framework in Frameworks */,
 				3B80C3941E831B6300D905FE /* App.framework in Frameworks */,
 				AB59377BBFD4DB007475E3BF /* Pods_Runner.framework in Frameworks */,
 			);
@@ -118,38 +79,6 @@
 				007A9AB979AD2C6FA4DB5941 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		569ED1DD22DCC1E9001C37F5 /* Handlers */ = {
-			isa = PBXGroup;
-			children = (
-				569ED1DE22DCC1F8001C37F5 /* ContentApiHandler.swift */,
-				569ED1E022DCC206001C37F5 /* ImageApiHandler.swift */,
-				569ED1E222DCC20E001C37F5 /* PlayerApiHandler.swift */,
-				569ED1E422DCC219001C37F5 /* UserApiHandler.swift */,
-				569ED1E622DCC237001C37F5 /* AppRemoteHandler.swift */,
-				569ED1E822DCC247001C37F5 /* SessionManagerHandler.swift */,
-			);
-			path = Handlers;
-			sourceTree = "<group>";
-		};
-		569ED1ED22DCC792001C37F5 /* Codecs */ = {
-			isa = PBXGroup;
-			children = (
-				569ED1EE22DCC7CA001C37F5 /* notes.txt */,
-				569ED1F022DCCC28001C37F5 /* SpotifyContentItem.swift */,
-				569ED1F222DCCC4A001C37F5 /* SpotifyImage.swift */,
-				569ED1F422DCCC5C001C37F5 /* SpotifyPlayerState.swift */,
-				569ED1F822DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift */,
-				569ED1F622DCCC68001C37F5 /* SpotifyCrossfadeState.swift */,
-				569ED20222DCCD55001C37F5 /* SpotifyUserCapabilities.swift */,
-				569ED1FA22DCCC9A001C37F5 /* SpotifyLibraryState.swift */,
-				569ED20422DCF7B4001C37F5 /* Codec.swift */,
-				569ED20822DE8E02001C37F5 /* SPTSession+Codec.swift */,
-				569ED20A22DE8E11001C37F5 /* SPTConfiguration+Codec.swift */,
-				569ED20C22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift */,
-			);
-			path = Codecs;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -187,8 +116,6 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				569ED1ED22DCC792001C37F5 /* Codecs */,
-				569ED1DD22DCC1E9001C37F5 /* Handlers */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -198,9 +125,6 @@
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
-				569ED1D622D94E72001C37F5 /* Methods.swift */,
-				569ED1EA22DCC2DC001C37F5 /* Errors.swift */,
-				569ED1DA22D961D0001C37F5 /* Keys.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -215,6 +139,9 @@
 		C5213DB14B604C4055C0C792 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				7C9EBF2C847BD0262430565D /* Pods-Runner.debug.xcconfig */,
+				3FBDC775957263284FE7EAA7 /* Pods-Runner.release.xcconfig */,
+				786761B5D5679DA618F16C74 /* Pods-Runner.profile.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -285,7 +212,6 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
-				569ED1EF22DCC7CA001C37F5 /* notes.txt in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
@@ -306,7 +232,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" thin";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" thin\n";
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -320,30 +246,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 		D4351EA9DF35EA8D90C1F44D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
 				"${PODS_ROOT}/../.symlinks/flutter/ios/Flutter.framework",
 				"${BUILT_PRODUCTS_DIR}/spotify/spotify.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/spotify.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F3A737843A60BAC55A75C987 /* [CP] Check Pods Manifest.lock */ = {
@@ -375,28 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				569ED1F922DCCC7D001C37F5 /* SpotifyPodcastPlaybackSpeed.swift in Sources */,
-				569ED1E922DCC247001C37F5 /* SessionManagerHandler.swift in Sources */,
-				569ED20322DCCD55001C37F5 /* SpotifyUserCapabilities.swift in Sources */,
-				569ED1EB22DCC2DC001C37F5 /* Errors.swift in Sources */,
-				569ED1E322DCC20E001C37F5 /* PlayerApiHandler.swift in Sources */,
-				569ED1E722DCC237001C37F5 /* AppRemoteHandler.swift in Sources */,
-				569ED1F322DCCC4A001C37F5 /* SpotifyImage.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
-				569ED1D722D94E72001C37F5 /* Methods.swift in Sources */,
-				569ED20922DE8E02001C37F5 /* SPTSession+Codec.swift in Sources */,
-				569ED1F722DCCC68001C37F5 /* SpotifyCrossfadeState.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
-				569ED20B22DE8E11001C37F5 /* SPTConfiguration+Codec.swift in Sources */,
-				569ED1E122DCC206001C37F5 /* ImageApiHandler.swift in Sources */,
-				569ED1DF22DCC1F8001C37F5 /* ContentApiHandler.swift in Sources */,
-				569ED1DB22D961D0001C37F5 /* Keys.swift in Sources */,
-				569ED1F522DCCC5C001C37F5 /* SpotifyPlayerState.swift in Sources */,
-				569ED20D22DE8EB6001C37F5 /* SPTAppRemoteConnectionParams+Codec.swift in Sources */,
-				569ED1E522DCC219001C37F5 /* UserApiHandler.swift in Sources */,
-				569ED20522DCF7B4001C37F5 /* Codec.swift in Sources */,
-				569ED1FB22DCCC9A001C37F5 /* SpotifyLibraryState.swift in Sources */,
-				569ED1F122DCCC28001C37F5 /* SpotifyContentItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

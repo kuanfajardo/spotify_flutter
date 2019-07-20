@@ -2,3 +2,4 @@
 
 @interface SpotifyPlugin : NSObject<FlutterPlugin>
 @end
+

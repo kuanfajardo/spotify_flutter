@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec {
     var title: String?

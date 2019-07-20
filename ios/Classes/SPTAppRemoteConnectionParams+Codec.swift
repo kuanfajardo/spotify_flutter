@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 extension SPTAppRemoteConnectionParams {
     func encode() -> CodecResult {

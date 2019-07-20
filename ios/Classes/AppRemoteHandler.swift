@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 struct AppRemoteHandler {
     static func handle_checkIfSpotifyAppIsActive_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

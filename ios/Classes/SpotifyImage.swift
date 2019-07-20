@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable, Codec {
     var imageIdentifier: String

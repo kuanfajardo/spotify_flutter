@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 struct PlayerApiHandler {
     static func handle_play_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

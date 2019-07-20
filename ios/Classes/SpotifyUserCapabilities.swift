@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, Codec {
     var canPlayOnDemand: Bool

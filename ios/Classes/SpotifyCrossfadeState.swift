@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState, Codec {
     var isEnabled: Bool

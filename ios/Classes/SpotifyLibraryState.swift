@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState, Codec {
     var uri: String

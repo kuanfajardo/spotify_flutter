@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 struct SessionManagerHandler {
     static func handle_isSpotifyAppInstalled_withCall(_ call: FlutterMethodCall, result: FlutterResult) {

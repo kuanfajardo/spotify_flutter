@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SpotifyiOS
 
 struct ImageApiHandler {
     static func handle_fetchImageForItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 extension SPTConfiguration {
     static func configurationFromCodecObject(_ codecResult: CodecResult) -> SPTConfiguration {

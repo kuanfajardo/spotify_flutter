@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec {
     var track: SPTAppRemoteTrack

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 struct UserApiHandler {
     static func handle_fetchCapabilities_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

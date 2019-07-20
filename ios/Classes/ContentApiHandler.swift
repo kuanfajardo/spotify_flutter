@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 struct ContentApiHandler {
     static func handle_fetchRootContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

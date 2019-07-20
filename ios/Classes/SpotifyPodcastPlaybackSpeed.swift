@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpotifyiOS
 
 class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, Codec {
     var value: NSNumber
