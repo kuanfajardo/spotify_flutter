@@ -1,0 +1,4 @@
+module SpotifyiOS [system] {
+    header "/Users/juanfajardo/AndroidStudioProjects/spotify/ios/Frameworks/SpotifyiOS.framework/Headers/SpotifyiOS.h"
+    export *
+}
