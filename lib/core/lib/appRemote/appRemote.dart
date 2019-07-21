@@ -23,8 +23,18 @@ class SpotifyAppRemote {
 
   SpotifyAppRemoteDelegate delegate;
 
-  SpotifyAppRemote({this.configuration, this.logLevel = SpotifyAppRemoteLogLevel.none,
-    connectionParams}) {
+  SpotifyAppRemote._({this.configuration, this.logLevel});
+
+  static Future<SpotifyAppRemote> initialize({
+    SpotifyConfiguration configuration,
+    SpotifyAppRemoteLogLevel logLevel = SpotifyAppRemoteLogLevel.none,
+    connectionParams
+  }) async {
+    SpotifyAppRemote appRemote = SpotifyAppRemote._(
+        configuration: configuration,
+        logLevel: logLevel
+    );
+
     Map<String, dynamic> args = {
       AppRemoteKeys.configuration: configuration.encode(),
       AppRemoteKeys.logLevel: logLevel.index,
@@ -32,7 +42,8 @@ class SpotifyAppRemote {
           ? connectionParams.encode()
           : null
     };
-    invokeMethod<void>(AppRemoteMethods.initializeAppRemote, args);
+    await invokeMethod<void>(AppRemoteMethods.initializeAppRemote, args);
+    return appRemote;
   }
 
   static Future<bool> checkIfSpotifyAppIsActive() {

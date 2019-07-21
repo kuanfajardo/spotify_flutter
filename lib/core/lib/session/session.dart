@@ -85,9 +85,15 @@ class SpotifySessionManager {
 
 //  bool alwaysShowAuthorizationDialog;
 
-  SpotifySessionManager(this.configuration) {
-    invokeMethod<void>(SessionMethods.initializeSessionManager, configuration
-        .encode());
+  SpotifySessionManager._(this.configuration);
+
+  static Future<SpotifySessionManager> initialize(SpotifyConfiguration
+  configuration) async {
+    SpotifySessionManager sessionManager = SpotifySessionManager._
+      (configuration);
+    await invokeMethod<void>(SessionMethods.initializeSessionManager,
+        configuration.encode());
+    return sessionManager;
   }
 
   Future<bool> isSpotifyAppInstalled() {
