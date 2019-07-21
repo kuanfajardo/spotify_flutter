@@ -99,8 +99,9 @@ class SpotifySessionManager {
           .default_ }) {
     Map<String, dynamic> args = {
       SessionKeys.scope: scope.encode(),
-      SessionKeys.scope: options.index,
+      SessionKeys.options: options.index,
     };
+    print(args);
     return invokeMethod(SessionMethods.initiateSessionWithScope, args);
   }
 

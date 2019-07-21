@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _spotifyVersion = 'Unknown';
+  int _spotifyVersion = -2;
   SpotifyAppRemote _appRemote;
   SpotifySessionManager _sessionManager;
 
@@ -53,13 +53,13 @@ class _MyAppState extends State<MyApp> {
     SpotifyScope scope = SpotifyScope.appRemoteControl;
     sessionManager.initiateSessionWithScope(scope);
 
-    String spotifyVersion;
+    int spotifyVersion;
 
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       spotifyVersion = await SpotifyAppRemote.version();
     } on PlatformException {
-      spotifyVersion = 'Failed to get platform version.';
+      spotifyVersion = -1;
     }
 
     // If the widget was removed from the tree while the asynchronous platform

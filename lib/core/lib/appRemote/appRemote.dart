@@ -39,8 +39,8 @@ class SpotifyAppRemote {
     return invokeMethod<bool>(AppRemoteMethods.checkIfSpotifyAppIsActive);
   }
 
-  static Future<String> version() {
-    return invokeMethod<String>(AppRemoteMethods.version);
+  static Future<int> version() {
+    return invokeMethod<int>(AppRemoteMethods.version);
   }
 
   static Future<int> spotifyItunesItemIdentifier() {
