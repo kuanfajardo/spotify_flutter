@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 import 'package:spotify/encoding/encoding.dart';
 import 'package:spotify/utils/utils.dart';
 
@@ -8,12 +6,11 @@ import 'package:spotify/api/lib/image/keys.dart' as ImageKeys;
 
 // Caller
 class SpotifyImageAPI {
-  Future<Image> fetchImageForItem(SpotifyImageRepresentable imageItem, {Size
-  size}) {
-    CodecableSize encodableSize = CodecableSize(size);
+  Future<CodecableImage> fetchImageForItem(SpotifyImageRepresentable
+  imageItem, {CodecableSize size}) {
     Map<String, dynamic> args = {
       ImageKeys.imageItem: imageItem.encode(),
-      ImageKeys.size: encodableSize.encode()
+      ImageKeys.size: size.encode()
     };
 
     return invokeMethod<CodecableImage>(ImageMethods.fetchImageForItem, args);

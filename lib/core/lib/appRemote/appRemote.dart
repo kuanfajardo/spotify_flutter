@@ -1,5 +1,3 @@
-import 'dart:ui' show Size;
-
 import 'package:spotify/api/api.dart';
 import 'package:spotify/encoding/encoding.dart';
 import 'package:spotify/utils/utils.dart';
@@ -96,7 +94,7 @@ enum SpotifyAppRemoteConnectionParamsImageFormat { any, jpeg, png, }
 class SpotifyAppRemoteConnectionParams implements Codec {
   // IMMUTABLE, NOT REAL-TIME;
   final String accessToken;
-  final Size defaultImageSize;
+  final CodecableSize defaultImageSize;
   final SpotifyAppRemoteConnectionParamsImageFormat imageFormat;
 
   // Readonly, set by SDK, not user
@@ -112,10 +110,9 @@ class SpotifyAppRemoteConnectionParams implements Codec {
 
   @override
   Map<String, dynamic> encode() {
-    CodecableSize encodableDefaultImageSize = CodecableSize(this.defaultImageSize);
     return {
       AppRemoteKeys.accessToken: this.accessToken,
-      AppRemoteKeys.defaultImageSize: encodableDefaultImageSize.encode(),
+      AppRemoteKeys.defaultImageSize: this.defaultImageSize.encode(),
       AppRemoteKeys.imageFormat: this.imageFormat,
     };
   }

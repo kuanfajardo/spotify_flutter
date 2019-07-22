@@ -1,7 +1,4 @@
-import 'dart:ui' show Size;
 import 'dart:typed_data';
-
-import 'package:flutter/widgets.dart' show Image;
 
 import 'package:spotify/encoding/encoding.dart';
 
@@ -10,8 +7,11 @@ const String kHeight = 'height';
 
 const String kImageData = 'imageData';
 
-class CodecableSize extends Size implements Codec {
-  CodecableSize(Size size) : super(size.width, size.height);
+class CodecableSize implements Codec {
+  final double width;
+  final double height;
+
+  CodecableSize(this.width, this.height);
 
   @override
   Map<String, dynamic> encode() {
@@ -21,16 +21,20 @@ class CodecableSize extends Size implements Codec {
     };
   }
 
-  static Size from(Map<String, dynamic> codecResult) {
+  static CodecableSize from(Map<String, dynamic> codecResult) {
     double width = codecResult[kWidth];
     double height = codecResult[kHeight];
-    return Size(width, height);
+    return CodecableSize(width, height);
   }
 }
 
-class CodecableImage extends Image implements Decodable {
-  static Image from(Map<String, dynamic> codecResult) {
+class CodecableImage implements Decodable {
+  final Uint8List imageData;
+
+  CodecableImage(this.imageData);
+
+  static CodecableImage from(Map<String, dynamic> codecResult) {
     Uint8List imageData = codecResult[kImageData];
-    return Image.memory(imageData);
+    return CodecableImage(imageData);
   }
 }
