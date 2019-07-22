@@ -30,7 +30,7 @@ struct ImageApiHandler {
         let imageItem = SpotifyImage(fromCodecResult: imageItemObject)
         let size = sizeFromCodecResult(sizeObject)
         
-        SpotifyChannelState.appRemote?.imageAPI?.fetchImage(forItem: imageItem, with: size) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.imageAPI?.fetchImage(forItem: imageItem, with: size) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return

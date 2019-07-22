@@ -18,7 +18,7 @@ struct ContentApiHandler {
         
         let contentType = contentTypeForRawValue(rawContentType)
         
-        SpotifyChannelState.appRemote?.contentAPI?.fetchRootContentItems(forType: contentType) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.contentAPI?.fetchRootContentItems(forType: contentType) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -47,7 +47,7 @@ struct ContentApiHandler {
         
         let contentItem = SpotifyContentItem.init(fromCodecResult: contentItemObject)
         
-        SpotifyChannelState.appRemote?.contentAPI?.fetchChildren(of: contentItem) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.contentAPI?.fetchChildren(of: contentItem) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -91,7 +91,7 @@ struct ContentApiHandler {
             return
         }
         
-        SpotifyChannelState.appRemote?.contentAPI?.fetchRecommendedContentItems(forType: contentType, flattenContainers: flattenContainers) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.contentAPI?.fetchRecommendedContentItems(forType: contentType, flattenContainers: flattenContainers) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return

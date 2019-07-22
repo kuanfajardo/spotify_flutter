@@ -62,13 +62,13 @@ struct AppRemoteHandler {
         }
         
         // Set state
-        SpotifyChannelState.appRemote = appRemote
+        SwiftSpotifyPlugin.appRemote = appRemote
         
         result(true)
     }
     
     static func handle_connectionParameters_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let connectionParams = SpotifyChannelState.appRemote?.connectionParameters else {
+        guard let connectionParams = SwiftSpotifyPlugin.appRemote?.connectionParameters else {
             result(unavailableSdkValueError("AppRemote.connectionParameters"))
             return
         }
@@ -78,7 +78,7 @@ struct AppRemoteHandler {
     }
     
     static func handle_isConnected_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let isConnected = SpotifyChannelState.appRemote?.isConnected else {
+        guard let isConnected = SwiftSpotifyPlugin.appRemote?.isConnected else {
             result(unavailableSdkValueError("AppRemote.isConnected"))
             return
         }
@@ -87,12 +87,12 @@ struct AppRemoteHandler {
     }
     
     static func handle_connect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        SpotifyChannelState.appRemote?.connect()
+        SwiftSpotifyPlugin.appRemote?.connect()
         result(true)
     }
     
     static func handle_disconnect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        SpotifyChannelState.appRemote?.disconnect()
+        SwiftSpotifyPlugin.appRemote?.disconnect()
         result(true)
     }
     
@@ -104,7 +104,7 @@ struct AppRemoteHandler {
         
         let uri = String(cocoaUri)
         
-        SpotifyChannelState.appRemote!.authorizeAndPlayURI(uri)
+        SwiftSpotifyPlugin.appRemote!.authorizeAndPlayURI(uri)
         
         result(true)
     }
@@ -120,7 +120,7 @@ struct AppRemoteHandler {
             return
         }
         
-        SpotifyChannelState.appRemote?.authorizationParameters(from: url)
+        SwiftSpotifyPlugin.appRemote?.authorizationParameters(from: url)
         
         result(true)
     }

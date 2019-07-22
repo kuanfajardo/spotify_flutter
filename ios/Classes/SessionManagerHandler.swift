@@ -11,7 +11,7 @@ import SpotifyiOS
 
 struct SessionManagerHandler {
     static func handle_isSpotifyAppInstalled_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let isSpotifyAppInstalled = SpotifyChannelState.sessionManager?.isSpotifyAppInstalled else {
+        guard let isSpotifyAppInstalled = SwiftSpotifyPlugin.sessionManager?.isSpotifyAppInstalled else {
             result(unavailableSdkValueError("SessionManager.isSpotifyAppInstalled"))
             return
         }
@@ -39,16 +39,16 @@ struct SessionManagerHandler {
         let options = AuthorizationOptions(rawValue: rawOptions.uintValue)
         
         if #available(iOS 11.0, *) {
-            SpotifyChannelState.sessionManager?.initiateSession(with: scope, options: options)
+            SwiftSpotifyPlugin.sessionManager?.initiateSession(with: scope, options: options)
         } else {
             // Fallback on earlier versions
-            guard let controller = SpotifyChannelState.controller else {
-                result(result(unavailableSdkValueError("SpotifyChannelState.controller")))
+            guard let controller = SwiftSpotifyPlugin.controller else {
+                result(result(unavailableSdkValueError("SwiftSpotifyPlugin.controller")))
                 return
             }
             
             if #available(iOS 9.0, *) {
-                SpotifyChannelState.sessionManager?.initiateSession(with: scope, options: options, presenting: controller)
+                SwiftSpotifyPlugin.sessionManager?.initiateSession(with: scope, options: options, presenting: controller)
             } else {
                 // Fallback on unsupported versions
                 result(customSdkErrorWithMessage("Version of iOS in use is not supported. Please use version iOS 11 or greater."))
@@ -59,12 +59,12 @@ struct SessionManagerHandler {
     }
     
     static func handle_renewSession_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        SpotifyChannelState.sessionManager?.renewSession()
+        SwiftSpotifyPlugin.sessionManager?.renewSession()
         result(true)
     }
     
     static func handle_session_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let session = SpotifyChannelState.session else {
+        guard let session = SwiftSpotifyPlugin.session else {
             result(unavailableSdkValueError("SessionManager.session"))
             return
         }
@@ -84,7 +84,7 @@ struct SessionManagerHandler {
         let sessionManager = SPTSessionManager(configuration: configuration, delegate: nil) // TODO: Delegate self
         
         // Set state
-        SpotifyChannelState.sessionManager = sessionManager
+        SwiftSpotifyPlugin.sessionManager = sessionManager
         
         result(true)
     }

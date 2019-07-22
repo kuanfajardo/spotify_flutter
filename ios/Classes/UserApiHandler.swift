@@ -11,7 +11,7 @@ import SpotifyiOS
 
 struct UserApiHandler {
     static func handle_fetchCapabilities_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        SpotifyChannelState.appRemote?.userAPI?.fetchCapabilities { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.userAPI?.fetchCapabilities { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -28,7 +28,7 @@ struct UserApiHandler {
     }
     
     static func handle_subscribeToCapabilityChanges_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        SpotifyChannelState.appRemote?.userAPI?.subscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.userAPI?.subscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -40,7 +40,7 @@ struct UserApiHandler {
     }
     
     static func handle_unsubscribeToCapabilityChanges_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        SpotifyChannelState.appRemote?.userAPI?.unsubscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.userAPI?.unsubscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -59,7 +59,7 @@ struct UserApiHandler {
         
         let uri = String(cocoaUri)
         
-        SpotifyChannelState.appRemote?.userAPI?.fetchLibraryState(forURI: uri) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.userAPI?.fetchLibraryState(forURI: uri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -83,7 +83,7 @@ struct UserApiHandler {
         
         let uri = String(cocoaUri)
         
-        SpotifyChannelState.appRemote?.userAPI?.addItemToLibrary(withURI: uri) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.userAPI?.addItemToLibrary(withURI: uri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
@@ -102,7 +102,7 @@ struct UserApiHandler {
         
         let uri = String(cocoaUri)
         
-        SpotifyChannelState.appRemote?.userAPI?.removeItemFromLibrary(withURI: uri) { (sdkResult: Any?, error: Error?) in
+        SwiftSpotifyPlugin.appRemote?.userAPI?.removeItemFromLibrary(withURI: uri) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
                 return
