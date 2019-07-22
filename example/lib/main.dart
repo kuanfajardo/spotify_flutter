@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 
 import 'package:spotify/spotify.dart';
 
+import 'package:tabbed_scaffold/tabbed_scaffold.dart';
+
 void main() => runApp(MyApp());
 
 const String tokenSwapUrlString = "http://localhost:1234/swap";
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initSpotify();
+//    initSpotify();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -43,9 +45,10 @@ class _MyAppState extends State<MyApp> {
     configuration.tokenSwapUrl = Uri.dataFromString(tokenSwapUrlString);
     configuration.tokenRefreshUrl = Uri.dataFromString(tokenRefreshUrlString);
 
-    SpotifySessionManager sessionManager = SpotifySessionManager(configuration);
+    SpotifySessionManager sessionManager = await SpotifySessionManager
+        .initialize(configuration);
 
-    SpotifyAppRemote appRemote = SpotifyAppRemote(
+    SpotifyAppRemote appRemote = await SpotifyAppRemote.initialize(
         configuration: configuration,
         logLevel: SpotifyAppRemoteLogLevel.debug
     );

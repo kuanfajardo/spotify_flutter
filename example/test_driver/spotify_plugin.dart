@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:flutter_test/flutter_test.dart';
-
+//import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:spotify/spotify.dart';
 
 SpotifyAppRemote appRemote;
@@ -12,6 +12,8 @@ void main() {
   enableFlutterDriverExtension(handler: (_) => completer.future);
 
   setUpAll(() async {
+    setup();
+
     const String tokenSwapUrlString = "http://localhost:1234/swap";
     const String tokenRefreshUrlString = "http://localhost:1234/refresh";
 
