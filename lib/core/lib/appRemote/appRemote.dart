@@ -13,27 +13,27 @@ enum SpotifyAppRemoteLogLevel { none, debug, info, error, }
 class SpotifyAppRemote {
   final SpotifyConfiguration configuration;
   final SpotifyAppRemoteLogLevel logLevel;
-  SpotifyAppRemoteConnectionParams connectionParams; // TODO: Maybe final,
-  // make new instance when replace connection params
+  // TODO: Maybe final, make new instance when replace connection params
+  SpotifyAppRemoteConnectionParams connectionParams;
 
   final SpotifyPlayerAPI _playerAPI = SpotifyPlayerAPI();
   final SpotifyImageAPI _imageAPI = SpotifyImageAPI();
   final SpotifyUserAPI _userAPI = SpotifyUserAPI();
   final SpotifyContentAPI _contentAPI = SpotifyContentAPI();
 
-  bool _cachedIsConnected = false;
+  bool isConnected;
 
-  SpotifyPlayerAPI get playerAPI => _cachedIsConnected ? _playerAPI : null;
-  SpotifyImageAPI get imageAPI => _cachedIsConnected ? _imageAPI : null;
-  SpotifyUserAPI get userAPI => _cachedIsConnected ? _userAPI : null;
-  SpotifyContentAPI get contentAPI => _cachedIsConnected ? _contentAPI : null;
+  SpotifyPlayerAPI get playerAPI => isConnected ? _playerAPI : null;
+  SpotifyImageAPI get imageAPI => isConnected ? _imageAPI : null;
+  SpotifyUserAPI get userAPI => isConnected ? _userAPI : null;
+  SpotifyContentAPI get contentAPI => isConnected ? _contentAPI : null;
 
   SpotifyAppRemote._({this.configuration, this.logLevel, this.connectionParams});
 
   static Future<SpotifyAppRemote> initialize({
     SpotifyConfiguration configuration,
     SpotifyAppRemoteLogLevel logLevel = SpotifyAppRemoteLogLevel.none,
-    connectionParams
+    SpotifyAppRemoteConnectionParams connectionParams
   }) async {
     SpotifyAppRemote appRemote = SpotifyAppRemote._(
         configuration: configuration,
@@ -61,10 +61,6 @@ class SpotifyAppRemote {
 
   static Future<int> spotifyItunesItemIdentifier() {
     return invokeMethod<int>(AppRemoteMethods.spotifyItunesItemIdentifier);
-  }
-
-  Future<bool> get isConnected {
-    return invokeMethod<bool>(AppRemoteMethods.isConnected);
   }
 
   Future<void> connect() {

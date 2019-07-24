@@ -2,9 +2,9 @@ import 'package:spotify/core/core.dart' show SpotifyAppRemote;
 
 abstract class AppRemoteState {
   final SpotifyAppRemote appRemote;
-  bool isConnected = false;
   Exception exception;
 
+  bool get isConnected => this.appRemote.isConnected;
   bool get isInitialized;
 
   AppRemoteState._([this.appRemote]);
@@ -51,16 +51,20 @@ class _InitializedAppRemoteState extends AppRemoteState {
 
   @override
   AppRemoteState asConnected() {
-    return this..isConnected = true;
+    return this..appRemote.isConnected = true;
   }
 
   @override
   AppRemoteState asConnectionFailure(String errorMessage) {
-    return this..isConnected = false..exception = Exception(errorMessage);
+    return this
+      ..appRemote.isConnected = false
+      ..exception = Exception(errorMessage);
   }
 
   @override
   AppRemoteState asDisconnected(String errorMessage) {
-    return this..isConnected = false..exception = Exception(errorMessage);
+    return this
+      ..appRemote.isConnected = false
+      ..exception = Exception(errorMessage);
   }
 }

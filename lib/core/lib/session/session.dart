@@ -84,7 +84,7 @@ class SpotifySessionManager {
   SpotifySessionManager._(this.configuration);
 
   static Future<SpotifySessionManager> initialize(SpotifyConfiguration
-  configuration) async {
+    configuration) async {
     SpotifySessionManager sessionManager = SpotifySessionManager._
       (configuration);
     await invokeMethod<void>(SessionMethods.initializeSessionManager,
