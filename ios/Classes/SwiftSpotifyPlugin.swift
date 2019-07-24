@@ -3,6 +3,17 @@ import UIKit
 import SpotifyiOS
 import os
 
+struct FlutterChannel {
+    // MethodChannel
+    static let methods = "spotify"
+    
+    // EventChannel
+    static let appRemoteDelegate = "appRemoteDelegate"
+    static let sessionManagerDelegate = "sessionManagerDelegate"
+    static let playerState = "playerState"
+    static let userCapabilities = "userCapabilities"
+}
+
 public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
     // MARK - State
     public static var appRemote: SPTAppRemote?
@@ -13,15 +24,43 @@ public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
         }
     }
     
+    public static var methodChannel: FlutterMethodChannel?
+    
+    public static var appRemoteEventSink: FlutterEventSink?
+    public static var sessionManagerEventSink: FlutterEventSink?
+    public static var playerStateEventSink: FlutterEventSink?
+    public static var userCapabilitiesEventSink: FlutterEventSink?
+    
     // For SPTSessionManager initiateSession: pre-iOS 11
     public static var controller: UIViewController?
+    
+    // TODO: Singleton, convert ^ static vars to instance vars
     
     // MARK - FlutterPlugin
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "spotify", binaryMessenger: registrar.messenger())
+        let binaryMessenger = registrar.messenger();
         let instance = SwiftSpotifyPlugin()
-        registrar.addMethodCallDelegate(instance, channel: channel)
+
+        // Method Channel
+        let methodChannel = FlutterMethodChannel(name: FlutterChannel.methods, binaryMessenger: binaryMessenger)
+        registrar.addMethodCallDelegate(instance, channel: methodChannel)
+        
+        // Set State
+        SwiftSpotifyPlugin.methodChannel = methodChannel
+        
+        // Event Channels
+        let appRemoteDelegateChannel = FlutterEventChannel(name: FlutterChannel.appRemoteDelegate, binaryMessenger: binaryMessenger);
+        appRemoteDelegateChannel.setStreamHandler(AppRemoteDelegateStreamHandler())
+        
+        let sessionManagerDelegateChannel = FlutterEventChannel(name: FlutterChannel.sessionManagerDelegate, binaryMessenger: binaryMessenger);
+        sessionManagerDelegateChannel.setStreamHandler(SessionManagerDelegateStreamHandler())
+        
+        let playerStateEventChannel = FlutterEventChannel(name: FlutterChannel.playerState, binaryMessenger: binaryMessenger);
+        playerStateEventChannel.setStreamHandler(PlayerStateStreamHandler())
+        
+        let userCapabilitiesEventChannel = FlutterEventChannel(name: FlutterChannel.userCapabilities, binaryMessenger: binaryMessenger);
+        userCapabilitiesEventChannel.setStreamHandler(UserCapabilitiesStreamHandler())
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -136,49 +175,86 @@ public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
-    
+}
+
+extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, SPTAppRemoteUserAPIDelegate, SPTAppRemotePlayerStateDelegate {
     // MARK - SPTSessionManagerDelegate
     
     public func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
+            // TODO: Encode session
+            let args: Dictionary<String, Any?> = [:]
+            sink(args)
+        }
     }
     
     public func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
+            // TODO: Encode error
+            let error = ""
+            sink(error)
+        }
     }
     
     public func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
+            // TODO: Encode session
+            let args: Dictionary<String, Any?> = [:]
+            sink(args)
+        }
     }
     
+    // TODO: Have to have value preset in config
     public func sessionManager(manager: SPTSessionManager, shouldRequestAccessTokenWith code: String) -> Bool {
-        // TODO
         return true
     }
     
     // MARK - SPTAppRemotePlayerStateDelegate
     
     public func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.playerStateEventSink {
+            // TODO: Encode playerState
+            let args: Dictionary<String, Any?> = [:]
+            sink(args)
+        }
     }
     
     // MARK - SPTAppRemoteUserAPIDelegate
     
     public func userAPI(_ userAPI: SPTAppRemoteUserAPI, didReceive capabilities: SPTAppRemoteUserCapabilities) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.userCapabilitiesEventSink {
+            // TODO: Encode capabilities
+            let args: Dictionary<String, Any?> = [:]
+            sink(args)
+        }
     }
     
     // MARK - SPTAppRemoteDelegate
     
     public func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
+            // TODO: Encode appRemote
+            let args: Dictionary<String, Any?> = [:]
+            sink(args)
+        }
+        
+        // Set state
+        SwiftSpotifyPlugin.appRemote = appRemote
     }
     
     public func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
+            // TODO: Encode error
+            let error = ""
+            sink(error)
+        }
     }
     
     public func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
-        // TODO
+        if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
+            // TODO: Encode error
+            let error = ""
+            sink(error)
+        }
     }
 }
