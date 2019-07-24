@@ -7,6 +7,8 @@ import 'package:spotify/spotify.dart';
 
 import 'package:tabbed_scaffold/tabbed_scaffold.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 void main() => runApp(MyApp());
 
 const String tokenSwapUrlString = "http://localhost:1234/swap";
@@ -21,6 +23,8 @@ class _MyAppState extends State<MyApp> {
   int _spotifyVersion = -2;
   SpotifyAppRemote _appRemote;
   SpotifySessionManager _sessionManager;
+  SessionManagerBloc _sessionManagerDelegateBloc = SessionManagerBloc();
+  AppRemoteBloc _appRemoteBloc = AppRemoteBloc();
 
   @override
   void initState() {
@@ -32,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> initSpotify() async {
     setup();
 
+    // Setup Configuration
     final String clientId = "a099d4e024644ce8898e125862644b93";
     final String redirectUriString = "flutter-spotify-example://spotify-login"
         "-callback";
@@ -45,36 +50,34 @@ class _MyAppState extends State<MyApp> {
     configuration.tokenSwapUrl = Uri.dataFromString(tokenSwapUrlString);
     configuration.tokenRefreshUrl = Uri.dataFromString(tokenRefreshUrlString);
 
+    // Setup Session Manager
     SpotifySessionManager sessionManager = await SpotifySessionManager
         .initialize(configuration);
 
+    _sessionManagerDelegateBloc.onInit(sessionManager);
+
+    // Setup App Remote
     SpotifyAppRemote appRemote = await SpotifyAppRemote.initialize(
         configuration: configuration,
         logLevel: SpotifyAppRemoteLogLevel.debug
     );
 
-    SpotifyScope scope = SpotifyScope.appRemoteControl;
-    sessionManager.initiateSessionWithScope(scope);
+    _appRemoteBloc.onInit(appRemote);
 
-    int spotifyVersion;
-
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      spotifyVersion = await SpotifyAppRemote.version();
-    } on PlatformException {
-      spotifyVersion = -1;
-    }
-
+    // Set State
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
-      _spotifyVersion = spotifyVersion;
       _appRemote = appRemote;
       _sessionManager = sessionManager;
     });
+
+    // Initiate Session
+    SpotifyScope scope = SpotifyScope.appRemoteControl;
+    sessionManager.initiateSessionWithScope(scope);
   }
 
   @override
@@ -84,9 +87,17 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_spotifyVersion\n'),
-        ),
+        body: BlocBuilder(
+          bloc: _sessionManagerDelegateBloc,
+          builder: (context, SessionManagerState state) {
+            return Center(
+              child: Text(state.session != null
+                  ? 'Running on: $_spotifyVersion\n'
+                  : 'Not Initiated'
+              ),
+            );
+          }
+        )
       ),
     );
   }

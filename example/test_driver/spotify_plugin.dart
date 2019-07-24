@@ -55,32 +55,6 @@ void main() {
   });
 }
 
-class TestingDelegate implements SpotifySessionManagerDelegate {
-  @override
-  void sessionManagerDidInitiateSession(SpotifySession session,
-      [SpotifySessionManager sessionManager]) async {
-    await appRemote.connect();
-  }
-
-  @override
-  void sessionManagerShouldRequestAccessTokenWithAuthorizationCode(
-      String authorizationCode, [SpotifySessionManager sessionManager]) {
-
-  }
-
-  @override
-  void sessionManagerDidRenewSession(SpotifySession session,
-      [SpotifySessionManager sessionManager]) {
-
-  }
-
-  @override
-  void sessionManagerDidFailWithException(Exception e,
-      [SpotifySessionManager sessionManager]) {
-
-  }
-}
-
 void contentApiTest() {
   test('fetchRootContentItemsForType', () async {
     List<SpotifyContentItem> contentItems = await appRemote.contentAPI
