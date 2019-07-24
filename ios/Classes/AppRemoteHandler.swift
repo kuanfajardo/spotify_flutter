@@ -62,14 +62,15 @@ struct AppRemoteHandler {
         }
         
         // Set state
-        SwiftSpotifyPlugin.appRemote = appRemote
+        SwiftSpotifyPlugin.instance.appRemote = appRemote
+        appRemote.delegate = SwiftSpotifyPlugin.instance;
         
         // TODO: Return connection params
         result(true)
     }
     
     static func handle_connectionParameters_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let connectionParams = SwiftSpotifyPlugin.appRemote?.connectionParameters else {
+        guard let connectionParams = SwiftSpotifyPlugin.instance.appRemote?.connectionParameters else {
             result(unavailableSdkValueError("AppRemote.connectionParameters"))
             return
         }
@@ -79,7 +80,7 @@ struct AppRemoteHandler {
     }
     
     static func handle_isConnected_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        guard let isConnected = SwiftSpotifyPlugin.appRemote?.isConnected else {
+        guard let isConnected = SwiftSpotifyPlugin.instance.appRemote?.isConnected else {
             result(unavailableSdkValueError("AppRemote.isConnected"))
             return
         }
@@ -88,12 +89,12 @@ struct AppRemoteHandler {
     }
     
     static func handle_connect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        SwiftSpotifyPlugin.appRemote?.connect()
+        SwiftSpotifyPlugin.instance.appRemote?.connect()
         result(true)
     }
     
     static func handle_disconnect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
-        SwiftSpotifyPlugin.appRemote?.disconnect()
+        SwiftSpotifyPlugin.instance.appRemote?.disconnect()
         result(true)
     }
     
@@ -105,7 +106,7 @@ struct AppRemoteHandler {
         
         let uri = String(cocoaUri)
         
-        SwiftSpotifyPlugin.appRemote!.authorizeAndPlayURI(uri)
+        SwiftSpotifyPlugin.instance.appRemote?.authorizeAndPlayURI(uri)
         
         result(true)
     }
@@ -121,7 +122,7 @@ struct AppRemoteHandler {
             return
         }
         
-        SwiftSpotifyPlugin.appRemote?.authorizationParameters(from: url)
+        SwiftSpotifyPlugin.instance.appRemote?.authorizationParameters(from: url)
         
         result(true)
     }

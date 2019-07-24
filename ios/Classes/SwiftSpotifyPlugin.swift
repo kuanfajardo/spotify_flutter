@@ -15,39 +15,34 @@ struct FlutterChannel {
 }
 
 public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
+    // TODO: Review public modifiers
     // MARK - State
-    public static var appRemote: SPTAppRemote?
-    public static var sessionManager: SPTSessionManager?
-    public static var session: SPTSession? {
-        get {
-            return SwiftSpotifyPlugin.sessionManager?.session
-        }
-    }
+    public var appRemote: SPTAppRemote?
+    public var sessionManager: SPTSessionManager?
     
-    public static var methodChannel: FlutterMethodChannel?
+    public var methodChannel: FlutterMethodChannel?
     
-    public static var appRemoteEventSink: FlutterEventSink?
-    public static var sessionManagerEventSink: FlutterEventSink?
-    public static var playerStateEventSink: FlutterEventSink?
-    public static var userCapabilitiesEventSink: FlutterEventSink?
+    public var appRemoteEventSink: FlutterEventSink?
+    public var sessionManagerEventSink: FlutterEventSink?
+    public var playerStateEventSink: FlutterEventSink?
+    public var userCapabilitiesEventSink: FlutterEventSink?
     
     // For SPTSessionManager initiateSession: pre-iOS 11
-    public static var controller: UIViewController?
+    public var controller: UIViewController?
     
-    // TODO: Singleton, convert ^ static vars to instance vars
+    public static let instance: SwiftSpotifyPlugin = SwiftSpotifyPlugin()
     
     // MARK - FlutterPlugin
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let binaryMessenger = registrar.messenger();
-        let instance = SwiftSpotifyPlugin()
 
         // Method Channel
         let methodChannel = FlutterMethodChannel(name: FlutterChannel.methods, binaryMessenger: binaryMessenger)
-        registrar.addMethodCallDelegate(instance, channel: methodChannel)
+        registrar.addMethodCallDelegate(SwiftSpotifyPlugin.instance, channel: methodChannel)
         
         // Set State
-        SwiftSpotifyPlugin.methodChannel = methodChannel
+        SwiftSpotifyPlugin.instance.methodChannel = methodChannel
         
         // Event Channels
         let appRemoteDelegateChannel = FlutterEventChannel(name: FlutterChannel.appRemoteDelegate, binaryMessenger: binaryMessenger);
@@ -181,21 +176,21 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     // MARK - SPTSessionManagerDelegate
     
     public func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        SwiftSpotifyPlugin.appRemote?.connectionParameters.accessToken = session.accessToken
+        self.appRemote?.connectionParameters.accessToken = session.accessToken
         // TODO: Call method to update connection params? Or event for new access token...
-        if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
+        if let sink = self.sessionManagerEventSink {
             sink(sessionManagerEvent(.didInitiate, args: session.encode()))
         }
     }
     
     public func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
+        if let sink = self.sessionManagerEventSink {
             sink(sessionManagerEvent(.didFail, args: error.localizedDescription))
         }
     }
     
     public func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-        if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
+        if let sink = self.sessionManagerEventSink {
             sink(nil)
         }
     }
@@ -208,7 +203,7 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     // MARK - SPTAppRemotePlayerStateDelegate
     
     public func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-        if let sink = SwiftSpotifyPlugin.playerStateEventSink {
+        if let sink = self.playerStateEventSink {
             sink(SpotifyPlayerState(fromSdkObject: playerState).encode())
         }
     }
@@ -216,7 +211,7 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     // MARK - SPTAppRemoteUserAPIDelegate
     
     public func userAPI(_ userAPI: SPTAppRemoteUserAPI, didReceive capabilities: SPTAppRemoteUserCapabilities) {
-        if let sink = SwiftSpotifyPlugin.userCapabilitiesEventSink {
+        if let sink = self.userCapabilitiesEventSink {
             sink(SpotifyUserCapabilities(fromSdkObject: capabilities).encode())
         }
     }
@@ -224,20 +219,37 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     // MARK - SPTAppRemoteDelegate
     
     public func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-        if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
+        if let sink = self.appRemoteEventSink {
             sink(appRemoteEvent(.didConnect))
         }
+        
+        self.appRemote?.playerAPI?.delegate = self
+        self.appRemote?.playerAPI?.subscribe(toPlayerState: nil)
+        
+        self.appRemote?.userAPI?.delegate = self
+        self.appRemote?.userAPI?.subscribe(toCapabilityChanges: nil)
     }
     
     public func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
-        if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
+        if let sink = self.appRemoteEventSink {
             sink(appRemoteEvent(.didFailToConnect, args: error?.localizedDescription))
         }
     }
     
     public func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
-        if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
+        if let sink = self.appRemoteEventSink {
             sink(appRemoteEvent(.didDisconnect, args: error?.localizedDescription))
         }
+    }
+}
+
+public extension SwiftSpotifyPlugin {
+    func application(_ app:  UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) {
+        self.sessionManager?.application(app, open: url, options: options)
+    }
+    
+    @available(iOS, deprecated: 11.0)
+    func setAuthPresentingController(_ controller: UIViewController?) {
+        self.controller = controller
     }
 }
