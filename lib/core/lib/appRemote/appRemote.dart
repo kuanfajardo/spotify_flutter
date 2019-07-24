@@ -13,15 +13,21 @@ enum SpotifyAppRemoteLogLevel { none, debug, info, error, }
 class SpotifyAppRemote {
   final SpotifyConfiguration configuration;
   final SpotifyAppRemoteLogLevel logLevel;
+  final SpotifyAppRemoteConnectionParams connectionParams;
 
-  final SpotifyPlayerAPI playerAPI = SpotifyPlayerAPI();
-  final SpotifyImageAPI imageAPI = SpotifyImageAPI();
-  final SpotifyUserAPI userAPI = SpotifyUserAPI();
-  final SpotifyContentAPI contentAPI = SpotifyContentAPI();
+  final SpotifyPlayerAPI _playerAPI = SpotifyPlayerAPI();
+  final SpotifyImageAPI _imageAPI = SpotifyImageAPI();
+  final SpotifyUserAPI _userAPI = SpotifyUserAPI();
+  final SpotifyContentAPI _contentAPI = SpotifyContentAPI();
 
-  SpotifyAppRemoteDelegate delegate;
+  bool _cachedIsConnected = false;
 
-  SpotifyAppRemote._({this.configuration, this.logLevel});
+  SpotifyPlayerAPI get playerAPI => _cachedIsConnected ? _playerAPI : null;
+  SpotifyImageAPI get imageAPI => _cachedIsConnected ? _imageAPI : null;
+  SpotifyUserAPI get userAPI => _cachedIsConnected ? _userAPI : null;
+  SpotifyContentAPI get contentAPI => _cachedIsConnected ? _contentAPI : null;
+
+  SpotifyAppRemote._({this.configuration, this.logLevel, this.connectionParams});
 
   static Future<SpotifyAppRemote> initialize({
     SpotifyConfiguration configuration,
@@ -56,10 +62,6 @@ class SpotifyAppRemote {
     return invokeMethod<int>(AppRemoteMethods.spotifyItunesItemIdentifier);
   }
 
-  Future<SpotifyAppRemoteConnectionParams> get connectionParameters {
-    return invokeMethod<SpotifyAppRemoteConnectionParams>(AppRemoteMethods.connectionParameters);
-  }
-
   Future<bool> get isConnected {
     return invokeMethod<bool>(AppRemoteMethods.isConnected);
   }
@@ -79,13 +81,6 @@ class SpotifyAppRemote {
   Future<SpotifyAuthorizationParameters> authorizationParametersFromURL(Uri url) {
     return invokeMethod<SpotifyAuthorizationParameters>(AppRemoteMethods.authorizationParametersFromURL, url.toString());
   }
-}
-
-abstract class SpotifyAppRemoteDelegate {
-  void spotifyDidEstablishConnection([SpotifyAppRemote spotify]);
-  void spotifyDidFailConnectionAttemptWithException(Exception e, [SpotifyAppRemote
-  spotify]);
-  void spotifyDidDisconnectWithException(Exception e, [SpotifyAppRemote spotify]);
 }
 
 enum SpotifyAppRemoteConnectionParamsImageFormat { any, jpeg, png, }

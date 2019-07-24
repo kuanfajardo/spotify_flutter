@@ -8,8 +8,6 @@ enum SpotifyPlaybackOptionsRepeatMode { off, track, context, }
 
 // Caller
 class SpotifyPlayerAPI {
-  SpotifyPlayerStateDelegate delegate;
-
   Future<bool> play(String entityIdentifier) {
     return invokeMethod<bool>(PlayerMethods.play, entityIdentifier);
   }
@@ -153,11 +151,6 @@ class SpotifyPlayerState implements Codec  {
   static SpotifyPlayerState from(Map<String, dynamic> codecResult) {
     return SpotifyPlayerState._from(codecResult);
   }
-}
-
-// SpotifyPlayerStateDelegate
-abstract class SpotifyPlayerStateDelegate {
-  void playerStateDidChange(SpotifyPlayerState playerState);
 }
 
 // SpotifyCrossfadeState

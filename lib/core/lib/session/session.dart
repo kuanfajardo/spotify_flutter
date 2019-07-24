@@ -77,11 +77,7 @@ class SpotifySession implements Decodable {
 class SpotifySessionManager {
   final SpotifyConfiguration configuration;
 
-  Future<SpotifySession> get session {
-    return invokeMethod<SpotifySession>(SessionMethods.session);
-  }
-  
-  SpotifySessionManagerDelegate delegate;
+  SpotifySession session;
 
 //  bool alwaysShowAuthorizationDialog;
 
@@ -114,19 +110,6 @@ class SpotifySessionManager {
   Future<void> renewSession() {
     return invokeMethod(SessionMethods.renewSession);
   }
-}
-
-abstract class SpotifySessionManagerDelegate {
-  void sessionManagerDidInitiateSession(SpotifySession session,
-      [SpotifySessionManager sessionManager]);
-  void sessionManagerDidFailWithException(Exception e,
-      [SpotifySessionManager sessionManager]);
-  // Optional
-  void sessionManagerDidRenewSession(SpotifySession session,
-      [SpotifySessionManager sessionManager]) {}
-  // Optional
-  void sessionManagerShouldRequestAccessTokenWithAuthorizationCode
-      (String authorizationCode,  [SpotifySessionManager sessionManager]) {}
 }
 
 class SpotifyConfiguration implements Codec {

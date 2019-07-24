@@ -8,8 +8,10 @@ import 'package:spotify/model/model.dart';
 import 'package:spotify/utils/utils.dart';
 
 export 'package:spotify/api/api.dart';
+export 'package:spotify/bloc/bloc.dart';
 export 'package:spotify/core/core.dart';
 export 'package:spotify/model/model.dart';
+export 'package:spotify/stream/stream.dart';
 
 void setup() {
   // Model

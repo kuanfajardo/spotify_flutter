@@ -5,8 +5,6 @@ import 'package:spotify/api/lib/user/keys.dart' as UserKeys;
 
 // Caller
 class SpotifyUserAPI {
-  SpotifyUserAPIDelegate delegate;
-
   Future<SpotifyUserCapabilities> fetchCapabilities() {
     return invokeMethod<SpotifyUserCapabilities>(UserMethods.fetchCapabilities);
   }
@@ -31,11 +29,6 @@ class SpotifyUserAPI {
   Future<bool> removeUriFromLibrary(Uri uri) { // tracks and albums
     return invokeMethod<bool>(UserMethods.removeUriFromLibrary, uri.toString());
   }
-}
-
-abstract class SpotifyUserAPIDelegate {
-  void userAPIDidReceiveCapabilities(SpotifyUserCapabilities capabilities,
-      [SpotifyUserAPI userAPI]);
 }
 
 class SpotifyLibraryState implements Codec {
