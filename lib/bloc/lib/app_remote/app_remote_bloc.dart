@@ -25,7 +25,7 @@ class AppRemoteBloc extends Bloc<AppRemoteEvent, AppRemoteState> {
     }
 
     Map<String, dynamic> _event = event;
-    String type = _event['type'];
+    String type = _event['eventType'];
     dynamic args = _event['args'];
 
     switch (type) {

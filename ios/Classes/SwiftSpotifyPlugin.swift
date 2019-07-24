@@ -181,26 +181,22 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     // MARK - SPTSessionManagerDelegate
     
     public func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
+        SwiftSpotifyPlugin.appRemote?.connectionParameters.accessToken = session.accessToken
+        // TODO: Call method to update connection params? Or event for new access token...
         if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
-            // TODO: Encode session
-            let args: Dictionary<String, Any?> = [:]
-            sink(args)
+            sink(sessionManagerEvent(.didInitiate, args: session.encode()))
         }
     }
     
     public func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
         if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
-            // TODO: Encode error
-            let error = ""
-            sink(error)
+            sink(sessionManagerEvent(.didFail, args: error.localizedDescription))
         }
     }
     
     public func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
         if let sink = SwiftSpotifyPlugin.sessionManagerEventSink {
-            // TODO: Encode session
-            let args: Dictionary<String, Any?> = [:]
-            sink(args)
+            sink(nil)
         }
     }
     
@@ -213,9 +209,7 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     
     public func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
         if let sink = SwiftSpotifyPlugin.playerStateEventSink {
-            // TODO: Encode playerState
-            let args: Dictionary<String, Any?> = [:]
-            sink(args)
+            sink(SpotifyPlayerState(fromSdkObject: playerState).encode())
         }
     }
     
@@ -223,9 +217,7 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     
     public func userAPI(_ userAPI: SPTAppRemoteUserAPI, didReceive capabilities: SPTAppRemoteUserCapabilities) {
         if let sink = SwiftSpotifyPlugin.userCapabilitiesEventSink {
-            // TODO: Encode capabilities
-            let args: Dictionary<String, Any?> = [:]
-            sink(args)
+            sink(SpotifyUserCapabilities(fromSdkObject: capabilities).encode())
         }
     }
     
@@ -233,28 +225,19 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     
     public func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
         if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
-            // TODO: Encode appRemote
-            let args: Dictionary<String, Any?> = [:]
-            sink(args)
+            sink(appRemoteEvent(.didConnect))
         }
-        
-        // Set state
-        SwiftSpotifyPlugin.appRemote = appRemote
     }
     
     public func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
         if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
-            // TODO: Encode error
-            let error = ""
-            sink(error)
+            sink(appRemoteEvent(.didFailToConnect, args: error?.localizedDescription))
         }
     }
     
     public func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
         if let sink = SwiftSpotifyPlugin.appRemoteEventSink {
-            // TODO: Encode error
-            let error = ""
-            sink(error)
+            sink(appRemoteEvent(.didDisconnect, args: error?.localizedDescription))
         }
     }
 }

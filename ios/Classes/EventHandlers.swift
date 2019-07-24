@@ -8,7 +8,7 @@
 import Foundation
 import Flutter
 
-public class AppRemoteDelegateStreamHandler: NSObject, FlutterStreamHandler {
+class AppRemoteDelegateStreamHandler: NSObject, FlutterStreamHandler {
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         SwiftSpotifyPlugin.appRemoteEventSink = events
         return nil
@@ -20,37 +20,37 @@ public class AppRemoteDelegateStreamHandler: NSObject, FlutterStreamHandler {
     }
 }
 
-public class SessionManagerDelegateStreamHandler: NSObject, FlutterStreamHandler {
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+class SessionManagerDelegateStreamHandler: NSObject, FlutterStreamHandler {
+    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         SwiftSpotifyPlugin.sessionManagerEventSink = events
         return nil
     }
     
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    func onCancel(withArguments arguments: Any?) -> FlutterError? {
         SwiftSpotifyPlugin.sessionManagerEventSink = nil
         return nil
     }
 }
 
-public class PlayerStateStreamHandler: NSObject, FlutterStreamHandler {
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+class PlayerStateStreamHandler: NSObject, FlutterStreamHandler {
+    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         SwiftSpotifyPlugin.playerStateEventSink = events
         return nil
     }
     
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    func onCancel(withArguments arguments: Any?) -> FlutterError? {
         SwiftSpotifyPlugin.playerStateEventSink = nil
         return nil
     }
 }
 
-public class UserCapabilitiesStreamHandler: NSObject, FlutterStreamHandler {
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+class UserCapabilitiesStreamHandler: NSObject, FlutterStreamHandler {
+    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         SwiftSpotifyPlugin.userCapabilitiesEventSink = events
         return nil
     }
     
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    func onCancel(withArguments arguments: Any?) -> FlutterError? {
         SwiftSpotifyPlugin.userCapabilitiesEventSink = nil
         return nil
     }
