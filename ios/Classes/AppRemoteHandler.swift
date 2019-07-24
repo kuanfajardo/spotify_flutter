@@ -10,23 +10,23 @@ import Foundation
 import SpotifyiOS
 
 struct AppRemoteHandler {
-    static func handle_checkIfSpotifyAppIsActive_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle_checkIfSpotifyAppIsActive_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         SPTAppRemote.checkIfSpotifyAppIsActive { (isActive: Bool) in
             result(isActive)
         }
     }
     
-    static func handle_version_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_version_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         let version = SPTAppRemote.version()
         result(version)
     }
     
-    static func handle_spotifyItunesItemIdentifier_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_spotifyItunesItemIdentifier_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         let itunesItemIdentifier: NSNumber = SPTAppRemote.spotifyItunesItemIdentifier()
         result(itunesItemIdentifier)
     }
     
-    static func handle_initializeAppRemote_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_initializeAppRemote_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return
@@ -69,7 +69,7 @@ struct AppRemoteHandler {
         result(true)
     }
     
-    static func handle_connectionParameters_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_connectionParameters_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let connectionParams = SwiftSpotifyPlugin.instance.appRemote?.connectionParameters else {
             result(unavailableSdkValueError("AppRemote.connectionParameters"))
             return
@@ -79,7 +79,7 @@ struct AppRemoteHandler {
         result(encodedConnectionParams)
     }
     
-    static func handle_isConnected_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_isConnected_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let isConnected = SwiftSpotifyPlugin.instance.appRemote?.isConnected else {
             result(unavailableSdkValueError("AppRemote.isConnected"))
             return
@@ -88,17 +88,17 @@ struct AppRemoteHandler {
         result(isConnected)
     }
     
-    static func handle_connect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_connect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.connect()
         result(true)
     }
     
-    static func handle_disconnect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_disconnect_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.disconnect()
         result(true)
     }
     
-    static func handle_authorizeAndPlayUri_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_authorizeAndPlayUri_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return
@@ -111,7 +111,7 @@ struct AppRemoteHandler {
         result(true)
     }
     
-    static func handle_authorizationParametersFromURL_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle_authorizationParametersFromURL_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUrl = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return

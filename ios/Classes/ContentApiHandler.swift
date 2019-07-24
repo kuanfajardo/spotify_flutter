@@ -10,7 +10,7 @@ import Foundation
 import SpotifyiOS
 
 struct ContentApiHandler {
-    static func handle_fetchRootContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle_fetchRootContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let rawContentType = call.arguments as? NSNumber else {
             result(argsErrorForCall(call))
             return
@@ -39,7 +39,7 @@ struct ContentApiHandler {
         }
     }
     
-    static func handle_fetchChildrenOfContentItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle_fetchChildrenOfContentItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let contentItemObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return
@@ -68,7 +68,7 @@ struct ContentApiHandler {
         }
     }
     
-    static func handle_fetchRecommendedContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle_fetchRecommendedContentItemsForType_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return

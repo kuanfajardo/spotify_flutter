@@ -11,7 +11,7 @@ import UIKit
 import SpotifyiOS
 
 struct ImageApiHandler {
-    static func handle_fetchImageForItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle_fetchImageForItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return
@@ -28,7 +28,7 @@ struct ImageApiHandler {
         }
         
         let imageItem = SpotifyImage(fromCodecResult: imageItemObject)
-        let size = sizeFromCodecResult(sizeObject)
+        let size = self.sizeFromCodecResult(sizeObject)
         
         SwiftSpotifyPlugin.instance.appRemote?.imageAPI?.fetchImage(forItem: imageItem, with: size) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
@@ -41,12 +41,12 @@ struct ImageApiHandler {
                 return
             }
             
-            let encodedImage = codecObjectFromImage(image)
+            let encodedImage = self.codecObjectFromImage(image)
             result(encodedImage)
         }
     }
     
-    private static func sizeFromCodecResult(_ codecResult: CodecResult) -> CGSize {
+    private func sizeFromCodecResult(_ codecResult: CodecResult) -> CGSize {
         let extractor = CodecResultExtractor(codecResult)
         
         let width: Double = extractor.get(CodecKeys.CodecableSize.width)!
@@ -55,7 +55,7 @@ struct ImageApiHandler {
         return CGSize(width: width, height: height)
     }
     
-    private static func codecObjectFromImage(_ image: UIImage) -> CodecResult {
+    private func codecObjectFromImage(_ image: UIImage) -> CodecResult {
         let imageData = UIImagePNGRepresentation(image)
         return [
             CodecKeys.CodecableImage.imageData: imageData

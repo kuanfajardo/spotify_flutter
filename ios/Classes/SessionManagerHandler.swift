@@ -10,7 +10,11 @@ import Foundation
 import SpotifyiOS
 
 struct SessionManagerHandler {
-    static func handle_isSpotifyAppInstalled_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle(isSpotifyAppInstalled call: FlutterMethodCall, result: FlutterResult) {
+        
+    }
+    
+    func handle_isSpotifyAppInstalled_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let isSpotifyAppInstalled = SwiftSpotifyPlugin.instance.sessionManager?.isSpotifyAppInstalled else {
             result(unavailableSdkValueError("SessionManager.isSpotifyAppInstalled"))
             return
@@ -19,7 +23,7 @@ struct SessionManagerHandler {
         result(isSpotifyAppInstalled)
     }
     
-    static func handle_initiateSessionWithScope_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_initiateSessionWithScope_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return
@@ -58,12 +62,12 @@ struct SessionManagerHandler {
         result(true)
     }
     
-    static func handle_renewSession_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_renewSession_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         SwiftSpotifyPlugin.instance.sessionManager?.renewSession()
         result(true)
     }
     
-    static func handle_session_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_session_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let session = SwiftSpotifyPlugin.instance.sessionManager?.session else {
             result(unavailableSdkValueError("SessionManager.session"))
             return
@@ -73,7 +77,7 @@ struct SessionManagerHandler {
         result(encodedSession)
     }
     
-    static func handle_initializeSessionManager_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle_initializeSessionManager_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let configurationObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return
