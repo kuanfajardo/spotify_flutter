@@ -64,6 +64,7 @@ struct AppRemoteHandler {
         // Set state
         SwiftSpotifyPlugin.appRemote = appRemote
         
+        // TODO: Return connection params
         result(true)
     }
     

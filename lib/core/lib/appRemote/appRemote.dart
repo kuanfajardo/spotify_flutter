@@ -13,7 +13,8 @@ enum SpotifyAppRemoteLogLevel { none, debug, info, error, }
 class SpotifyAppRemote {
   final SpotifyConfiguration configuration;
   final SpotifyAppRemoteLogLevel logLevel;
-  final SpotifyAppRemoteConnectionParams connectionParams;
+  SpotifyAppRemoteConnectionParams connectionParams; // TODO: Maybe final,
+  // make new instance when replace connection params
 
   final SpotifyPlayerAPI _playerAPI = SpotifyPlayerAPI();
   final SpotifyImageAPI _imageAPI = SpotifyImageAPI();
