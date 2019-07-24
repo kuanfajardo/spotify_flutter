@@ -11,10 +11,6 @@ import SpotifyiOS
 
 struct SessionManagerHandler {
     func handle(isSpotifyAppInstalled call: FlutterMethodCall, result: FlutterResult) {
-        
-    }
-    
-    func handle_isSpotifyAppInstalled_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
         guard let isSpotifyAppInstalled = SwiftSpotifyPlugin.instance.sessionManager?.isSpotifyAppInstalled else {
             result(unavailableSdkValueError("SessionManager.isSpotifyAppInstalled"))
             return
@@ -23,7 +19,7 @@ struct SessionManagerHandler {
         result(isSpotifyAppInstalled)
     }
     
-    func handle_initiateSessionWithScope_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle(initiateSessionWithScope call: FlutterMethodCall, result: FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return
@@ -62,12 +58,12 @@ struct SessionManagerHandler {
         result(true)
     }
     
-    func handle_renewSession_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle(renewSession call: FlutterMethodCall, result: FlutterResult) {
         SwiftSpotifyPlugin.instance.sessionManager?.renewSession()
         result(true)
     }
     
-    func handle_session_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle(session call: FlutterMethodCall, result: FlutterResult) {
         guard let session = SwiftSpotifyPlugin.instance.sessionManager?.session else {
             result(unavailableSdkValueError("SessionManager.session"))
             return
@@ -77,7 +73,7 @@ struct SessionManagerHandler {
         result(encodedSession)
     }
     
-    func handle_initializeSessionManager_withCall(_ call: FlutterMethodCall, result: FlutterResult) {
+    func handle(initializeSessionManager call: FlutterMethodCall, result: FlutterResult) {
         guard let configurationObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return

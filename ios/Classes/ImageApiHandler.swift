@@ -11,7 +11,7 @@ import UIKit
 import SpotifyiOS
 
 struct ImageApiHandler {
-    func handle_fetchImageForItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(fetchImageForItem call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return

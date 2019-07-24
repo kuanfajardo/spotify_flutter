@@ -10,7 +10,7 @@ import Foundation
 import SpotifyiOS
 
 struct PlayerApiHandler {
-    func handle_play_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(play call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaEntityIdentifier = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return
@@ -29,7 +29,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_playItem_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(playItem call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? NSDictionary else {
             result(argsErrorForCall(call))
             return
@@ -72,7 +72,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_resume_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(resume call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.resume { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -84,7 +84,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_pause_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(pause call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.pause { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -96,7 +96,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_skipToNext_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(skipToNext call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.skip(toNext: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -108,7 +108,7 @@ struct PlayerApiHandler {
         })
     }
     
-    func handle_skipToPrevious_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(skipToPrevious call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.skip(toPrevious: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -120,7 +120,7 @@ struct PlayerApiHandler {
         })
     }
     
-    func handle_seekToPosition_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(seekToPosition call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaPosition = call.arguments as? NSNumber else {
             result(argsErrorForCall(call))
             return
@@ -142,7 +142,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_seekForward15Seconds_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(seekForward15Seconds call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.seekForward15Seconds { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -154,7 +154,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_seekBackward15Seconds_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(seekBackward15Seconds call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.seekBackward15Seconds { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -166,7 +166,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_setShuffle_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(setShuffle call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaShuffle = call.arguments as? NSNumber else {
             result(argsErrorForCall(call))
             return
@@ -188,7 +188,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_setRepeatMode_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(setRepeatMode call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let rawRepeatMode = call.arguments as? NSNumber else {
             result(argsErrorForCall(call))
             return
@@ -210,7 +210,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_getPlayerState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(getPlayerState call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.getPlayerState { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -227,7 +227,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_subscribeToPlayerState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(subscribeToPlayerState call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.subscribe(toPlayerState: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -244,7 +244,7 @@ struct PlayerApiHandler {
         })
     }
     
-    func handle_unsubscribeToPlayerState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(unsubscribeToPlayerState call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.unsubscribe(toPlayerState: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -256,7 +256,7 @@ struct PlayerApiHandler {
         })
     }
     
-    func handle_enqueueTrackUri_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(enqueueTrackUri call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaTrackUri = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return
@@ -276,7 +276,7 @@ struct PlayerApiHandler {
         
     }
     
-    func handle_getAvailablePodcastPlaybackSpeeds_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(getAvailablePodcastPlaybackSpeeds call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.getAvailablePodcastPlaybackSpeeds { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -298,7 +298,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_getCurrentPodcastPlaybackSpeed_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(getCurrentPodcastPlaybackSpeed call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.getCurrentPodcastPlaybackSpeed { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -315,7 +315,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_setPodcastPlaybackSpeed_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(setPodcastPlaybackSpeed call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let playbackSpeedObject = call.arguments as? NSDictionary as? CodecResult else {
             result(argsErrorForCall(call))
             return
@@ -334,7 +334,7 @@ struct PlayerApiHandler {
         }
     }
     
-    func handle_getCrossfadeState_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(getCrossfadeState call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.getCrossfadeState { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))

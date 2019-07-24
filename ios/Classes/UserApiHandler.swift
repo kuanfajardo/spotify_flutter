@@ -10,7 +10,7 @@ import Foundation
 import SpotifyiOS
 
 struct UserApiHandler {
-    func handle_fetchCapabilities_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(fetchCapabilities call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.userAPI?.fetchCapabilities { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -27,7 +27,7 @@ struct UserApiHandler {
         }
     }
     
-    func handle_subscribeToCapabilityChanges_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(subscribeToCapabilityChanges call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.userAPI?.subscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -39,7 +39,7 @@ struct UserApiHandler {
         })
     }
     
-    func handle_unsubscribeToCapabilityChanges_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(unsubscribeToCapabilityChanges call: FlutterMethodCall, result: @escaping FlutterResult) {
         SwiftSpotifyPlugin.instance.appRemote?.userAPI?.unsubscribe(toCapabilityChanges: { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
                 result(sdkError(error!))
@@ -51,7 +51,7 @@ struct UserApiHandler {
         })
     }
     
-    func handle_fetchLibraryStateForUri_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(fetchLibraryStateForUri call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return
@@ -75,7 +75,7 @@ struct UserApiHandler {
         }
     }
     
-    func handle_addUriToLibrary_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(addUriToLibrary call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return
@@ -94,7 +94,7 @@ struct UserApiHandler {
         }
     }
     
-    func handle_removeUriFromLibrary_withCall(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(removeUriFromLibrary call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let cocoaUri = call.arguments as? NSString else {
             result(argsErrorForCall(call))
             return

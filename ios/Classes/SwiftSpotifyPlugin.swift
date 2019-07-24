@@ -75,103 +75,103 @@ public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
         switch call.method {
         // Content API
         case Methods.ContentApi.fetchRootContentItemsForType:
-            contentApiHandler.handle_fetchRootContentItemsForType_withCall(call, result: result)
+            contentApiHandler.handle(fetchRootContentItemsForType: call, result: result)
         case Methods.ContentApi.fetchChildrenOfContentItem:
-            contentApiHandler.handle_fetchChildrenOfContentItem_withCall(call, result: result)
+            contentApiHandler.handle(fetchChildrenOfContentItem: call, result: result)
         case Methods.ContentApi.fetchRecommendedContentItemsForType:
-            contentApiHandler.handle_fetchRecommendedContentItemsForType_withCall(call, result: result)
+            contentApiHandler.handle(fetchRecommendedContentItemsForType: call, result: result)
             
         // Image API
         case Methods.ImageApi.fetchImageForItem:
-            imageApiHandler.handle_fetchImageForItem_withCall(call, result: result)
+            imageApiHandler.handle(fetchImageForItem: call, result: result)
             
         // Player API
         case Methods.PlayerApi.play:
-            playerApiHandler.handle_play_withCall(call, result: result)
+            playerApiHandler.handle(play: call, result: result)
         case Methods.PlayerApi.playItem:
-            playerApiHandler.handle_playItem_withCall(call, result: result)
+            playerApiHandler.handle(playItem: call, result: result)
         case Methods.PlayerApi.resume:
-            playerApiHandler.handle_resume_withCall(call, result: result)
+            playerApiHandler.handle(resume: call, result: result)
         case Methods.PlayerApi.pause:
-            playerApiHandler.handle_pause_withCall(call, result: result)
+            playerApiHandler.handle(pause: call, result: result)
         case Methods.PlayerApi.skipToNext:
-            playerApiHandler.handle_skipToNext_withCall(call, result: result)
+            playerApiHandler.handle(skipToNext: call, result: result)
         case Methods.PlayerApi.skipToPrevious:
-            playerApiHandler.handle_skipToPrevious_withCall(call, result: result)
+            playerApiHandler.handle(skipToPrevious: call, result: result)
         case Methods.PlayerApi.seekToPosition:
-            playerApiHandler.handle_seekToPosition_withCall(call, result: result)
+            playerApiHandler.handle(seekToPosition: call, result: result)
         case Methods.PlayerApi.seekForward15Seconds:
-            playerApiHandler.handle_seekForward15Seconds_withCall(call, result: result)
+            playerApiHandler.handle(seekForward15Seconds: call, result: result)
         case Methods.PlayerApi.seekBackward15Seconds:
-            playerApiHandler.handle_seekBackward15Seconds_withCall(call, result: result)
+            playerApiHandler.handle(seekBackward15Seconds: call, result: result)
         case Methods.PlayerApi.setShuffle:
-            playerApiHandler.handle_setShuffle_withCall(call, result: result)
+            playerApiHandler.handle(setShuffle: call, result: result)
         case Methods.PlayerApi.setRepeatMode:
-            playerApiHandler.handle_setRepeatMode_withCall(call, result: result)
+            playerApiHandler.handle(setRepeatMode: call, result: result)
         case Methods.PlayerApi.getPlayerState:
-            playerApiHandler.handle_getPlayerState_withCall(call, result: result)
+            playerApiHandler.handle(getPlayerState: call, result: result)
         case Methods.PlayerApi.subscribeToPlayerState:
-            playerApiHandler.handle_subscribeToPlayerState_withCall(call, result: result)
+            playerApiHandler.handle(subscribeToPlayerState: call, result: result)
         case Methods.PlayerApi.unsubscribeToPlayerState:
-            playerApiHandler.handle_unsubscribeToPlayerState_withCall(call, result: result)
+            playerApiHandler.handle(unsubscribeToPlayerState: call, result: result)
         case Methods.PlayerApi.enqueueTrackUri:
-            playerApiHandler.handle_enqueueTrackUri_withCall(call, result: result)
+            playerApiHandler.handle(enqueueTrackUri: call, result: result)
         case Methods.PlayerApi.getAvailablePodcastPlaybackSpeeds:
-            playerApiHandler.handle_getAvailablePodcastPlaybackSpeeds_withCall(call, result: result)
+            playerApiHandler.handle(getAvailablePodcastPlaybackSpeeds: call, result: result)
         case Methods.PlayerApi.getCurrentPodcastPlaybackSpeed:
-            playerApiHandler.handle_getCurrentPodcastPlaybackSpeed_withCall(call, result: result)
+            playerApiHandler.handle(getCurrentPodcastPlaybackSpeed: call, result: result)
         case Methods.PlayerApi.setPodcastPlaybackSpeed:
-            playerApiHandler.handle_setPodcastPlaybackSpeed_withCall(call, result: result)
+            playerApiHandler.handle(setPodcastPlaybackSpeed: call, result: result)
         case Methods.PlayerApi.getCrossfadeState:
-            playerApiHandler.handle_getCrossfadeState_withCall(call, result: result)
+            playerApiHandler.handle(getCrossfadeState: call, result: result)
             
         // User API
         case Methods.UserApi.fetchCapabilities:
-            userApiHandler.handle_fetchCapabilities_withCall(call, result: result)
+            userApiHandler.handle(fetchCapabilities: call, result: result)
         case Methods.UserApi.subscribeToCapabilityChanges:
-            userApiHandler.handle_subscribeToCapabilityChanges_withCall(call, result: result)
+            userApiHandler.handle(subscribeToCapabilityChanges: call, result: result)
         case Methods.UserApi.unsubscribeToCapabilityChanges:
-            userApiHandler.handle_unsubscribeToCapabilityChanges_withCall(call, result: result)
+            userApiHandler.handle(unsubscribeToCapabilityChanges: call, result: result)
         case Methods.UserApi.fetchLibraryStateForUri:
-            userApiHandler.handle_fetchLibraryStateForUri_withCall(call, result: result)
+            userApiHandler.handle(fetchLibraryStateForUri: call, result: result)
         case Methods.UserApi.addUriToLibrary:
-            userApiHandler.handle_addUriToLibrary_withCall(call, result: result)
+            userApiHandler.handle(addUriToLibrary: call, result: result)
         case Methods.UserApi.removeUriFromLibrary:
-            userApiHandler.handle_removeUriFromLibrary_withCall(call, result: result)
+            userApiHandler.handle(removeUriFromLibrary: call, result: result)
             
         // App Remote Methods
         case Methods.AppRemote.checkIfSpotifyAppIsActive:
-            appRemoteHandler.handle_checkIfSpotifyAppIsActive_withCall(call, result: result)
+            appRemoteHandler.handle(checkIfSpotifyAppIsActive: call, result: result)
         case Methods.AppRemote.version:
-            appRemoteHandler.handle_version_withCall(call, result: result)
+            appRemoteHandler.handle(version: call, result: result)
         case Methods.AppRemote.spotifyItunesItemIdentifier:
-            appRemoteHandler.handle_spotifyItunesItemIdentifier_withCall(call, result: result)
+            appRemoteHandler.handle(spotifyItunesItemIdentifier: call, result: result)
         case Methods.AppRemote.initializeAppRemote:
-            appRemoteHandler.handle_initializeAppRemote_withCall(call, result: result)
+            appRemoteHandler.handle(initializeAppRemote: call, result: result)
         case Methods.AppRemote.connectionParameters:
-            appRemoteHandler.handle_connectionParameters_withCall(call, result: result)
+            appRemoteHandler.handle(connectionParameters: call, result: result)
         case Methods.AppRemote.isConnected:
-            appRemoteHandler.handle_isConnected_withCall(call, result: result)
+            appRemoteHandler.handle(isConnected: call, result: result)
         case Methods.AppRemote.connect:
-            appRemoteHandler.handle_connect_withCall(call, result: result)
+            appRemoteHandler.handle(connect: call, result: result)
         case Methods.AppRemote.disconnect:
-            appRemoteHandler.handle_disconnect_withCall(call, result: result)
+            appRemoteHandler.handle(disconnect: call, result: result)
         case Methods.AppRemote.authorizeAndPlayUri:
-            appRemoteHandler.handle_authorizeAndPlayUri_withCall(call, result: result)
+            appRemoteHandler.handle(authorizeAndPlayUri: call, result: result)
         case Methods.AppRemote.authorizationParametersFromURL:
-            appRemoteHandler.handle_authorizationParametersFromURL_withCall(call, result: result)
+            appRemoteHandler.handle(authorizationParametersFromURL: call, result: result)
             
         // Session Methods
         case Methods.SessionManager.isSpotifyAppInstalled:
-            sessionManagerHandler.handle_isSpotifyAppInstalled_withCall(call, result: result)
+            sessionManagerHandler.handle(isSpotifyAppInstalled: call, result: result)
         case Methods.SessionManager.initiateSessionWithScope:
-            sessionManagerHandler.handle_initiateSessionWithScope_withCall(call, result: result)
+            sessionManagerHandler.handle(initiateSessionWithScope: call, result: result)
         case Methods.SessionManager.renewSession:
-            sessionManagerHandler.handle_renewSession_withCall(call, result: result)
+            sessionManagerHandler.handle(renewSession: call, result: result)
         case Methods.SessionManager.session:
-            sessionManagerHandler.handle_session_withCall(call, result: result)
+            sessionManagerHandler.handle(session: call, result: result)
         case Methods.SessionManager.initializeSessionManager:
-            sessionManagerHandler.handle_initializeSessionManager_withCall(call, result: result)
+            sessionManagerHandler.handle(initializeSessionManager: call, result: result)
             
         default:
             result(FlutterMethodNotImplemented)
