@@ -170,6 +170,18 @@ public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
+    
+    // MARK - UIApplicationDelegate (via FlutterPlugin)
+    
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]) -> Bool {
+        self.controller = application.delegate?.window??.rootViewController
+        return true
+    }
+    
+    public func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        self.sessionManager?.application(application, open: url, options: options)
+        return true
+    }
 }
 
 extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, SPTAppRemoteUserAPIDelegate, SPTAppRemotePlayerStateDelegate {
@@ -240,16 +252,5 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
         if let sink = self.appRemoteEventSink {
             sink(appRemoteEvent(.didDisconnect, args: error?.localizedDescription))
         }
-    }
-}
-
-public extension SwiftSpotifyPlugin {
-    func application(_ app:  UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) {
-        self.sessionManager?.application(app, open: url, options: options)
-    }
-    
-    @available(iOS, deprecated: 11.0)
-    func setAuthPresentingController(_ controller: UIViewController?) {
-        self.controller = controller
     }
 }
