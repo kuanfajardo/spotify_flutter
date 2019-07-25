@@ -34,6 +34,12 @@ abstract class AppRemoteState {
         ? throw AssertionError('Invalid state.')
         : throw UnimplementedError();
   }
+
+  AppRemoteState withUpdatedAccessToken(String accessToken) {
+    this.isInitialized
+        ? throw AssertionError('Invalid state.')
+        : throw UnimplementedError();
+  }
 }
 
 class _UninitializedAppRemoteState extends AppRemoteState {
@@ -66,5 +72,10 @@ class _InitializedAppRemoteState extends AppRemoteState {
     return this
       ..appRemote.isConnected = false
       ..exception = Exception(errorMessage);
+  }
+
+  @override
+  AppRemoteState withUpdatedAccessToken(String accessToken) {
+    return this..appRemote.connectionParams.accessToken = accessToken;
   }
 }

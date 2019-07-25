@@ -18,3 +18,8 @@ class DisconnectEvent extends AppRemoteEvent {
   String errorMessage;
   DisconnectEvent(this.errorMessage);
 }
+
+class AccessTokenUpdateEvent extends AppRemoteEvent {
+  String accessToken;
+  AccessTokenUpdateEvent(this.accessToken);
+}

@@ -37,6 +37,9 @@ class AppRemoteBloc extends Bloc<AppRemoteEvent, AppRemoteState> {
       case 'didDisconnect':
         String errorMessage = args as String;
         return DisconnectEvent(errorMessage);
+      case 'updatedAcessToken':
+        String accessToken = args as String;
+        return AccessTokenUpdateEvent(accessToken);
       default:
         return null;
     }
@@ -61,6 +64,10 @@ class AppRemoteBloc extends Bloc<AppRemoteEvent, AppRemoteState> {
 
     if (event is DisconnectEvent) {
       yield this.currentState.asDisconnected(event.errorMessage);
+    }
+
+    if (event is AccessTokenUpdateEvent) {
+      yield this.currentState.withUpdatedAccessToken(event.accessToken)
     }
   }
 

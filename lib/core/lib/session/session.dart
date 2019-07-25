@@ -119,6 +119,7 @@ class SpotifyConfiguration implements Codec {
   Uri tokenRefreshUrl;
   String playUri;
 
+  // TODO: Assert non-null for required, expose all
   SpotifyConfiguration({this.clientId, this.redirectUrl});
 
   SpotifyConfiguration._from(Map<String, dynamic> codecResult) :

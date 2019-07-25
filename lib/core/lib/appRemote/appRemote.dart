@@ -13,8 +13,9 @@ enum SpotifyAppRemoteLogLevel { none, debug, info, error, }
 class SpotifyAppRemote {
   final SpotifyConfiguration configuration;
   final SpotifyAppRemoteLogLevel logLevel;
-  // TODO: Maybe final, make new instance when replace connection params
-  SpotifyAppRemoteConnectionParams connectionParams;
+
+  SpotifyAppRemoteConnectionParams _connectionParams;
+  SpotifyAppRemoteConnectionParams get connectionParams => _connectionParams;
 
   final SpotifyPlayerAPI _playerAPI = SpotifyPlayerAPI();
   final SpotifyImageAPI _imageAPI = SpotifyImageAPI();
@@ -28,7 +29,8 @@ class SpotifyAppRemote {
   SpotifyUserAPI get userAPI => isConnected ? _userAPI : null;
   SpotifyContentAPI get contentAPI => isConnected ? _contentAPI : null;
 
-  SpotifyAppRemote._({this.configuration, this.logLevel, this.connectionParams});
+  SpotifyAppRemote._({this.configuration, this.logLevel,
+    SpotifyAppRemoteConnectionParams connectionParams}) : _connectionParams = connectionParams;
 
   static Future<SpotifyAppRemote> initialize({
     SpotifyConfiguration configuration,
@@ -47,7 +49,9 @@ class SpotifyAppRemote {
           ? connectionParams.encode()
           : null
     };
-    await invokeMethod<void>(AppRemoteMethods.initializeAppRemote, args);
+    appRemote._connectionParams = await
+    invokeMethod<SpotifyAppRemoteConnectionParams>(AppRemoteMethods.initializeAppRemote, args);
+
     return appRemote;
   }
 
@@ -84,21 +88,27 @@ enum SpotifyAppRemoteConnectionParamsImageFormat { any, jpeg, png, }
 
 // Caller?
 class SpotifyAppRemoteConnectionParams implements Codec {
+  String accessToken;
+
   // IMMUTABLE, NOT REAL-TIME;
-  final String accessToken;
   final CodecableSize defaultImageSize;
   final SpotifyAppRemoteConnectionParamsImageFormat imageFormat;
 
   // Readonly, set by SDK, not user
-  final int protocolVersion;
-  // final Map roles; TODO
-  // final List authenticationMethods; TODO
+  int _protocolVersion;
+  int get protocolVersion => _protocolVersion;
+
+  // final Map roles; TODO (like version)
+  // final List authenticationMethods; TODO (like version)
+
+  SpotifyAppRemoteConnectionParams({this.accessToken, this.defaultImageSize,
+    this.imageFormat});
 
   SpotifyAppRemoteConnectionParams._from(Map<String, dynamic> codecResult) :
         accessToken = codecResult[AppRemoteKeys.accessToken],
         defaultImageSize = CodecableSize.from(codecResult[AppRemoteKeys.defaultImageSize]),
         imageFormat = SpotifyAppRemoteConnectionParamsImageFormat.values[codecResult[AppRemoteKeys.imageFormat]],
-        protocolVersion = codecResult[AppRemoteKeys.protocolVersion] ?? -1;
+        _protocolVersion = codecResult[AppRemoteKeys.protocolVersion] ?? -1;
 
   @override
   Map<String, dynamic> encode() {

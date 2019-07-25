@@ -11,6 +11,7 @@ enum AppRemoteEvent: String {
     case didConnect = "didConnect"
     case didFailToConnect = "didFailToConnect"
     case didDisconnect = "didDisconnect"
+    case updatedAccessToken = "updatedAccessToken"
 }
 
 func appRemoteEvent(_ event: AppRemoteEvent, args: Any? = nil) -> CodecResult {

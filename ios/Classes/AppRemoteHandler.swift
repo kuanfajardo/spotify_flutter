@@ -65,8 +65,8 @@ struct AppRemoteHandler {
         SwiftSpotifyPlugin.instance.appRemote = appRemote
         appRemote.delegate = SwiftSpotifyPlugin.instance;
         
-        // TODO: Return connection params
-        result(true)
+        let encodedConnectionParams = appRemote.connectionParameters.encode()
+        result(encodedConnectionParams)
     }
     
     func handle(connectionParameters call: FlutterMethodCall, result: FlutterResult) {

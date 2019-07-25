@@ -195,7 +195,11 @@ extension SwiftSpotifyPlugin: SPTAppRemoteDelegate, SPTSessionManagerDelegate, S
     
     public func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         self.appRemote?.connectionParameters.accessToken = session.accessToken
-        // TODO: Call method to update connection params? Or event for new access token...
+        
+        if let sink = self.appRemoteEventSink {
+            sink(appRemoteEvent(.updatedAccessToken, args: session.accessToken))
+        }
+        
         if let sink = self.sessionManagerEventSink {
             sink(sessionManagerEvent(.didInitiate, args: session.encode()))
         }
