@@ -11,9 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(MyApp());
 
-const String tokenSwapUrlString = "http://localhost:1234/swap";
-const String tokenRefreshUrlString = "http://localhost:1234/refresh";
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -40,15 +37,16 @@ class _MyAppState extends State<MyApp> {
     final String clientId = "a099d4e024644ce8898e125862644b93";
     final String redirectUriString = "flutter-spotify-example://spotify-login"
         "-callback";
+    final String tokenSwapUrlString = "http://localhost:1234/swap";
+    final String tokenRefreshUrlString = "http://localhost:1234/refresh";
 
     SpotifyConfiguration configuration = SpotifyConfiguration(
       clientId: clientId,
       redirectUrl: Uri.dataFromString(redirectUriString),
+      playUri: "",
+      tokenSwapUrl: Uri.dataFromString(tokenSwapUrlString),
+      tokenRefreshUrl: Uri.dataFromString(tokenRefreshUrlString),
     );
-
-    configuration.playUri = "";
-    configuration.tokenSwapUrl = Uri.dataFromString(tokenSwapUrlString);
-    configuration.tokenRefreshUrl = Uri.dataFromString(tokenRefreshUrlString);
 
     // Setup Session Manager
     SpotifySessionManager sessionManager = await SpotifySessionManager
@@ -58,8 +56,8 @@ class _MyAppState extends State<MyApp> {
 
     // Setup App Remote
     SpotifyAppRemote appRemote = await SpotifyAppRemote.initialize(
-        configuration: configuration,
-        logLevel: SpotifyAppRemoteLogLevel.debug
+      configuration,
+      logLevel: SpotifyAppRemoteLogLevel.debug,
     );
 
     _appRemoteBloc.onInit(appRemote);

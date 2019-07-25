@@ -67,7 +67,7 @@ class AppRemoteBloc extends Bloc<AppRemoteEvent, AppRemoteState> {
     }
 
     if (event is AccessTokenUpdateEvent) {
-      yield this.currentState.withUpdatedAccessToken(event.accessToken)
+      yield this.currentState.withUpdatedAccessToken(event.accessToken);
     }
   }
 

@@ -22,6 +22,7 @@ class SpotifyAppRemote {
   final SpotifyUserAPI _userAPI = SpotifyUserAPI();
   final SpotifyContentAPI _contentAPI = SpotifyContentAPI();
 
+  // TODO: Dangerous! Exposed is not good :(
   bool isConnected;
 
   SpotifyPlayerAPI get playerAPI => isConnected ? _playerAPI : null;
@@ -32,8 +33,8 @@ class SpotifyAppRemote {
   SpotifyAppRemote._({this.configuration, this.logLevel,
     SpotifyAppRemoteConnectionParams connectionParams}) : _connectionParams = connectionParams;
 
-  static Future<SpotifyAppRemote> initialize({
-    SpotifyConfiguration configuration,
+  static Future<SpotifyAppRemote> initialize(SpotifyConfiguration configuration,
+  {
     SpotifyAppRemoteLogLevel logLevel = SpotifyAppRemoteLogLevel.none,
     SpotifyAppRemoteConnectionParams connectionParams
   }) async {
