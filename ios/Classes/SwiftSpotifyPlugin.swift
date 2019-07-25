@@ -15,20 +15,19 @@ struct FlutterChannel {
 }
 
 public class SwiftSpotifyPlugin: NSObject, FlutterPlugin {
-    // TODO: Review public modifiers
     // MARK - State
-    public var appRemote: SPTAppRemote?
-    public var sessionManager: SPTSessionManager?
+    var appRemote: SPTAppRemote?
+    var sessionManager: SPTSessionManager?
     
-    public var methodChannel: FlutterMethodChannel?
+    var methodChannel: FlutterMethodChannel?
     
-    public var appRemoteEventSink: FlutterEventSink?
-    public var sessionManagerEventSink: FlutterEventSink?
-    public var playerStateEventSink: FlutterEventSink?
-    public var userCapabilitiesEventSink: FlutterEventSink?
+    var appRemoteEventSink: FlutterEventSink?
+    var sessionManagerEventSink: FlutterEventSink?
+    var playerStateEventSink: FlutterEventSink?
+    var userCapabilitiesEventSink: FlutterEventSink?
     
     // For SPTSessionManager initiateSession: pre-iOS 11
-    public var controller: UIViewController?
+    var controller: UIViewController?
     
     public static let instance: SwiftSpotifyPlugin = SwiftSpotifyPlugin()
     

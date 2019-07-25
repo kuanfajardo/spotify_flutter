@@ -9,12 +9,12 @@ import Foundation
 import Flutter
 
 class AppRemoteDelegateStreamHandler: NSObject, FlutterStreamHandler {
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         SwiftSpotifyPlugin.instance.appRemoteEventSink = events
         return nil
     }
     
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    func onCancel(withArguments arguments: Any?) -> FlutterError? {
         SwiftSpotifyPlugin.instance.appRemoteEventSink = nil
         return nil
     }
