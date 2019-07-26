@@ -5,7 +5,7 @@ import 'package:spotify/core/lib/session/keys.dart' as SessionKeys;
 
 
 /// See https://developer.spotify.com/web-api/using-scopes/
-class SpotifyScope implements Codec {
+class SpotifyScope implements FlutterChannelCodable {
   final int bitmask;
 
   SpotifyScope(this.bitmask);
@@ -44,32 +44,32 @@ class SpotifyScope implements Codec {
     return { SessionKeys.bitmask: this.bitmask };
   }
 
-  SpotifyScope._from(Map<String, dynamic> codecResult) :
-        this.bitmask = codecResult[SessionKeys.bitmask];
+  SpotifyScope._from(Map<String, dynamic> channelObject) :
+        this.bitmask = channelObject[SessionKeys.bitmask];
 
-  static SpotifyScope from(Map<String, dynamic> codecResult) {
-    return SpotifyScope._from(codecResult);
+  static SpotifyScope from(Map<String, dynamic> channelObject) {
+    return SpotifyScope._from(channelObject);
   }
 }
 
 enum SpotifyAuthorizationOptions { default_, client, }
 
-class SpotifySession implements Decodable {
+class SpotifySession implements FlutterChannelDecodable {
   final String accessToken;
   final String refreshToken;
 //  final DateTime expirationDate;
   final SpotifyScope scope;
   final bool isExpired;
 
-  SpotifySession._from(Map<String, dynamic> codecResult) :
-        accessToken = codecResult[SessionKeys.accessToken],
-        refreshToken = codecResult[SessionKeys.refreshToken],
+  SpotifySession._from(Map<String, dynamic> channelObject) :
+        accessToken = channelObject[SessionKeys.accessToken],
+        refreshToken = channelObject[SessionKeys.refreshToken],
 //        expirationDate = TODO
-        scope = codecResult[SessionKeys.scope],
-        isExpired = codecResult[SessionKeys.isExpired];
+        scope = channelObject[SessionKeys.scope],
+        isExpired = channelObject[SessionKeys.isExpired];
 
-  static SpotifySession from(Map<String, dynamic> codecResult) {
-    return SpotifySession._from(codecResult);
+  static SpotifySession from(Map<String, dynamic> channelObject) {
+    return SpotifySession._from(channelObject);
   }
 }
 
@@ -112,7 +112,7 @@ class SpotifySessionManager {
   }
 }
 
-class SpotifyConfiguration implements Codec {
+class SpotifyConfiguration implements FlutterChannelCodable {
   final String clientId;
   final Uri redirectUrl;
   Uri tokenSwapUrl;
@@ -122,12 +122,12 @@ class SpotifyConfiguration implements Codec {
   SpotifyConfiguration({this.clientId, this.redirectUrl, this.tokenSwapUrl,
     this.tokenRefreshUrl, this.playUri});
 
-  SpotifyConfiguration._from(Map<String, dynamic> codecResult) :
-        clientId = codecResult[SessionKeys.clientId],
-        redirectUrl = Uri.dataFromString(codecResult[SessionKeys.redirectUrl]),
-        tokenSwapUrl = Uri.dataFromString(codecResult[SessionKeys.tokenSwapUrl]),
-        tokenRefreshUrl = Uri.dataFromString(codecResult[SessionKeys.tokenRefreshUrl]),
-        playUri = codecResult[SessionKeys.playUri];
+  SpotifyConfiguration._from(Map<String, dynamic> channelObject) :
+        clientId = channelObject[SessionKeys.clientId],
+        redirectUrl = Uri.dataFromString(channelObject[SessionKeys.redirectUrl]),
+        tokenSwapUrl = Uri.dataFromString(channelObject[SessionKeys.tokenSwapUrl]),
+        tokenRefreshUrl = Uri.dataFromString(channelObject[SessionKeys.tokenRefreshUrl]),
+        playUri = channelObject[SessionKeys.playUri];
 
   @override
   Map<String, dynamic> encode() {
@@ -140,7 +140,7 @@ class SpotifyConfiguration implements Codec {
     };
   }
 
-  static SpotifyConfiguration from(Map<String, dynamic> codecResult) {
-    return SpotifyConfiguration._from(codecResult);
+  static SpotifyConfiguration from(Map<String, dynamic> channelObject) {
+    return SpotifyConfiguration._from(channelObject);
   }
 }

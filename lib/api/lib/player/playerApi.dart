@@ -91,14 +91,14 @@ class SpotifyPlayerAPI {
 }
 
 // SpotifyPlaybackOptions
-class SpotifyPlaybackOptions implements Codec {
+class SpotifyPlaybackOptions implements FlutterChannelCodable {
   final bool isShuffling;
   final SpotifyPlaybackOptionsRepeatMode repeatMode;
 
-  SpotifyPlaybackOptions._from(Map<String, dynamic> codecResult) :
-        isShuffling = codecResult[PlayerKeys.isShuffling],
+  SpotifyPlaybackOptions._from(Map<String, dynamic> channelObject) :
+        isShuffling = channelObject[PlayerKeys.isShuffling],
         repeatMode = SpotifyPlaybackOptionsRepeatMode
-            .values[codecResult[PlayerKeys.repeatMode]];
+            .values[channelObject[PlayerKeys.repeatMode]];
 
   @override
   Map<String, dynamic> encode() {
@@ -108,13 +108,13 @@ class SpotifyPlaybackOptions implements Codec {
     };
   }
 
-  static SpotifyPlaybackOptions from(Map<String, dynamic> codecResult) {
-    return SpotifyPlaybackOptions._from(codecResult);
+  static SpotifyPlaybackOptions from(Map<String, dynamic> channelObject) {
+    return SpotifyPlaybackOptions._from(channelObject);
   }
 }
 
 // SpotifyPlayerState
-class SpotifyPlayerState implements Codec  {
+class SpotifyPlayerState implements FlutterChannelCodable  {
   final SpotifyTrack track;
   final int playbackPosition;
   final double playbackSpeed;
@@ -124,15 +124,15 @@ class SpotifyPlayerState implements Codec  {
   final String contextTitle;
   final String contextUri;
 
-  SpotifyPlayerState._from(Map<String, dynamic> codecResult) :
-        track = SpotifyTrack.from(codecResult[PlayerKeys.track]),
-        playbackPosition = codecResult[PlayerKeys.playbackPosition],
-        playbackSpeed = codecResult[PlayerKeys.playbackSpeed],
-        isPaused = codecResult[PlayerKeys.isPaused],
-        playbackRestrictions = SpotifyPlaybackRestrictions.from(codecResult[PlayerKeys.playbackRestrictions]),
-        playbackOptions = SpotifyPlaybackOptions.from(codecResult[PlayerKeys.playbackOptions]),
-        contextTitle = codecResult[PlayerKeys.contextTitle],
-        contextUri = codecResult[PlayerKeys.contextUri];
+  SpotifyPlayerState._from(Map<String, dynamic> channelObject) :
+        track = SpotifyTrack.from(channelObject[PlayerKeys.track]),
+        playbackPosition = channelObject[PlayerKeys.playbackPosition],
+        playbackSpeed = channelObject[PlayerKeys.playbackSpeed],
+        isPaused = channelObject[PlayerKeys.isPaused],
+        playbackRestrictions = SpotifyPlaybackRestrictions.from(channelObject[PlayerKeys.playbackRestrictions]),
+        playbackOptions = SpotifyPlaybackOptions.from(channelObject[PlayerKeys.playbackOptions]),
+        contextTitle = channelObject[PlayerKeys.contextTitle],
+        contextUri = channelObject[PlayerKeys.contextUri];
 
   @override
   Map<String, dynamic> encode() {
@@ -148,19 +148,19 @@ class SpotifyPlayerState implements Codec  {
     };
   }
 
-  static SpotifyPlayerState from(Map<String, dynamic> codecResult) {
-    return SpotifyPlayerState._from(codecResult);
+  static SpotifyPlayerState from(Map<String, dynamic> channelObject) {
+    return SpotifyPlayerState._from(channelObject);
   }
 }
 
 // SpotifyCrossfadeState
-class SpotifyCrossfadeState implements Codec {
+class SpotifyCrossfadeState implements FlutterChannelCodable {
   final bool isEnabled;
   final int duration;
 
-  SpotifyCrossfadeState._from(Map<String, dynamic> codecResult) :
-        isEnabled = codecResult[PlayerKeys.isEnabled],
-        duration = codecResult[PlayerKeys.duration];
+  SpotifyCrossfadeState._from(Map<String, dynamic> channelObject) :
+        isEnabled = channelObject[PlayerKeys.isEnabled],
+        duration = channelObject[PlayerKeys.duration];
 
   @override
   Map<String, dynamic> encode() {
@@ -170,17 +170,17 @@ class SpotifyCrossfadeState implements Codec {
     };
   }
 
-  static SpotifyCrossfadeState from(Map<String, dynamic> codecResult) {
-    return SpotifyCrossfadeState._from(codecResult);
+  static SpotifyCrossfadeState from(Map<String, dynamic> channelObject) {
+    return SpotifyCrossfadeState._from(channelObject);
   }
 }
 
 // SpotifyPodcastPlaybackSpeed
-class SpotifyPodcastPlaybackSpeed implements Codec  {
+class SpotifyPodcastPlaybackSpeed implements FlutterChannelCodable  {
   final double value;
 
-  SpotifyPodcastPlaybackSpeed._from(Map<String, dynamic> codecResult) :
-      value = codecResult[PlayerKeys.value];
+  SpotifyPodcastPlaybackSpeed._from(Map<String, dynamic> channelObject) :
+      value = channelObject[PlayerKeys.value];
 
   @override
   Map<String, dynamic> encode() {
@@ -189,13 +189,13 @@ class SpotifyPodcastPlaybackSpeed implements Codec  {
     };
   }
 
-  static SpotifyPodcastPlaybackSpeed from(Map<String, dynamic> codecResult) {
-    return SpotifyPodcastPlaybackSpeed._from(codecResult);
+  static SpotifyPodcastPlaybackSpeed from(Map<String, dynamic> channelObject) {
+    return SpotifyPodcastPlaybackSpeed._from(channelObject);
   }
 }
 
 // SpotifyPlaybackRestrictions
-class SpotifyPlaybackRestrictions implements Codec {
+class SpotifyPlaybackRestrictions implements FlutterChannelCodable {
   final bool canSkipNext;
   final bool canSkipPrevious;
   final bool canRepeatTrack;
@@ -203,13 +203,13 @@ class SpotifyPlaybackRestrictions implements Codec {
   final bool canToggleShuffle;
   final bool canSeek;
 
-  SpotifyPlaybackRestrictions._from(Map<String, dynamic> codecResult) :
-        canSkipNext = codecResult[PlayerKeys.canSkipNext],
-        canSkipPrevious = codecResult[PlayerKeys.canSkipPrevious],
-        canRepeatTrack = codecResult[PlayerKeys.canRepeatTrack],
-        canRepeatContext = codecResult[PlayerKeys.canRepeatContext],
-        canToggleShuffle = codecResult[PlayerKeys.canToggleShuffle],
-        canSeek = codecResult[PlayerKeys.canSeek];
+  SpotifyPlaybackRestrictions._from(Map<String, dynamic> channelObject) :
+        canSkipNext = channelObject[PlayerKeys.canSkipNext],
+        canSkipPrevious = channelObject[PlayerKeys.canSkipPrevious],
+        canRepeatTrack = channelObject[PlayerKeys.canRepeatTrack],
+        canRepeatContext = channelObject[PlayerKeys.canRepeatContext],
+        canToggleShuffle = channelObject[PlayerKeys.canToggleShuffle],
+        canSeek = channelObject[PlayerKeys.canSeek];
 
   @override
   Map<String, dynamic> encode() {
@@ -223,7 +223,7 @@ class SpotifyPlaybackRestrictions implements Codec {
     };
   }
 
-  static SpotifyPlaybackRestrictions from(Map<String, dynamic> codecResult) {
-    return SpotifyPlaybackRestrictions._from(codecResult);
+  static SpotifyPlaybackRestrictions from(Map<String, dynamic> channelObject) {
+    return SpotifyPlaybackRestrictions._from(channelObject);
   }
 }

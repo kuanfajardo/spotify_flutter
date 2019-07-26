@@ -7,11 +7,13 @@ const String kHeight = 'height';
 
 const String kImageData = 'imageData';
 
-class CodecableSize implements Codec {
+class CodecableSize implements FlutterChannelCodable {
   final double width;
   final double height;
 
-  CodecableSize(this.width, this.height);
+  CodecableSize._from(Map<String, dynamic> channelObject) :
+        width = channelObject[kWidth],
+        height = channelObject[kHeight];
 
   @override
   Map<String, dynamic> encode() {
@@ -21,20 +23,18 @@ class CodecableSize implements Codec {
     };
   }
 
-  static CodecableSize from(Map<String, dynamic> codecResult) {
-    double width = codecResult[kWidth];
-    double height = codecResult[kHeight];
-    return CodecableSize(width, height);
+  static CodecableSize from(Map<String, dynamic> channelObject) {
+    return CodecableSize._from(channelObject);
   }
 }
 
-class CodecableImage implements Decodable {
+class DecodableImage implements FlutterChannelDecodable {
   final Uint8List imageData;
 
-  CodecableImage(this.imageData);
+  DecodableImage._from(Map<String, dynamic> channelObject) :
+        imageData = channelObject[kImageData];
 
-  static CodecableImage from(Map<String, dynamic> codecResult) {
-    Uint8List imageData = codecResult[kImageData];
-    return CodecableImage(imageData);
+  static DecodableImage from(Map<String, dynamic> channelObject) {
+    return DecodableImage._from(channelObject);
   }
 }

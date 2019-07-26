@@ -1,15 +1,15 @@
 import 'package:flutter/services.dart';
 
-abstract class Encodable {
+abstract class FlutterChannelEncodable {
   Map<String, dynamic> encode();
 }
 
-abstract class Decodable {
-  Decodable.from(Map<String, dynamic> codecResult);
+abstract class FlutterChannelDecodable {
+  FlutterChannelDecodable.from(Map<String, dynamic> channelObject);
 }
 
-class Codec implements Encodable, Decodable {
-  Codec.from(Map<String, dynamic> codecResult) {
+class FlutterChannelCodable implements FlutterChannelEncodable, FlutterChannelDecodable {
+  FlutterChannelCodable.from(Map<String, dynamic> channelObject) {
     throw UnimplementedError();
   }
 
@@ -31,12 +31,12 @@ class Decoder {
   // from being able to use invokeListMethod to call both 
   // _invokeListMethodBuiltIn and _invokeListMethodCustom from same function;
   // and (2) _decoders invariant guarantees keys are Codecable
-  T decode<T>(Map<String, dynamic> codecResult) {
-    return this._decoders[T](codecResult);
+  T decode<T>(Map<String, dynamic> channelObject) {
+    return this._decoders[T](channelObject);
   }
 
-  void registerCodecable<T extends Decodable>(Object decoder(Map<String,
-      dynamic> codecResult)) {
+  void registerDecodable<T extends FlutterChannelDecodable>(Object decoder(Map<String,
+      dynamic> channelObject)) {
     this._decoders[T] = decoder;
     print("Added decoder for " + T.toString());
   }
@@ -111,8 +111,8 @@ async {
 
 Future<T> _invokeMethodCustom<T>(String methodName, [dynamic args])
 async {
-  Map codecResult = await _channel.invokeMethod<Map>(methodName, args);
-  return Decoder.instance.decode<T>(codecResult as Map<String, dynamic>);
+  Map channelObject = await _channel.invokeMethod<Map>(methodName, args);
+  return Decoder.instance.decode<T>(channelObject as Map<String, dynamic>);
 }
 
 Future<List<T>> _invokeListMethodBuiltIn<T>(String methodName, [dynamic args])
@@ -122,9 +122,9 @@ async {
 
 Future<List<T>> _invokeListMethodCustom<T>(String methodName, [dynamic args])
 async {
-  List<Map> codecResult = await _channel.invokeListMethod<Map>(methodName,
+  List<Map> channelObject = await _channel.invokeListMethod<Map>(methodName,
       args);
-  return codecResult.map((Map elt) {
+  return channelObject.map((Map elt) {
     return Decoder.instance.decode<T>(elt as Map<String, dynamic>);
   }).toList();
 }

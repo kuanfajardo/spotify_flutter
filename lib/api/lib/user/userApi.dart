@@ -31,15 +31,15 @@ class SpotifyUserAPI {
   }
 }
 
-class SpotifyLibraryState implements Codec {
+class SpotifyLibraryState implements FlutterChannelCodable {
   final Uri uri;
   final bool isAdded;
   final bool canAdd;
 
-  SpotifyLibraryState._from(Map<String, dynamic> codecResult) :
-        uri = Uri.dataFromString(codecResult[UserKeys.uri]),
-        isAdded = codecResult[UserKeys.isAdded],
-        canAdd = codecResult[UserKeys.canAdd];
+  SpotifyLibraryState._from(Map<String, dynamic> channelObject) :
+        uri = Uri.dataFromString(channelObject[UserKeys.uri]),
+        isAdded = channelObject[UserKeys.isAdded],
+        canAdd = channelObject[UserKeys.canAdd];
 
   @override
   Map<String, dynamic> encode() {
@@ -50,16 +50,16 @@ class SpotifyLibraryState implements Codec {
     };
   }
 
-  static SpotifyLibraryState from(Map<String, dynamic> codecResult) {
-    return SpotifyLibraryState._from(codecResult);
+  static SpotifyLibraryState from(Map<String, dynamic> channelObject) {
+    return SpotifyLibraryState._from(channelObject);
   }
 }
 
-class SpotifyUserCapabilities implements Codec {
+class SpotifyUserCapabilities implements FlutterChannelCodable {
   final bool canPlayOnDemand;
 
-  SpotifyUserCapabilities._from(Map<String, dynamic> codecResult) :
-      canPlayOnDemand = codecResult[UserKeys.canPlayOnDemand];
+  SpotifyUserCapabilities._from(Map<String, dynamic> channelObject) :
+      canPlayOnDemand = channelObject[UserKeys.canPlayOnDemand];
 
   @override
   Map<String, dynamic> encode() {
@@ -68,7 +68,7 @@ class SpotifyUserCapabilities implements Codec {
     };
   }
 
-  static SpotifyUserCapabilities from(Map<String, dynamic> codecResult) {
-    return SpotifyUserCapabilities.from(codecResult);
+  static SpotifyUserCapabilities from(Map<String, dynamic> channelObject) {
+    return SpotifyUserCapabilities.from(channelObject);
   }
 }

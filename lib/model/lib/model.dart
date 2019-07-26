@@ -2,7 +2,7 @@ import 'package:spotify/encoding/encoding.dart';
 
 import 'package:spotify/model/lib/keys.dart' as ModelKeys;
 
-class SpotifyContentItem implements Codec {
+class SpotifyContentItem implements FlutterChannelCodable {
   final String title;
   final String subtitle;
   final String identifier;
@@ -13,16 +13,16 @@ class SpotifyContentItem implements Codec {
 //  final List<SpotifyContentItem> children; TODO
   final String imageIdentifier;
 
-  SpotifyContentItem._from(Map<String, dynamic> codecResult) :
-        title = codecResult[ModelKeys.title],
-        subtitle = codecResult[ModelKeys.subtitle],
-        identifier = codecResult[ModelKeys.identifier],
-        uri = codecResult[ModelKeys.uri],
-        isAvailableOffline = codecResult[ModelKeys.isAvailableOffline],
-        isPlayable = codecResult[ModelKeys.isPlayable],
-        isContainer = codecResult[ModelKeys.isContainer],
-        imageIdentifier = codecResult[ModelKeys.imageIdentifier];
-//        children = codecResult[ModelKeys.children], TODO
+  SpotifyContentItem._from(Map<String, dynamic> channelObject) :
+        title = channelObject[ModelKeys.title],
+        subtitle = channelObject[ModelKeys.subtitle],
+        identifier = channelObject[ModelKeys.identifier],
+        uri = channelObject[ModelKeys.uri],
+        isAvailableOffline = channelObject[ModelKeys.isAvailableOffline],
+        isPlayable = channelObject[ModelKeys.isPlayable],
+        isContainer = channelObject[ModelKeys.isContainer],
+        imageIdentifier = channelObject[ModelKeys.imageIdentifier];
+//        children = channelObject[ModelKeys.children], TODO
 
   @override
   Map<String, dynamic> encode() {
@@ -38,18 +38,18 @@ class SpotifyContentItem implements Codec {
     };
   }
 
-  static SpotifyContentItem from(Map<String, dynamic> codecResult) {
-    return SpotifyContentItem._from(codecResult);
+  static SpotifyContentItem from(Map<String, dynamic> channelObject) {
+    return SpotifyContentItem._from(channelObject);
   }
 }
 
-class SpotifyArtist implements Codec {
+class SpotifyArtist implements FlutterChannelCodable {
   final String name;
   final String uri;
 
-  SpotifyArtist._from(Map<String, dynamic> codecResult) :
-        name = codecResult[ModelKeys.name],
-        uri = codecResult[ModelKeys.uri];
+  SpotifyArtist._from(Map<String, dynamic> channelObject) :
+        name = channelObject[ModelKeys.name],
+        uri = channelObject[ModelKeys.uri];
 
   @override
   Map<String, dynamic> encode() {
@@ -59,18 +59,18 @@ class SpotifyArtist implements Codec {
     };
   }
 
-  static SpotifyArtist from(Map<String, dynamic> codecResult) {
-    return SpotifyArtist._from(codecResult);
+  static SpotifyArtist from(Map<String, dynamic> channelObject) {
+    return SpotifyArtist._from(channelObject);
   }
 }
 
-class SpotifyAlbum implements Codec {
+class SpotifyAlbum implements FlutterChannelCodable {
   final String name;
   final String uri;
 
-  SpotifyAlbum._from(Map<String, dynamic> codecResult) :
-        name = codecResult[ModelKeys.name],
-        uri = codecResult[ModelKeys.uri];
+  SpotifyAlbum._from(Map<String, dynamic> channelObject) :
+        name = channelObject[ModelKeys.name],
+        uri = channelObject[ModelKeys.uri];
 
   @override
   Map<String, dynamic> encode() {
@@ -80,12 +80,12 @@ class SpotifyAlbum implements Codec {
     };
   }
 
-  static SpotifyAlbum from(Map<String, dynamic> codecResult) {
-    return SpotifyAlbum._from(codecResult);
+  static SpotifyAlbum from(Map<String, dynamic> channelObject) {
+    return SpotifyAlbum._from(channelObject);
   }
 }
 
-class SpotifyTrack implements Codec {
+class SpotifyTrack implements FlutterChannelCodable {
   final String name;
   final String uri;
   final int duration;
@@ -95,15 +95,15 @@ class SpotifyTrack implements Codec {
   final bool isEpisode;
   final bool isPodcast;
 
-  SpotifyTrack._from(Map<String, dynamic> codecResult) :
-        name = codecResult[ModelKeys.name],
-        uri = codecResult[ModelKeys.uri],
-        duration = codecResult[ModelKeys.duration],
-        artist = SpotifyArtist.from(codecResult[ModelKeys.artist]),
-        album = SpotifyAlbum.from(codecResult[ModelKeys.album]),
-        isSaved = codecResult[ModelKeys.isSaved],
-        isEpisode = codecResult[ModelKeys.isEpisode],
-        isPodcast = codecResult[ModelKeys.isPodcast];
+  SpotifyTrack._from(Map<String, dynamic> channelObject) :
+        name = channelObject[ModelKeys.name],
+        uri = channelObject[ModelKeys.uri],
+        duration = channelObject[ModelKeys.duration],
+        artist = SpotifyArtist.from(channelObject[ModelKeys.artist]),
+        album = SpotifyAlbum.from(channelObject[ModelKeys.album]),
+        isSaved = channelObject[ModelKeys.isSaved],
+        isEpisode = channelObject[ModelKeys.isEpisode],
+        isPodcast = channelObject[ModelKeys.isPodcast];
 
   @override
   Map<String, dynamic> encode() {
@@ -119,7 +119,7 @@ class SpotifyTrack implements Codec {
     };
   }
 
-  static SpotifyTrack from(Map<String, dynamic> codecResult) {
-    return SpotifyTrack._from(codecResult);
+  static SpotifyTrack from(Map<String, dynamic> channelObject) {
+    return SpotifyTrack._from(channelObject);
   }
 }

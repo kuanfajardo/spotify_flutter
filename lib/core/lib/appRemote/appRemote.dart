@@ -88,7 +88,7 @@ class SpotifyAppRemote {
 enum SpotifyAppRemoteConnectionParamsImageFormat { any, jpeg, png, }
 
 // Caller?
-class SpotifyAppRemoteConnectionParams implements Codec {
+class SpotifyAppRemoteConnectionParams implements FlutterChannelCodable {
   String accessToken;
 
   // IMMUTABLE, NOT REAL-TIME;
@@ -105,11 +105,11 @@ class SpotifyAppRemoteConnectionParams implements Codec {
   SpotifyAppRemoteConnectionParams({this.accessToken, this.defaultImageSize,
     this.imageFormat});
 
-  SpotifyAppRemoteConnectionParams._from(Map<String, dynamic> codecResult) :
-        accessToken = codecResult[AppRemoteKeys.accessToken],
-        defaultImageSize = CodecableSize.from(codecResult[AppRemoteKeys.defaultImageSize]),
-        imageFormat = SpotifyAppRemoteConnectionParamsImageFormat.values[codecResult[AppRemoteKeys.imageFormat]],
-        _protocolVersion = codecResult[AppRemoteKeys.protocolVersion] ?? -1;
+  SpotifyAppRemoteConnectionParams._from(Map<String, dynamic> channelObject) :
+        accessToken = channelObject[AppRemoteKeys.accessToken],
+        defaultImageSize = CodecableSize.from(channelObject[AppRemoteKeys.defaultImageSize]),
+        imageFormat = SpotifyAppRemoteConnectionParamsImageFormat.values[channelObject[AppRemoteKeys.imageFormat]],
+        _protocolVersion = channelObject[AppRemoteKeys.protocolVersion] ?? -1;
 
   @override
   Map<String, dynamic> encode() {
@@ -120,18 +120,18 @@ class SpotifyAppRemoteConnectionParams implements Codec {
     };
   }
 
-  static SpotifyAppRemoteConnectionParams from(Map<String, dynamic> codecResult) {
-    return SpotifyAppRemoteConnectionParams._from(codecResult);
+  static SpotifyAppRemoteConnectionParams from(Map<String, dynamic> channelObject) {
+    return SpotifyAppRemoteConnectionParams._from(channelObject);
   }
 }
 
-class SpotifyAuthorizationParameters implements Codec {
+class SpotifyAuthorizationParameters implements FlutterChannelCodable {
   final String accessToken;
   final String errorDescription;
 
-  SpotifyAuthorizationParameters._from(Map<String, dynamic> codecResult) :
-        accessToken = codecResult[AppRemoteKeys.accessToken],
-        errorDescription = codecResult[AppRemoteKeys.errorDescription];
+  SpotifyAuthorizationParameters._from(Map<String, dynamic> channelObject) :
+        accessToken = channelObject[AppRemoteKeys.accessToken],
+        errorDescription = channelObject[AppRemoteKeys.errorDescription];
 
   @override
   Map<String, dynamic> encode() {
@@ -141,7 +141,7 @@ class SpotifyAuthorizationParameters implements Codec {
     };
   }
 
-  static SpotifyAuthorizationParameters from(Map<String, dynamic>codecResult) {
-    return SpotifyAuthorizationParameters._from(codecResult);
+  static SpotifyAuthorizationParameters from(Map<String, dynamic>channelObject) {
+    return SpotifyAuthorizationParameters._from(channelObject);
   }
 }
