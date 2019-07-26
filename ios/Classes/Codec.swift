@@ -10,12 +10,21 @@ import Foundation
 
 typealias CodecResult = Dictionary<String, Any?>
 
-protocol Codec {
+protocol FlutterChannelDecodable {
     // Decode
     init(fromCodecResult codecResult: CodecResult)
-    
+}
+
+protocol FlutterChannelEncodable {
     // Encode
     func encode() -> CodecResult
+}
+
+typealias Codec = FlutterChannelDecodable & FlutterChannelEncodable
+
+protocol SpotifySDKConvertible { // To be implemented by plugin classes
+    associatedtype T // Abstract superclass in SpotifyiOS SDK
+    init(fromSdkObject: T)
 }
 
 class CodecResultExtractor {

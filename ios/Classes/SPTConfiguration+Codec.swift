@@ -9,8 +9,8 @@
 import Foundation
 import SpotifyiOS
 
-extension SPTConfiguration {
-    static func configurationFromCodecObject(_ codecResult: CodecResult) -> SPTConfiguration {
+class SpotifyConfiguration: SPTConfiguration, FlutterChannelDecodable {    
+    required init(fromCodecResult codecResult: CodecResult) {
         let extractor = CodecResultExtractor(codecResult)
         
         let clientID: String = extractor.get(CodecKeys.Configuration.clientId)!
@@ -19,19 +19,22 @@ extension SPTConfiguration {
         let tokenSwapURLString: String? = extractor.get(CodecKeys.Configuration.tokenSwapUrl)
         let tokenRefreshURLString: String? = extractor.get(CodecKeys.Configuration.tokenRefreshUrl)
         
-        let redirectURL = URL(string: rediructURLString)
+        let redirectURL = URL(string: rediructURLString)!
         
-        let configuration = SPTConfiguration(clientID: clientID, redirectURL: redirectURL!)
-        configuration.playURI = playURI
+        super.init(clientID: clientID, redirectURL: redirectURL)
+        
+        self.playURI = playURI
         
         if tokenSwapURLString != nil {
-        configuration.tokenSwapURL = URL(string: tokenSwapURLString!)
+            self.tokenSwapURL = URL(string: tokenSwapURLString!)
         }
         
         if tokenRefreshURLString != nil {
-        configuration.tokenRefreshURL = URL(string: tokenRefreshURLString!)
+            self.tokenRefreshURL = URL(string: tokenRefreshURLString!)
         }
-        
-        return configuration
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

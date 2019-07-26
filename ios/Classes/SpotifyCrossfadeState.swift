@@ -9,11 +9,13 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState, Codec {
+class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState, Codec, SpotifySDKConvertible {
     var isEnabled: Bool
     var duration: Int
     
-    init(fromSdkObject object: SPTAppRemoteCrossfadeState) {
+    typealias T = SPTAppRemoteCrossfadeState
+    
+    required init(fromSdkObject object: SPTAppRemoteCrossfadeState) {
         self.isEnabled = object.isEnabled
         self.duration = object.duration
     }

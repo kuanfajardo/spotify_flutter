@@ -79,7 +79,7 @@ struct SessionManagerHandler {
             return
         }
         
-        let configuration = SPTConfiguration.configurationFromCodecObject(configurationObject)
+        let configuration = SpotifyConfiguration(fromCodecResult: configurationObject)
         
         let sessionManager = SPTSessionManager(configuration: configuration, delegate: SwiftSpotifyPlugin.instance)
         

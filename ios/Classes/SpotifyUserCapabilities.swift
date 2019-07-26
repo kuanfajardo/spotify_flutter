@@ -9,10 +9,12 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, Codec {
+class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, Codec, SpotifySDKConvertible {
     var canPlayOnDemand: Bool
     
-    init(fromSdkObject object: SPTAppRemoteUserCapabilities) {
+    typealias T = SPTAppRemoteUserCapabilities
+    
+    required init(fromSdkObject object: SPTAppRemoteUserCapabilities) {
         self.canPlayOnDemand = object.canPlayOnDemand
     }
     

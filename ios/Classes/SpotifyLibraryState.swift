@@ -9,12 +9,14 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState, Codec {
+class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState, Codec, SpotifySDKConvertible {
     var uri: String
     var isAdded: Bool
     var canAdd: Bool
     
-    init(fromSdkObject object: SPTAppRemoteLibraryState) {
+    typealias T = SPTAppRemoteLibraryState
+    
+    required init(fromSdkObject object: SPTAppRemoteLibraryState) {
         self.uri = object.uri
         self.isAdded = object.isAdded
         self.canAdd = object.canAdd

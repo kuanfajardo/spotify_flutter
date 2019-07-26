@@ -9,10 +9,12 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, Codec {
+class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, Codec, SpotifySDKConvertible {
     var value: NSNumber
     
-    init(fromSdkObject object: SPTAppRemotePodcastPlaybackSpeed) {
+    typealias T = SPTAppRemotePodcastPlaybackSpeed
+    
+    required init(fromSdkObject object: SPTAppRemotePodcastPlaybackSpeed) {
         self.value = object.value
     }
     

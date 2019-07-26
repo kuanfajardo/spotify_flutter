@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec {
+class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec, SpotifySDKConvertible {
     var title: String?
     var subtitle: String?
     var identifier: String = ""
@@ -21,7 +21,9 @@ class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec {
     
     var imageIdentifier: String = ""
     
-    init(fromSdkObject object: SPTAppRemoteContentItem) {
+    typealias T = SPTAppRemoteContentItem
+    
+    required init(fromSdkObject object: SPTAppRemoteContentItem) {
         self.title = object.title
         self.subtitle = object.subtitle
         self.identifier = object.identifier

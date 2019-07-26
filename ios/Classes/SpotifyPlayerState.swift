@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec {
+class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec, SpotifySDKConvertible {
     var track: SPTAppRemoteTrack
     var playbackPosition: Int
     var playbackSpeed: Float
@@ -19,7 +19,9 @@ class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec {
     var contextTitle: String
     var contextURI: URL
     
-    init(fromSdkObject object: SPTAppRemotePlayerState) {
+    typealias T = SPTAppRemotePlayerState
+    
+    required init(fromSdkObject object: SPTAppRemotePlayerState) {
         self.track = object.track
         self.playbackPosition = object.playbackPosition
         self.playbackSpeed = object.playbackSpeed

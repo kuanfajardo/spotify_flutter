@@ -9,17 +9,11 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable, Codec {
+class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable, FlutterChannelDecodable {
     var imageIdentifier: String
     
     required init(fromCodecResult codecResult: CodecResult) {
         let extractor = CodecResultExtractor(codecResult)
         self.imageIdentifier = extractor.get(CodecKeys.Image.imageIdentifier)!
-    }
-    
-    func encode() -> CodecResult {
-        return [
-            CodecKeys.Image.imageIdentifier: self.imageIdentifier
-        ]
     }
 }

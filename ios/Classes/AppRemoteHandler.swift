@@ -44,19 +44,18 @@ struct AppRemoteHandler {
         
         let connectionParamsObject = args.object(forKey: HandlerKeys.AppRemote.connectionParams) as? NSDictionary as? CodecResult
         
-        let configuration = SPTConfiguration.configurationFromCodecObject(configurationObject)
+        let configuration = SpotifyConfiguration(fromCodecResult: configurationObject)
         
         guard let logLevel = SPTAppRemoteLogLevel(rawValue: rawLogLevel.uintValue) else {
             result(valueCastError("rawLogLevel", expectedType: SPTAppRemoteLogLevel.self))
             return
         }
         
-        let connectionParams = SPTAppRemoteConnectionParams.connectionParamsFromCodecObject(connectionParamsObject)
-        
         let appRemote: SPTAppRemote
         
-        if connectionParams != nil {
-            appRemote = SPTAppRemote(configuration: configuration, connectionParameters: connectionParams!, logLevel: logLevel)
+        if connectionParamsObject != nil {
+            let connectionParams = SpotifyAppRemoteConnectionParams(fromCodecResult: connectionParamsObject!)
+            appRemote = SPTAppRemote(configuration: configuration, connectionParameters: connectionParams, logLevel: logLevel)
         } else {
             appRemote = SPTAppRemote(configuration: configuration, logLevel: logLevel)
         }
@@ -65,7 +64,7 @@ struct AppRemoteHandler {
         SwiftSpotifyPlugin.instance.appRemote = appRemote
         appRemote.delegate = SwiftSpotifyPlugin.instance;
         
-        let encodedConnectionParams = appRemote.connectionParameters.encode()
+        let encodedConnectionParams = SpotifyAppRemoteConnectionParams(fromSdkObject:appRemote.connectionParameters).encode()
         result(encodedConnectionParams)
     }
     
@@ -75,7 +74,7 @@ struct AppRemoteHandler {
             return
         }
         
-        let encodedConnectionParams = connectionParams.encode()
+        let encodedConnectionParams = SpotifyAppRemoteConnectionParams(fromSdkObject:connectionParams).encode()
         result(encodedConnectionParams)
     }
     

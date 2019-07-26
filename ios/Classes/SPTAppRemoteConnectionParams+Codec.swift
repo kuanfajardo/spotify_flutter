@@ -9,22 +9,15 @@
 import Foundation
 import SpotifyiOS
 
-extension SPTAppRemoteConnectionParams {
-    func encode() -> CodecResult {
-        return [
-            CodecKeys.ConnectionParams.accessToken: self.accessToken,
-            CodecKeys.ConnectionParams.defaultImageSize: self.defaultImageSize,
-            CodecKeys.ConnectionParams.imageFormat: self.imageFormat,
-            CodecKeys.ConnectionParams.protocolVersion: self.protocolVersion,
-        ]
+class SpotifyAppRemoteConnectionParams: SPTAppRemoteConnectionParams, Codec, SpotifySDKConvertible {
+    typealias T = SPTAppRemoteConnectionParams
+    
+    required init(fromSdkObject object: SPTAppRemoteConnectionParams) {
+        super.init(accessToken: object.accessToken, defaultImageSize: object.defaultImageSize, imageFormat: object.imageFormat)
     }
     
-    static func connectionParamsFromCodecObject(_ codecResult: CodecResult?) -> SPTAppRemoteConnectionParams? {
-        guard codecResult != nil else {
-            return nil
-        }
-        
-        let extractor = CodecResultExtractor(codecResult!)
+    required init(fromCodecResult codecResult: CodecResult) {
+        let extractor = CodecResultExtractor(codecResult)
         
         let accessToken: String? = extractor.get(CodecKeys.ConnectionParams.accessToken)
         let defaultImageSizeObject: CodecResult? = extractor.get(CodecKeys.ConnectionParams.defaultImageSize)
@@ -48,8 +41,15 @@ extension SPTAppRemoteConnectionParams {
             }
         }
         
-        let connectionParams = SPTAppRemoteConnectionParams(accessToken: accessToken, defaultImageSize: defaultImageSize, imageFormat: imageFormat)
-        
-        return connectionParams
+        super.init(accessToken: accessToken, defaultImageSize: defaultImageSize, imageFormat: imageFormat)
+    }
+    
+    func encode() -> CodecResult {
+        return [
+            CodecKeys.ConnectionParams.accessToken: self.accessToken,
+            CodecKeys.ConnectionParams.defaultImageSize: self.defaultImageSize,
+            CodecKeys.ConnectionParams.imageFormat: self.imageFormat.rawValue,
+            CodecKeys.ConnectionParams.protocolVersion: self.protocolVersion,
+        ]
     }
 }
