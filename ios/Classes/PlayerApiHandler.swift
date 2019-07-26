@@ -35,14 +35,14 @@ struct PlayerApiHandler {
             return
         }
         
-        guard let contentItemObject = args.object(forKey: HandlerKeys.PlayerApi.contentItem) as? NSDictionary as? CodecResult else {
+        guard let contentItemObject = args.object(forKey: HandlerKeys.PlayerApi.contentItem) as? NSDictionary as? FlutterChannelObject else {
             result(keyCastError(HandlerKeys.PlayerApi.contentItem, expectedType: NSDictionary.self))
             return
         }
         
         let cocoaStartIndex: NSNumber? = args.object(forKey: HandlerKeys.PlayerApi.startIndex) as? NSNumber
         
-        let contentItem = SpotifyContentItem(fromCodecResult: contentItemObject)
+        let contentItem = SpotifyContentItem(fromChannelObject: contentItemObject)
         
         if cocoaStartIndex != nil {
             guard let startIndex = Int(exactly: cocoaStartIndex!) else {
@@ -316,12 +316,12 @@ struct PlayerApiHandler {
     }
     
     func handle(setPodcastPlaybackSpeed call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let playbackSpeedObject = call.arguments as? NSDictionary as? CodecResult else {
+        guard let playbackSpeedObject = call.arguments as? NSDictionary as? FlutterChannelObject else {
             result(argsErrorForCall(call))
             return
         }
         
-        let playbackSpeed = SpotifyPodcastPlaybackSpeed(fromCodecResult: playbackSpeedObject)
+        let playbackSpeed = SpotifyPodcastPlaybackSpeed(fromChannelObject: playbackSpeedObject)
         
         SwiftSpotifyPlugin.instance.appRemote?.playerAPI?.setPodcastPlaybackSpeed(playbackSpeed) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {

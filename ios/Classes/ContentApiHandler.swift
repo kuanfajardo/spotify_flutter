@@ -29,7 +29,7 @@ struct ContentApiHandler {
                 return
             }
             
-            var encodedContentItems = [CodecResult]()
+            var encodedContentItems = [FlutterChannelObject]()
             contentItems.forEach({ (contentItem: SPTAppRemoteContentItem) in
                 let concreteContentItem = SpotifyContentItem(fromSdkObject: contentItem)
                 encodedContentItems.append(concreteContentItem.encode())
@@ -40,12 +40,12 @@ struct ContentApiHandler {
     }
     
     func handle(fetchChildrenOfContentItem call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let contentItemObject = call.arguments as? NSDictionary as? CodecResult else {
+        guard let contentItemObject = call.arguments as? NSDictionary as? FlutterChannelObject else {
             result(argsErrorForCall(call))
             return
         }
         
-        let contentItem = SpotifyContentItem.init(fromCodecResult: contentItemObject)
+        let contentItem = SpotifyContentItem.init(fromChannelObject: contentItemObject)
         
         SwiftSpotifyPlugin.instance.appRemote?.contentAPI?.fetchChildren(of: contentItem) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
@@ -58,7 +58,7 @@ struct ContentApiHandler {
                 return
             }
             
-            var encodedChildren = [CodecResult]()
+            var encodedChildren = [FlutterChannelObject]()
             children.forEach({ (child: SPTAppRemoteContentItem) in
                 let concreteChild = SpotifyContentItem(fromSdkObject: child)
                 encodedChildren.append(concreteChild.encode())
@@ -102,7 +102,7 @@ struct ContentApiHandler {
                 return
             }
             
-            var encodedContentItems = [CodecResult]()
+            var encodedContentItems = [FlutterChannelObject]()
             contentItems.forEach({ (contentItem: SPTAppRemoteContentItem) in
                 let concreteContentItem = SpotifyContentItem(fromSdkObject: contentItem)
                 encodedContentItems.append(concreteContentItem.encode())

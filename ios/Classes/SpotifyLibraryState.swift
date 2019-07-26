@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState, Codec, SpotifySDKConvertible {
+class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState, FlutterChannelCodable, SpotifySDKConvertible {
     var uri: String
     var isAdded: Bool
     var canAdd: Bool
@@ -22,15 +22,15 @@ class SpotifyLibraryState: NSObject, SPTAppRemoteLibraryState, Codec, SpotifySDK
         self.canAdd = object.canAdd
     }
     
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         
         self.uri = extractor.get(CodecKeys.LibraryState.uri)!
         self.isAdded = extractor.get(CodecKeys.LibraryState.isAdded)!
         self.canAdd = extractor.get(CodecKeys.LibraryState.canAdd)!
     }
     
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [
             CodecKeys.LibraryState.uri: uri,
             CodecKeys.LibraryState.isAdded: isAdded,

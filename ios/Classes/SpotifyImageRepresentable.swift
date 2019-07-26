@@ -1,5 +1,5 @@
 //
-//  SpotifyImage.swift
+//  SpotifyImageRepresentable.swift
 //  Runner
 //
 //  Created by Juan Diego Fajardo on 7/15/19.
@@ -9,11 +9,11 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyImage: NSObject, SPTAppRemoteImageRepresentable, FlutterChannelDecodable {
+class SpotifyImageRepresentable: NSObject, SPTAppRemoteImageRepresentable, FlutterChannelDecodable {
     var imageIdentifier: String
     
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         self.imageIdentifier = extractor.get(CodecKeys.Image.imageIdentifier)!
     }
 }

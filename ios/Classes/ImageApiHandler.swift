@@ -17,18 +17,18 @@ struct ImageApiHandler {
             return
         }
         
-        guard let imageItemObject = args.object(forKey: HandlerKeys.ImageApi.imageItem) as? NSDictionary as? CodecResult else {
+        guard let imageItemObject = args.object(forKey: HandlerKeys.ImageApi.imageItem) as? NSDictionary as? FlutterChannelObject else {
             result(keyCastError(HandlerKeys.ImageApi.imageItem, expectedType: NSDictionary.self))
             return
         }
         
-        guard let sizeObject = args.object(forKey: HandlerKeys.ImageApi.size) as? NSDictionary as? CodecResult else {
+        guard let sizeObject = args.object(forKey: HandlerKeys.ImageApi.size) as? NSDictionary as? FlutterChannelObject else {
             result(keyCastError(HandlerKeys.ImageApi.size, expectedType: NSDictionary.self))
             return
         }
         
-        let imageItem = SpotifyImage(fromCodecResult: imageItemObject)
-        let size = self.sizeFromCodecResult(sizeObject)
+        let imageItem = SpotifyImageRepresentable(fromChannelObject: imageItemObject)
+        let size = CGSize(fromChannelObject: sizeObject)
         
         SwiftSpotifyPlugin.instance.appRemote?.imageAPI?.fetchImage(forItem: imageItem, with: size) { (sdkResult: Any?, error: Error?) in
             guard error == nil else {
@@ -41,24 +41,8 @@ struct ImageApiHandler {
                 return
             }
             
-            let encodedImage = self.codecObjectFromImage(image)
+            let encodedImage = image.encode()
             result(encodedImage)
         }
-    }
-    
-    private func sizeFromCodecResult(_ codecResult: CodecResult) -> CGSize {
-        let extractor = CodecResultExtractor(codecResult)
-        
-        let width: Double = extractor.get(CodecKeys.CodecableSize.width)!
-        let height: Double = extractor.get(CodecKeys.CodecableSize.height)!
-        
-        return CGSize(width: width, height: height)
-    }
-    
-    private func codecObjectFromImage(_ image: UIImage) -> CodecResult {
-        let imageData = UIImagePNGRepresentation(image)
-        return [
-            CodecKeys.CodecableImage.imageData: imageData
-        ]
     }
 }

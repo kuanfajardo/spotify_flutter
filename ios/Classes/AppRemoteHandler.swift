@@ -32,7 +32,7 @@ struct AppRemoteHandler {
             return
         }
         
-        guard let configurationObject = args.object(forKey: HandlerKeys.AppRemote.configuration) as? NSDictionary as? CodecResult else {
+        guard let configurationObject = args.object(forKey: HandlerKeys.AppRemote.configuration) as? NSDictionary as? FlutterChannelObject else {
             result(keyCastError(HandlerKeys.AppRemote.configuration, expectedType: NSDictionary.self))
             return
         }
@@ -42,9 +42,9 @@ struct AppRemoteHandler {
             return
         }
         
-        let connectionParamsObject = args.object(forKey: HandlerKeys.AppRemote.connectionParams) as? NSDictionary as? CodecResult
+        let connectionParamsObject = args.object(forKey: HandlerKeys.AppRemote.connectionParams) as? NSDictionary as? FlutterChannelObject
         
-        let configuration = SpotifyConfiguration(fromCodecResult: configurationObject)
+        let configuration = SpotifyConfiguration(fromChannelObject: configurationObject)
         
         guard let logLevel = SPTAppRemoteLogLevel(rawValue: rawLogLevel.uintValue) else {
             result(valueCastError("rawLogLevel", expectedType: SPTAppRemoteLogLevel.self))
@@ -54,7 +54,7 @@ struct AppRemoteHandler {
         let appRemote: SPTAppRemote
         
         if connectionParamsObject != nil {
-            let connectionParams = SpotifyAppRemoteConnectionParams(fromCodecResult: connectionParamsObject!)
+            let connectionParams = SpotifyAppRemoteConnectionParams(fromChannelObject: connectionParamsObject!)
             appRemote = SPTAppRemote(configuration: configuration, connectionParameters: connectionParams, logLevel: logLevel)
         } else {
             appRemote = SPTAppRemote(configuration: configuration, logLevel: logLevel)

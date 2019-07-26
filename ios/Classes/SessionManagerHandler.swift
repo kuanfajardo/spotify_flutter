@@ -25,7 +25,7 @@ struct SessionManagerHandler {
             return
         }
         
-        guard let scopeObject = args.object(forKey: HandlerKeys.SessionManager.scope) as? NSDictionary as? CodecResult else {
+        guard let scopeObject = args.object(forKey: HandlerKeys.SessionManager.scope) as? NSDictionary as? FlutterChannelObject else {
             result(keyCastError(HandlerKeys.SessionManager.scope, expectedType: NSNumber.self))
             return
         }
@@ -74,12 +74,12 @@ struct SessionManagerHandler {
     }
     
     func handle(initializeSessionManager call: FlutterMethodCall, result: FlutterResult) {
-        guard let configurationObject = call.arguments as? NSDictionary as? CodecResult else {
+        guard let configurationObject = call.arguments as? NSDictionary as? FlutterChannelObject else {
             result(argsErrorForCall(call))
             return
         }
         
-        let configuration = SpotifyConfiguration(fromCodecResult: configurationObject)
+        let configuration = SpotifyConfiguration(fromChannelObject: configurationObject)
         
         let sessionManager = SPTSessionManager(configuration: configuration, delegate: SwiftSpotifyPlugin.instance)
         
@@ -90,8 +90,8 @@ struct SessionManagerHandler {
     }
 }
 
-private func scopeFromCodecObject(_ codecResult: CodecResult) -> SPTScope {
-    let extractor = CodecResultExtractor(codecResult)
+private func scopeFromCodecObject(_ channelObject: FlutterChannelObject) -> SPTScope {
+    let extractor = CodecResultExtractor(channelObject)
     let bitmask: Int = extractor.get(CodecKeys.Scope.bitmask)!
     return SPTScope(rawValue: UInt(bitmask))
 }

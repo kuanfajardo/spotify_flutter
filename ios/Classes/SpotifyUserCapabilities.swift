@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, Codec, SpotifySDKConvertible {
+class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, FlutterChannelCodable, SpotifySDKConvertible {
     var canPlayOnDemand: Bool
     
     typealias T = SPTAppRemoteUserCapabilities
@@ -18,12 +18,12 @@ class SpotifyUserCapabilities: NSObject, SPTAppRemoteUserCapabilities, Codec, Sp
         self.canPlayOnDemand = object.canPlayOnDemand
     }
     
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         self.canPlayOnDemand = extractor.get(CodecKeys.UserCapabilities.canPlayOnDemand)!
     }
     
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [CodecKeys.UserCapabilities.canPlayOnDemand : canPlayOnDemand]
     }
 }

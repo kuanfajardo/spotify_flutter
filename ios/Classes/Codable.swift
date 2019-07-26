@@ -1,26 +1,26 @@
 //
-//  Codec.swift
+//  Codable.swift
 //  Runner
 //
-//  Created by Juan Diego Fajardo on 7/15/19.
+//  Created by Juan Diego Fajardo on 7/26/19.
 //  Copyright © 2019 The Chromium Authors. All rights reserved.
 //
 
 import Foundation
 
-typealias CodecResult = Dictionary<String, Any?>
+typealias FlutterChannelObject = Dictionary<String, Any?>
 
 protocol FlutterChannelDecodable {
     // Decode
-    init(fromCodecResult codecResult: CodecResult)
+    init(fromChannelObject channelObject: FlutterChannelObject)
 }
 
 protocol FlutterChannelEncodable {
     // Encode
-    func encode() -> CodecResult
+    func encode() -> FlutterChannelObject
 }
 
-typealias Codec = FlutterChannelDecodable & FlutterChannelEncodable
+typealias FlutterChannelCodable = FlutterChannelDecodable & FlutterChannelEncodable
 
 protocol SpotifySDKConvertible { // To be implemented by plugin classes
     associatedtype T // Abstract superclass in SpotifyiOS SDK
@@ -28,14 +28,14 @@ protocol SpotifySDKConvertible { // To be implemented by plugin classes
 }
 
 class CodecResultExtractor {
-    let codecResult: CodecResult
+    let channelObject: FlutterChannelObject
     
-    init(_ codecResult: CodecResult) {
-        self.codecResult = codecResult
+    init(_ channelObject: FlutterChannelObject) {
+        self.channelObject = channelObject
     }
     
     func get<T>(_ key: String) -> T? {
-        guard let value = codecResult[key] as? T else {
+        guard let value = channelObject[key] as? T else {
             return nil
         }
         

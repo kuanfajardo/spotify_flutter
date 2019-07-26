@@ -1,8 +1,8 @@
 //
-//  SPTConfiguration+Codec.swift
+//  SpotifyConfiguration+Codec.swift
 //  Runner
 //
-//  Created by Juan Diego Fajardo on 7/17/19.
+//  Created by Juan Diego Fajardo on 7/26/19.
 //  Copyright © 2019 The Chromium Authors. All rights reserved.
 //
 
@@ -10,8 +10,8 @@ import Foundation
 import SpotifyiOS
 
 class SpotifyConfiguration: SPTConfiguration, FlutterChannelDecodable {    
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         
         let clientID: String = extractor.get(CodecKeys.Configuration.clientId)!
         let rediructURLString: String = extractor.get(CodecKeys.Configuration.redirectUrl)!

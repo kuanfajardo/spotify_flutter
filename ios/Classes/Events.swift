@@ -14,7 +14,7 @@ enum AppRemoteEvent: String {
     case updatedAccessToken = "updatedAccessToken"
 }
 
-func appRemoteEvent(_ event: AppRemoteEvent, args: Any? = nil) -> CodecResult {
+func appRemoteEvent(_ event: AppRemoteEvent, args: Any? = nil) -> FlutterChannelObject {
     return [
         "eventType": event.rawValue,
         "args": args
@@ -27,7 +27,7 @@ enum SessionManagerEvent: String {
     case didRenew = "didRenew"
 }
 
-func sessionManagerEvent(_ event: SessionManagerEvent, args: Any? = nil) -> CodecResult {
+func sessionManagerEvent(_ event: SessionManagerEvent, args: Any? = nil) -> FlutterChannelObject {
     return [
         "eventType": event.rawValue,
         "args": args

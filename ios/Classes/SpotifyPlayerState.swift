@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec, SpotifySDKConvertible {
+class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, FlutterChannelCodable, SpotifySDKConvertible {
     var track: SPTAppRemoteTrack
     var playbackPosition: Int
     var playbackSpeed: Float
@@ -32,8 +32,8 @@ class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec, SpotifySDKCo
         self.contextURI = object.contextURI
     }
     
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         
         self.track = extractor.get(CodecKeys.PlayerState.track)!
         self.playbackPosition = extractor.get(CodecKeys.PlayerState.playbackPosition)!
@@ -45,7 +45,7 @@ class SpotifyPlayerState: NSObject, SPTAppRemotePlayerState, Codec, SpotifySDKCo
         self.contextURI = extractor.get(CodecKeys.PlayerState.contextUri)!
     }
     
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [
             CodecKeys.PlayerState.track: track,
             CodecKeys.PlayerState.playbackPosition: playbackPosition,

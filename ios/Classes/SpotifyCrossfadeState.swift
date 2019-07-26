@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState, Codec, SpotifySDKConvertible {
+class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState, FlutterChannelCodable, SpotifySDKConvertible {
     var isEnabled: Bool
     var duration: Int
     
@@ -20,14 +20,14 @@ class SpotifyCrossfadeState: NSObject, SPTAppRemoteCrossfadeState, Codec, Spotif
         self.duration = object.duration
     }
     
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         
         self.isEnabled = extractor.get(CodecKeys.CrossfadeState.isEnabled)!
         self.duration = extractor.get(CodecKeys.CrossfadeState.duration)!
     }
     
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [
             CodecKeys.CrossfadeState.isEnabled: isEnabled,
             CodecKeys.CrossfadeState.duration: duration,

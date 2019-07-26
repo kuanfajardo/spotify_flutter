@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, Codec, SpotifySDKConvertible {
+class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, FlutterChannelCodable, SpotifySDKConvertible {
     var value: NSNumber
     
     typealias T = SPTAppRemotePodcastPlaybackSpeed
@@ -18,12 +18,12 @@ class SpotifyPodcastPlaybackSpeed: NSObject, SPTAppRemotePodcastPlaybackSpeed, C
         self.value = object.value
     }
     
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         self.value = extractor.get(CodecKeys.PodcastPlaybackSpeed.value)!
     }
     
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [CodecKeys.PodcastPlaybackSpeed.value : value]
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 import SpotifyiOS
 
-class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec, SpotifySDKConvertible {
+class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, FlutterChannelCodable, SpotifySDKConvertible {
     var title: String?
     var subtitle: String?
     var identifier: String = ""
@@ -36,8 +36,8 @@ class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec, SpotifySDKCo
     }
     
     // Codec Methods
-    required init(fromCodecResult codecResult: CodecResult) {
-        let extractor = CodecResultExtractor(codecResult)
+    required init(fromChannelObject channelObject: FlutterChannelObject) {
+        let extractor = CodecResultExtractor(channelObject)
         
         self.title = extractor.get(CodecKeys.ContentItem.subtitle)
         self.subtitle = extractor.get(CodecKeys.ContentItem.subtitle)
@@ -50,7 +50,7 @@ class SpotifyContentItem: NSObject, SPTAppRemoteContentItem, Codec, SpotifySDKCo
         self.imageIdentifier = extractor.get(CodecKeys.ContentItem.imageIdentifier)!
     }
     
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [
             CodecKeys.ContentItem.title: title,
             CodecKeys.ContentItem.subtitle: subtitle,

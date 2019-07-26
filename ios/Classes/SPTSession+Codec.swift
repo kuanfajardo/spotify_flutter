@@ -10,7 +10,7 @@ import Foundation
 import SpotifyiOS
 
 extension SPTSession: FlutterChannelEncodable {
-    func encode() -> CodecResult {
+    func encode() -> FlutterChannelObject {
         return [
             CodecKeys.Session.accessToken: self.accessToken,
             CodecKeys.Session.refreshToken: self.refreshToken,
