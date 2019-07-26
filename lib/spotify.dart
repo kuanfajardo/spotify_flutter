@@ -15,49 +15,49 @@ export 'package:spotify/stream/stream.dart';
 
 void setup() {
   // Model
-  Decoder.instance.registerCodecable<SpotifyContentItem>(SpotifyContentItem.from);
-  Decoder.instance.registerCodecable<SpotifyTrack>(SpotifyTrack.from);
-  Decoder.instance.registerCodecable<SpotifyAlbum>(SpotifyAlbum.from);
-  Decoder.instance.registerCodecable<SpotifyArtist>(SpotifyArtist.from);
+  Decoder.instance.registerDecodable<SpotifyContentItem>(SpotifyContentItem.from);
+  Decoder.instance.registerDecodable<SpotifyTrack>(SpotifyTrack.from);
+  Decoder.instance.registerDecodable<SpotifyAlbum>(SpotifyAlbum.from);
+  Decoder.instance.registerDecodable<SpotifyArtist>(SpotifyArtist.from);
 
   // Session
-  Decoder.instance.registerCodecable<SpotifySession>(SpotifySession.from);
-  Decoder.instance.registerCodecable<SpotifyConfiguration>(SpotifyConfiguration.from);
-  Decoder.instance.registerCodecable<SpotifyScope>(SpotifyScope.from);
+  Decoder.instance.registerDecodable<SpotifySession>(SpotifySession.from);
+  Decoder.instance.registerDecodable<SpotifyConfiguration>(SpotifyConfiguration.from);
+  Decoder.instance.registerDecodable<SpotifyScope>(SpotifyScope.from);
 
   // AppRemote
-  Decoder.instance.registerCodecable<SpotifyAppRemoteConnectionParams>
+  Decoder.instance.registerDecodable<SpotifyAppRemoteConnectionParams>
     (SpotifyAppRemoteConnectionParams.from);
-  Decoder.instance.registerCodecable<SpotifyAuthorizationParameters>
+  Decoder.instance.registerDecodable<SpotifyAuthorizationParameters>
     (SpotifyAuthorizationParameters.from);
 
   // ContentApi
 
   // ImageApi
-  Decoder.instance.registerCodecable<SpotifyImageRepresentable>
+  Decoder.instance.registerDecodable<SpotifyImageRepresentable>
     (SpotifyImageRepresentable.from);
 
   // PlayerApi
-  Decoder.instance.registerCodecable<SpotifyPlaybackOptions>(SpotifyPlaybackOptions
+  Decoder.instance.registerDecodable<SpotifyPlaybackOptions>(SpotifyPlaybackOptions
       .from);
-  Decoder.instance.registerCodecable<SpotifyCrossfadeState>
+  Decoder.instance.registerDecodable<SpotifyCrossfadeState>
     (SpotifyCrossfadeState.from);
-  Decoder.instance.registerCodecable<SpotifyPodcastPlaybackSpeed>
+  Decoder.instance.registerDecodable<SpotifyPodcastPlaybackSpeed>
     (SpotifyPodcastPlaybackSpeed.from);
-  Decoder.instance.registerCodecable<SpotifyPlayerState>
+  Decoder.instance.registerDecodable<SpotifyPlayerState>
     (SpotifyPlayerState.from);
-  Decoder.instance.registerCodecable<SpotifyPlaybackRestrictions>
+  Decoder.instance.registerDecodable<SpotifyPlaybackRestrictions>
     (SpotifyPlaybackRestrictions.from);
 
   // UserApi
-  Decoder.instance.registerCodecable<SpotifyLibraryState>
+  Decoder.instance.registerDecodable<SpotifyLibraryState>
     (SpotifyLibraryState.from);
-  Decoder.instance.registerCodecable<SpotifyUserCapabilities>
+  Decoder.instance.registerDecodable<SpotifyUserCapabilities>
     (SpotifyUserCapabilities.from);
 
   // Utils
-  Decoder.instance.registerCodecable<CodecableSize>
+  Decoder.instance.registerDecodable<CodecableSize>
     (CodecableSize.from);
-  Decoder.instance.registerCodecable<CodecableImage>
-    (CodecableImage.from);
+  Decoder.instance.registerDecodable<DecodableImage>
+    (DecodableImage.from);
 }
